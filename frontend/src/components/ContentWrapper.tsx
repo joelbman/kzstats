@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 import Maps from './maps/Maps'
 import Players from './players/Players'
-import Bans from './bans/Bans'
+import BanList from './bans/BanList'
 import Home from './Home'
 import JumpStats from './jumpstats/JumpStats'
 
@@ -14,7 +14,7 @@ const ContentWrapper = () => {
         <Route exact path="/maps" component={Maps} />
         <Route exact path="/players" component={Players} />
         <Route exact path="/jumpstats" component={JumpStats} />
-        <Route exact path="/bans" component={Bans} />
+        <Route exact path="/bans" component={BanList} />
         <Route render={() => <h1>404</h1>} />
       </Switch>
     </main>
