@@ -13,7 +13,7 @@ module.exports = {
       max: 10,
     },
     migrations: {
-      tableName: 'jbai_knex_migrations',
+      tableName: 'kzstats_knex_migrations',
     },
   },
 }

@@ -13,7 +13,7 @@ if (denvload.error) {
 }
 
 export const ENVIRONMENT = process.env.NODE_ENV
-const prod = ENVIRONMENT === 'production'
+const production = ENVIRONMENT === 'production'
 
 export const SESSION_SECRET = process.env['SESSION_SECRET']
 
