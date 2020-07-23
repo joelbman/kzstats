@@ -19,7 +19,7 @@ class BanList extends React.Component<Props, State> {
 
   componentDidMount() {
     axios
-      .get('http://staging.kztimerglobal.com/api/v2.0/bans', {
+      .get('http://kztimerglobal.com/api/v2.0/bans', {
         params: {
           is_expired: false,
           limit: 100,
@@ -61,7 +61,7 @@ class BanList extends React.Component<Props, State> {
                 notes: string
                 updated_on: string
               }) => (
-                <tr>
+                <tr className="">
                   <td>{ban.player_name}</td>
                   <td>{ban.steam_id}</td>
                   <td>{ban.notes}</td>

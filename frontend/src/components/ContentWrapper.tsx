@@ -8,7 +8,7 @@ import JumpStats from './jumpstats/JumpStats'
 
 const ContentWrapper = () => {
   return (
-    <main className="flex-1 h-screen p-5 text-white ml-10">
+    <main className="flex-1 h-full p-5 text-white ml-10">
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/maps" component={Maps} />
