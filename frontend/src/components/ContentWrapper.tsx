@@ -3,12 +3,17 @@ import { Route, Switch } from 'react-router-dom'
 import MapsIndex from './maps/MapsIndex'
 import Players from './players/Players'
 import BanList from './bans/BanList'
-import Home from './Home'
+import Home from './home/HomeIndex'
 import JumpStats from './jumpstats/JumpStats'
 import { Helmet } from 'react-helmet'
 
 const ContentWrapper = () => {
   const [title, setTitle] = useState('')
+
+  const stripTitle = (title: string) => {
+    let newTitle = title.split(' - ')[1]
+    return newTitle
+  }
 
   return (
     <main className="flex-1 h-full min-h-screen p-5 text-gray-200 ml-10">
@@ -19,7 +24,7 @@ const ContentWrapper = () => {
           setTitle(newState.title)
         }
       />
-      <h1 className="text-5xl font-bold">{title}</h1>
+      <h1 className="text-5xl font-bold text-gray-300">{stripTitle(title)}</h1>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/maps" component={MapsIndex} />

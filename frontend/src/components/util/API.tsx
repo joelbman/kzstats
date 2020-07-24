@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const devConfig = {
   baseURL: 'http://staging.kztimerglobal.com/api/v2/',
-  headers: { 'X-ApiKey': process.env.API_KEY },
+  headers: { 'X-ApiKey': process.env.REACT_APP_API_KEY },
   responseType: 'json',
 }
 const prodConfig = {

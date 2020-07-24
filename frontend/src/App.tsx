@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 const App = () => {
   return (
-    <div className="bg-gray-800">
+    <div className="bg-gray-700">
       <BrowserRouter>
         <NavBar></NavBar>
         <ContentWrapper></ContentWrapper>
