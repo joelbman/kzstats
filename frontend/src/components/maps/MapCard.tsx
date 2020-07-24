@@ -7,24 +7,33 @@ interface Props {
 }
 
 const MapCard = ({ map }: Props) => {
-  return (
-    <div className="max-w-sm w-full lg:max-w-full lg:flex bg-gray-900">
-      <LazyLoadImage alt={map.name} />
+  let titleStyle = 'text-gray-200 font-bold text-xl mb-2'
 
-      <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-black bg-gray-900 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+  if (map.name && map.name.length > 15) {
+    titleStyle = 'text-gray-200 font-bold text-l mb-2'
+  }
+
+  return (
+    <div className="max-w-sm w-full lg:max-w-full lg:flex bg-gray-900 border-2 border-black rounded">
+      <div className="h-48 mt-5 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+        <LazyLoadImage
+          alt={map.name}
+          src={`img/map/thumb/tn_${map.name}.jpg`}
+          height="150"
+          width="150"
+          placeholderSrc="img/questionmark.png"
+          className="h-full"
+        />
+      </div>
+
+      <div className="bg-gray-900 p-4 flex flex-col justify-between leading-normal">
         <div className="mb-8">
-          <div className="text-gray-900 font-bold text-xl mb-2">{map.name}</div>
-          <p className="text-gray-700 text-base">
+          <div className={titleStyle}>{map.name}</div>
+          <p className="text-gray-400 text-base">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Voluptatibus quia, nulla! Maiores et perferendis eaque,
             exercitationem praesentium nihil.
           </p>
-        </div>
-        <div className="flex items-center">
-          <div className="text-sm">
-            <p className="text-gray-900 leading-none">Jonathan Reinink</p>
-            <p className="text-gray-600">Aug 18</p>
-          </div>
         </div>
       </div>
     </div>

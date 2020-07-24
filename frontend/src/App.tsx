@@ -5,7 +5,7 @@ import Footer from './components/Footer'
 import './tailwind.output.css'
 import { BrowserRouter } from 'react-router-dom'
 
-function App() {
+const App = () => {
   return (
     <div className="bg-gray-800">
       <BrowserRouter>
