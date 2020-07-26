@@ -1,20 +1,14 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import Panel from '../general/Panel'
-import LatestWorldRecords from './LatestWorldRecords'
-import LatestTopTwenty from './LatestTopTwenty'
+
+import LatestRecords from './LatestRecords'
 
 const Home = () => {
   return (
     <React.Fragment>
       <Helmet title="Latest" />
-      <div className="flex mb-4">
-        <Panel heading="World records">
-          <LatestWorldRecords />
-        </Panel>
-        <Panel heading="Top 20 times">
-          <LatestTopTwenty />
-        </Panel>
+      <div className="flex mb-4 flex-col lg:flex-row w-full lg:w-1/2">
+        <LatestRecords top={20} />
       </div>
     </React.Fragment>
   )

@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import API from './API'
 import { AxiosError } from 'axios'
 
 const useApiRequest = (url: string, params: {}) => {
   const [data, setData] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<AxiosError | null>(null)
 
   useEffect(() => {
     const fetchData = () => {
