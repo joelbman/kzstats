@@ -16,7 +16,10 @@ const ContentWrapper = () => {
   }
 
   return (
-    <main className="flex-1 h-full min-h-screen p-5 text-gray-200 ml-10">
+    <main
+      className="flex-grow text-gray-200 mt-20 ml-20 min-h-screen pr-20"
+      style={{ minHeight: '85vh' }}
+    >
       <Helmet
         defaultTitle="KZStats.com"
         titleTemplate="KZStats.com - %s"
