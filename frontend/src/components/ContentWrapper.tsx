@@ -17,7 +17,7 @@ const ContentWrapper = () => {
 
   return (
     <main
-      className="flex-grow text-gray-200 mt-20 ml-20 min-h-screen pr-20"
+      className="flex-grow text-gray-200 m-20 min-h-screen pr-20"
       style={{ minHeight: '85vh' }}
     >
       <Helmet
