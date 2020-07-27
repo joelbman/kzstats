@@ -1,3 +1,16 @@
 @tailwind base;
+
+td {
+  padding: 5px;
+}
+
+th {
+  padding: 5px;
+}
+
+select {
+  padding: 4px;
+}
+
 @tailwind components;
 @tailwind utilities;

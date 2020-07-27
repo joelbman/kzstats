@@ -1,6 +1,6 @@
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import { Map } from '../../SwaggerClient'
+import Map from '../../models/Map'
 
 interface Props {
   map: Map
@@ -14,8 +14,8 @@ const MapCard = ({ map }: Props) => {
   }
 
   return (
-    <div className="max-w-sm w-full lg:max-w-full lg:flex bg-gray-900 border-2 border-black rounded">
-      <div className="h-48 mt-5 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+    <div className=" bg-gray-900 border-2 border-black rounded">
+      <div className="mt-5 bg-cover text-center overflow-hidden">
         <LazyLoadImage
           alt={map.name}
           src={`img/map/thumb/tn_${map.name}.jpg`}
