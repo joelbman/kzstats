@@ -8,9 +8,11 @@ const useApiRequest = (url: string, params: object) => {
   const [error, setError] = useState<AxiosError | null>(null)
 
   useEffect(() => {
+    setIsLoaded(false)
     API.get(url, { params: params })
       .then((response) => {
         setIsLoaded(true)
+        setError(null)
         setData(response.data)
       })
       .catch((error) => {

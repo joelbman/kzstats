@@ -23,10 +23,10 @@ const RecordBlock = ({ record }: Props) => {
       <div className="ml-2">
         <p className="font-bold text-gray-200 text-xl break-words ">
           {record.map_name}
-          <span className="font-light text-lg">
-            {' '}
-            (<RunTimeFormatter time={record.time} />)
-          </span>
+        </p>
+        <p>
+          {record.place}
+          <RunTimeFormatter time={record.time} />
         </p>
         by <b>{record.player_name}</b>
         <br />

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import MapCard from './MapCard'
 import ReactPaginate from 'react-paginate'
 import Map from '../../models/Map'

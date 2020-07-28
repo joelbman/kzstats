@@ -1,68 +1,73 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext, useMemo } from 'react'
 import useApiRequest from '../util/useApiRequest'
 import RecordBlock from './RecordBlock'
-import InfiniteScroll from 'react-infinite-scroll-component'
 import Record from '../../models/Record'
 import Panel from '../general/Panel'
+import { ModeContext } from '../../context/ModeContext'
 
-interface Props {
-  top?: number
-}
-
-const LatestRecords = (props: Props) => {
+const LatestRecords = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { modeContextState, modeContextDispatch } = useContext(ModeContext)
   const [apiOptions, setApiOptions] = useState({
-    limit: 200,
-    place_top_at_least: props.top || 20,
+    limit: 300,
+    place_top_at_least: 20,
     has_teleports: false,
+    modes_list_string: modeContextState.kzMode,
   })
   const { error, isLoaded, data } = useApiRequest(
     '/records/top/recent',
     apiOptions
   )
-  const [hasMore, setHasMore] = useState(true)
   const [items, setItems] = useState([])
   const [wrOnly, setWrOnly] = useState(true)
 
-  const fetchData = () => {
-    if (items.length >= 50) {
-      setHasMore(false)
-      return
-    }
-    setTimeout(() => {
-      setItems(items.concat(data.slice(items.length, items.length + 10)))
-    }, 800)
+  const toggleWROnly = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWrOnly(event.target.checked)
   }
+
+  useMemo(() => {
+    setApiOptions({
+      limit: 300,
+      place_top_at_least: 20,
+      has_teleports: false,
+      modes_list_string: modeContextState.kzMode,
+    })
+  }, [modeContextState.kzMode])
+
+  useEffect(() => {
+    // remove duplicate map+player combos and keep the newest one
+    const filtered = data
+      .slice()
+      .filter(
+        (v: Record, i, a) =>
+          a.findIndex(
+            (t: Record) =>
+              t.map_id === v.map_id && t.player_name === v.player_name
+          ) === i
+      )
+      .reverse()
+
+    setItems(
+      filtered
+        .filter((r: Record) => {
+          if (wrOnly) return r.place === 1
+          else return true
+        })
+        .sort((a: Record, b: Record) => {
+          return (
+            new Date(a.updated_on).getTime() - new Date(b.updated_on).getTime()
+          )
+        })
+        .reverse()
+        .slice(0, 50)
+    )
+  }, [data, wrOnly])
 
   if (error && error.message) {
     return <div>Error: {error.message}</div>
   }
   if (!isLoaded) {
     return <div>Loading...</div>
-  }
-
-  const toggleWROnly = () => {
-    setWrOnly(!wrOnly)
-    if (wrOnly) {
-      setItems(
-        data
-          .filter((record: Record) => {
-            return record.place === 1
-          })
-          .slice(0, 10)
-      )
-    } else setItems(data.slice(0, 10))
-  }
-
-  if (data.length > 0 && items.length === 0) {
-    data
-      .sort((a: Record, b: Record) => {
-        return (
-          new Date(a.updated_on).getTime() - new Date(b.updated_on).getTime()
-        )
-      })
-      .reverse()
-    setItems(data.slice(0, 10))
   }
 
   const panelHeader = () => {
@@ -79,17 +84,17 @@ const LatestRecords = (props: Props) => {
 
   return (
     <Panel header={panelHeader}>
-      <InfiniteScroll
+      {/* <InfiniteScroll
         dataLength={items.length}
-        next={fetchData}
+        next={fetchMore}
         hasMore={hasMore}
         loader={<p>Loading...</p>}
         scrollThreshold={0.9}
-      >
-        {items.map((record: Record) => (
-          <RecordBlock record={record} key={record.id} />
-        ))}
-      </InfiniteScroll>
+      > */}
+      {items.map((record: Record) => (
+        <RecordBlock record={record} key={record.id} />
+      ))}
+      {/* </InfiniteScroll> */}
     </Panel>
   )
 }
