@@ -11,13 +11,13 @@ const ContentWrapper = () => {
   const [title, setTitle] = useState('')
 
   const stripTitle = (title: string) => {
-    let newTitle = title.split(' - ')[1]
+    let newTitle = title.split(' - ')[0]
     return newTitle
   }
 
   return (
     <main
-      className="flex-grow text-gray-200 m-20 min-h-screen pr-20"
+      className="flex-grow text-gray-200 ml-5 mr-5 mt-20 mb-20 pr-20 lg:ml-20 lg:mr-20"
       style={{ minHeight: '85vh' }}
     >
       <Helmet

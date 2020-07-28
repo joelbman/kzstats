@@ -9,7 +9,7 @@ interface Props {
 }
 const RecordBlock = ({ record }: Props) => {
   return (
-    <div className="flex mt-4 pt-4 mb-0 pb-0 border-t-2 border-gray-900 first:border-t-0 first:mt-0 first:pt-0">
+    <div className="flex mt-4 pt-4 border-t-2 border-gray-900 first:border-t-0 first:mt-0 first:pt-0">
       <div className="w-48">
         <LazyLoadImage
           alt={record.map_name}
@@ -25,8 +25,18 @@ const RecordBlock = ({ record }: Props) => {
           {record.map_name}
         </p>
         <p>
-          {record.place}
           <RunTimeFormatter time={record.time} />
+          {record.place === 1 ? (
+            <img
+              src="img/icon/trophy.svg"
+              alt="trophy"
+              height="16"
+              width="16"
+              className="inline ml-2 pb-2"
+            />
+          ) : (
+            <sup className="ml-2">#{record.place}</sup>
+          )}
         </p>
         by <b>{record.player_name}</b>
         <br />
