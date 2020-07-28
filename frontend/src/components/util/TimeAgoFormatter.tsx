@@ -7,7 +7,6 @@ interface Props {
 const TimeAgoFormatter = ({ datetime }: Props) => {
   const stamp = Date.parse(datetime) / 1000
   let result = Date.now() / 1000 - stamp
-  console.log(result)
   let unit = 'seconds'
 
   if (result > 59) {

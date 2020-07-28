@@ -21,8 +21,8 @@ const ContentWrapper = () => {
       style={{ minHeight: '85vh' }}
     >
       <Helmet
-        defaultTitle="KZStats.com"
-        titleTemplate="KZStats.com - %s"
+        defaultTitle="KZStats"
+        titleTemplate="%s - KZStats"
         onChangeClientState={(newState: { title: string }) =>
           setTitle(newState.title)
         }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import NavModeSelect from './NavModeSelect'
 
 function NavBar() {
   return (
@@ -62,6 +63,7 @@ function NavBar() {
           </NavLink>
         </div>
       </div>
+      <NavModeSelect />
     </nav>
   )
 }
