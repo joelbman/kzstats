@@ -1,19 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import NavModeSelect from './NavModeSelect'
+import NavSearchBar from './NavSearchBar'
 
 function NavBar() {
+  const [showMenu, setShowMenu] = useState(false)
+  const toggleMenu = () => {
+    setShowMenu(!showMenu)
+  }
+
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-gray-900 w-full border-black border-b-2 p-4 pl-20 fixed">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
+    <nav className="flex items-center flex-wrap justify-start bg-gray-900 w-full border-black border-b-2 p-2 lg:pl-20 fixed">
+      <div className="hidden lg:flex items-center flex-shrink-0 text-white mr-6">
         <NavLink to="/">
-          <span className="font-semibold text-xl tracking-tight">
-            KZStats.com
-          </span>
+          <span className="font-semibold text-xl tracking-tight">KZStats</span>
         </NavLink>
       </div>
-      <div className="block lg:hidden">
-        <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+      <NavSearchBar />
+      <div className="order-2 lg:hidden ml-4">
+        <button
+          onClick={toggleMenu}
+          className="text-white border-gray-300 border-2 p-4 rounded-lg"
+        >
           <svg
             className="fill-current h-3 w-3"
             viewBox="0 0 20 20"
@@ -24,12 +32,17 @@ function NavBar() {
           </svg>
         </button>
       </div>
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+      <div
+        id="navmenu"
+        className={`w-full block order-3 lg:order-2 mt-4 lg:mt-0 lg:flex lg:items-center lg:w-auto lg:border-0 border-black border-t-2 ${
+          !showMenu ? 'hidden' : ''
+        }`}
+      >
         <div className="text-sm lg:flex-grow">
           <NavLink
             activeClassName="font-bold"
             to="/maps"
-            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 hover:bg-gray-700"
           >
             Maps
           </NavLink>
@@ -63,7 +76,11 @@ function NavBar() {
           </NavLink>
         </div>
       </div>
-      <NavModeSelect />
+      <div
+        className={`${!showMenu ? 'hidden' : ''} md:inline lg:inline order-6`}
+      >
+        <NavModeSelect />
+      </div>
     </nav>
   )
 }
