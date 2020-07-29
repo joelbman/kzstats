@@ -6,6 +6,7 @@ import BanList from './bans/BanList'
 import Home from './home/HomeIndex'
 import JumpStats from './jumpstats/JumpStats'
 import { Helmet } from 'react-helmet'
+import SearchIndex from './search/SearchIndex'
 
 const ContentWrapper = () => {
   const [title, setTitle] = useState('')
@@ -34,6 +35,7 @@ const ContentWrapper = () => {
         <Route exact path="/players" component={Players} />
         <Route exact path="/jumpstats" component={JumpStats} />
         <Route exact path="/bans" component={BanList} />
+        <Route path="/search/:searchStr" component={SearchIndex} />
         <Route render={() => <h1>404</h1>} />
       </Switch>
     </main>
