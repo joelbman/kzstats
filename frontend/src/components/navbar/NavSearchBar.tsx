@@ -1,7 +1,21 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 const NavSearchBar = () => {
+  const history = useHistory()
   const [state, setState] = useState('')
+
+  const submitSearch = () => {
+    history.push('/search/' + state)
+  }
+
+  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      event.stopPropagation()
+      submitSearch()
+    }
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState(e.target.value)
@@ -13,6 +27,7 @@ const NavSearchBar = () => {
         type="text"
         value={state}
         maxLength={20}
+        onKeyDown={onKeyDown}
         onChange={handleChange}
         placeholder="Search maps, players..."
         className="p-2 border-black border-2 bg-gray-800 text-white rounded-lg w-full"
