@@ -9,18 +9,18 @@ interface Props {
 }
 const RecordBlock = ({ record }: Props) => {
   return (
-    <div className="flex mt-4 pt-4 border-t-2 border-gray-900 first:border-t-0 first:mt-0 first:pt-0">
-      <div className="w-48">
+    <div className="mt-4 pt-4 border-t-2 border-gray-900 first:border-t-0 first:mt-0 first:pt-0">
+      <div className="w-48 block md:inline-block lg:inline-block">
         <LazyLoadImage
           alt={record.map_name}
           src={`img/map/thumb/tn_${record.map_name}.jpg`}
           height="150"
           width="150"
           placeholderSrc="img/questionmark.png"
-          className="h-full border-black border-2 rounded-lg "
+          className="h-full border-black border-2 rounded-lg"
         />
       </div>
-      <div className="ml-2">
+      <div className="ml-2 block md:inline-block lg:inline-block">
         <p className="font-bold text-gray-200 text-xl break-words ">
           {record.map_name}
         </p>
