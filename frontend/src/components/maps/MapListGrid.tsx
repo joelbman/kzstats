@@ -34,7 +34,7 @@ const MapListGrid = () => {
   }
 
   if (error !== null) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div>Loading...</div>
+  if (!isLoaded) return <div className="loader"></div>
   if (pageCount === 0 && data.length > 0) setPageCount(300 / limit)
 
   return (

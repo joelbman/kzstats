@@ -1,0 +1,45 @@
+@tailwind base;
+
+@import 'css/spinner.css';
+
+@font-face {
+  font-family: Jaldi;
+  src: local('Jaldi'), url(fonts/Jaldi/Jaldi-Regular.ttf);
+}
+
+body {
+  font-family: 'Jaldi';
+}
+
+td {
+  padding: 5px;
+}
+
+th {
+  padding: 5px;
+}
+
+select {
+  padding: 4px;
+}
+
+main a {
+  font-weight: bold;
+}
+
+main a:hover {
+  color: #fff;
+}
+
+input:focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  outline: 0;
+}
+
+select:focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  outline: 0;
+}
+
+@tailwind components;
+@tailwind utilities;

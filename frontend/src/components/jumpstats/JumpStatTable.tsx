@@ -45,7 +45,7 @@ const JumpStatTable = ({ jumpType, crouchBind }: Props) => {
   }, [crouchBind])
 
   if (error) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div>Loading...</div>
+  if (!isLoaded) return <div className="loader"></div>
   return (
     <table className="w-full mt-10">
       <thead className="w-full bg-gray-900 text-left">

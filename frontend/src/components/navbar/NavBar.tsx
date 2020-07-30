@@ -10,10 +10,12 @@ function NavBar() {
   }
 
   return (
-    <nav className="flex items-center flex-wrap lg:flex-no-wrap justify-center content-start bg-gray-900 w-full border-black border-b-2 p-2 lg:pl-20 fixed">
+    <nav className="flex items-center flex-wrap lg:flex-no-wrap justify-center content-start bg-gray-900 w-full border-black border-b-2 p-2 pb-1 lg:pl-24 fixed">
       <div className="hidden lg:flex items-center flex-shrink-0 text-white mr-6">
         <NavLink to="/">
-          <span className="font-semibold text-xl tracking-tight">KZStats</span>
+          <span className="font-semibold text-2xl tracking-tight">
+            KZStats.com
+          </span>
         </NavLink>
       </div>
       <NavSearchBar />
@@ -38,11 +40,11 @@ function NavBar() {
           !showMenu ? 'hidden' : ''
         }`}
       >
-        <div className="text-sm lg:flex-grow">
+        <div className="lg:flex-grow">
           <NavLink
             activeClassName="font-bold"
             to="/maps"
-            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 hover:bg-gray-700"
+            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white hover:underline mr-4"
           >
             Maps
           </NavLink>

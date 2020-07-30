@@ -5,8 +5,8 @@ import Footer from './components/Footer'
 import { BrowserRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import useBodyClass from './components/util/useBodyClass'
-import './tailwind.output.css'
 import { ModeContext } from './context/ModeContext'
+import './tailwind.output.css'
 
 const App = () => {
   useBodyClass(['flex', 'flex-col', 'min-h-screen', 'bg-gray-700'])

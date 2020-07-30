@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import MapsIndex from './maps/MapsIndex'
-import PlayerListView from './players/PlayerListView'
-import BanList from './bans/BanList'
-import Home from './home/HomeIndex'
+import PlayerListView from './players/list/PlayerListView'
+import BanListView from './bans/BanListView'
+import HomeView from './home/HomeView'
 import JumpStats from './jumpstats/JumpStats'
 import { Helmet } from 'react-helmet'
 import SearchView from './search/SearchView'
-import PlayerDetailView from './players/PlayerDetailView'
+import PlayerDetailView from './players/detail/PlayerDetailView'
 
 const ContentWrapper = () => {
   const [title, setTitle] = useState('')
@@ -19,7 +19,7 @@ const ContentWrapper = () => {
 
   return (
     <main
-      className="flex-grow w-full text-gray-200 ml-5 mr-5 mt-20 mb-20 pr-8 lg:pl-20 lg:pr-20"
+      className="flex-grow w-full text-gray-200 ml-5 mr-5 mt-20 mb-20 pr-8 lg:pl-24 lg:pr-20"
       style={{ minHeight: '85vh' }}
     >
       <Helmet
@@ -31,13 +31,13 @@ const ContentWrapper = () => {
       />
       <h1 className="text-5xl font-bold text-gray-300">{stripTitle(title)}</h1>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={HomeView} />
         <Route exact path="/maps" component={MapsIndex} />
         <Route exact path="/players" component={PlayerListView} />
         <Route exact path="/jumpstats" component={JumpStats} />
-        <Route exact path="/bans" component={BanList} />
+        <Route exact path="/bans" component={BanListView} />
         <Route path="/search/:searchStr" component={SearchView} />
-        <Route path="/players/:steamId64" component={PlayerDetailView} />
+        <Route path="/players/:steamid64" component={PlayerDetailView} />
         <Route render={() => <h1>404</h1>} />
       </Switch>
     </main>

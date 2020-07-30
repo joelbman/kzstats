@@ -6,12 +6,12 @@ import Panel from '../general/Panel'
 import { ModeContext } from '../../context/ModeContext'
 
 const LatestRecords = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { modeContextState, modeContextDispatch } = useContext(ModeContext)
+  const { modeContextState } = useContext(ModeContext)
   const [apiOptions, setApiOptions] = useState({
     limit: 300,
     place_top_at_least: 20,
     has_teleports: false,
+    tickrate: modeContextState.tickrate,
     modes_list_string: modeContextState.kzMode,
   })
   const { error, isLoaded, data } = useApiRequest(
@@ -31,8 +31,9 @@ const LatestRecords = () => {
       place_top_at_least: 20,
       has_teleports: false,
       modes_list_string: modeContextState.kzMode,
+      tickrate: modeContextState.tickrate,
     })
-  }, [modeContextState.kzMode])
+  }, [modeContextState.kzMode, modeContextState.tickrate])
 
   useEffect(() => {
     // remove duplicate map+player combos and keep the newest one
@@ -63,12 +64,8 @@ const LatestRecords = () => {
     )
   }, [data, wrOnly])
 
-  if (error && error.message) {
-    return <div>Error: {error.message}</div>
-  }
-  if (!isLoaded) {
-    return <div>Loading...</div>
-  }
+  if (error && error.message) return <div>Error: {error.message}</div>
+  if (!isLoaded) return <div className="loader"></div>
 
   const panelHeader = () => {
     return (
