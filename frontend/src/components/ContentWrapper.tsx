@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import MapsIndex from './maps/MapsIndex'
-import Players from './players/Players'
+import PlayerListView from './players/PlayerListView'
 import BanList from './bans/BanList'
 import Home from './home/HomeIndex'
 import JumpStats from './jumpstats/JumpStats'
 import { Helmet } from 'react-helmet'
 import SearchIndex from './search/SearchIndex'
+import PlayerDetailView from './players/PlayerDetailView'
 
 const ContentWrapper = () => {
   const [title, setTitle] = useState('')
@@ -32,10 +33,11 @@ const ContentWrapper = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/maps" component={MapsIndex} />
-        <Route exact path="/players" component={Players} />
+        <Route exact path="/players" component={PlayerListView} />
         <Route exact path="/jumpstats" component={JumpStats} />
         <Route exact path="/bans" component={BanList} />
         <Route path="/search/:searchStr" component={SearchIndex} />
+        <Route path="/players/:steamId64" component={PlayerDetailView} />
         <Route render={() => <h1>404</h1>} />
       </Switch>
     </main>
