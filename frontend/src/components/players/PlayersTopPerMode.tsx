@@ -17,7 +17,7 @@ interface Player {
 }
 
 const PlayersTopPerMode = (props: Props) => {
-  const [apiOptions, setApiOptions] = useState({
+  const [apiOptions] = useState({
     limit: props.limit || 200,
     mode_ids: props.mode_ids || 200,
     tickrates: props.tickrates || 128,
@@ -37,7 +37,7 @@ const PlayersTopPerMode = (props: Props) => {
       <h3 className="text-lg font-bold block">{props.mode_name}</h3>
       <Table headers={['#', 'Player', 'Count']}>
         {data.slice(0, 15).map((p: Player, i: number) => (
-          <tr>
+          <tr key={i}>
             <td>{i + 1}.</td>
             <td>{p.player_name}</td>
             <td>{p.count}</td>

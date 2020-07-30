@@ -6,7 +6,7 @@ import BanList from './bans/BanList'
 import Home from './home/HomeIndex'
 import JumpStats from './jumpstats/JumpStats'
 import { Helmet } from 'react-helmet'
-import SearchIndex from './search/SearchIndex'
+import SearchView from './search/SearchView'
 import PlayerDetailView from './players/PlayerDetailView'
 
 const ContentWrapper = () => {
@@ -36,7 +36,7 @@ const ContentWrapper = () => {
         <Route exact path="/players" component={PlayerListView} />
         <Route exact path="/jumpstats" component={JumpStats} />
         <Route exact path="/bans" component={BanList} />
-        <Route path="/search/:searchStr" component={SearchIndex} />
+        <Route path="/search/:searchStr" component={SearchView} />
         <Route path="/players/:steamId64" component={PlayerDetailView} />
         <Route render={() => <h1>404</h1>} />
       </Switch>

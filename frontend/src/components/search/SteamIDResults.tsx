@@ -4,8 +4,8 @@ interface Props {
   searchStr: string
 }
 
-const SteamIDSearch = () => {
+const SteamIDResults = () => {
   return <div></div>
 }
 
-export default SteamIDSearch
+export default SteamIDResults
