@@ -24,7 +24,7 @@ const RecordBlock = ({ record }: Props) => {
         <p className="font-bold text-gray-200 text-xl break-words ">
           {record.map_name}
         </p>
-        <p>
+        <p className="text-lg">
           <RunTimeFormatter time={record.time} />
           {record.place === 1 ? (
             <img
@@ -38,7 +38,7 @@ const RecordBlock = ({ record }: Props) => {
             <sup className="ml-2">#{record.place}</sup>
           )}
         </p>
-        by <b>{record.player_name}</b>
+        by <a href={`/players/${record.steamid64}`}>{record.player_name}</a>
         <br />
         <TimeAgoFormatter datetime={record.updated_on} />
       </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import useApiRequest from '../util/useApiRequest'
-import Table from '../general/Table'
+import useApiRequest from '../../util/useApiRequest'
+import Table from '../../general/Table'
 
 interface Props {
   mode_name: string

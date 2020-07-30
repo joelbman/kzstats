@@ -28,7 +28,7 @@ const PlayerNameResults = (props: Props) => {
   }, [props.searchStr])
 
   if (error && error.message) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <p>Loading...</p>
+  if (!isLoaded) return <div className="loader"></div>
   return (
     <div>
       {data.map((p: Player) => (
