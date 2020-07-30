@@ -9,6 +9,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {},
+      fontFamily: {
+        sans: ['Jaldi', 'sans', 'sans-serif', 'Arial'],
+      },
     },
   },
   variants: {

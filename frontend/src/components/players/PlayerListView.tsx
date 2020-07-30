@@ -7,8 +7,10 @@ const PlayerList = () => {
     <div>
       <Helmet title="Players" />
       <h2>Top 15</h2>
-      <div className="flex justify-between flex-wrap mb-8 lg:mr-8 md:mr-8">
-        <br />
+      <div
+        className="flex justify-between flex-wrap"
+        style={{ margin: '0 -1em' }}
+      >
         <PlayersTopPerMode
           mode_name="KZTimer"
           tickrates={128}
