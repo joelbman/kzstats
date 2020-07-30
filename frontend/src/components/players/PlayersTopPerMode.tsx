@@ -30,10 +30,10 @@ const PlayersTopPerMode = (props: Props) => {
   )
 
   if (error && error.message) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div>Loading...</div>
+  if (!isLoaded) return <div className="loader"></div>
 
   return (
-    <div className="flex-grow mb-8 lg:mr-8 md:mr-8">
+    <div className="mb-8 lg:mr-8 md:mr-8 flex-grow" style={{ margin: '0 1em' }}>
       <h3 className="text-lg font-bold block">{props.mode_name}</h3>
       <Table headers={['#', 'Player', 'Count']}>
         {data.slice(0, 15).map((p: Player, i: number) => (
