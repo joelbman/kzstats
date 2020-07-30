@@ -13,7 +13,7 @@ interface Player {
   total_records: number
 }
 
-const PlayerNameSearch = (props: Props) => {
+const PlayerNameResults = (props: Props) => {
   const [apiOptions, setApiOptions] = useState({
     name: props.searchStr,
     limit: 200,
@@ -38,4 +38,4 @@ const PlayerNameSearch = (props: Props) => {
   )
 }
 
-export default PlayerNameSearch
+export default PlayerNameResults

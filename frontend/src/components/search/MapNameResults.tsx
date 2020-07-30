@@ -6,8 +6,8 @@ interface Props {
   searchStr: string
 }
 
-const MapNameSearch = (props: Props) => {
-  const [apiOptions, setApiOptions] = useState({
+const MapNameResults = (props: Props) => {
+  const [apiOptions] = useState({
     name: props.searchStr,
     limit: 200,
   })
@@ -25,4 +25,4 @@ const MapNameSearch = (props: Props) => {
   )
 }
 
-export default MapNameSearch
+export default MapNameResults
