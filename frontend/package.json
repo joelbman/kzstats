@@ -16,6 +16,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "6.0.0",
+    "react-image": "^4.0.3",
     "react-infinite-scroll-component": "^5.0.5",
     "react-lazy-load-image-component": "^1.5.0",
     "react-paginate": "^6.3.2",

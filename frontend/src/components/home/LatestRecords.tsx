@@ -81,13 +81,6 @@ const LatestRecords = () => {
 
   return (
     <Panel header={panelHeader}>
-      {/* <InfiniteScroll
-        dataLength={items.length}
-        next={fetchMore}
-        hasMore={hasMore}
-        loader={<p>Loading...</p>}
-        scrollThreshold={0.9}
-      > */}
       {items.map((record: Record) => (
         <RecordBlock record={record} key={record.id} />
       ))}

@@ -1,6 +1,10 @@
-import React, { useEffect, useCallback, useState } from 'react'
+import React from 'react'
+import Map from '../../models/Map'
+interface Props {
+  maps: Map[]
+}
 
-const MapListTable = () => {
+const MapListTable = (props: Props) => {
   return <div></div>
 }
 

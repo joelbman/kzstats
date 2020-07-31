@@ -1,66 +1,39 @@
-import React, { useState } from 'react'
-import MapCard from './MapCard'
-import ReactPaginate from 'react-paginate'
+import React, { useState, useMemo } from 'react'
+import MapListCard from './MapListCard'
 import Map from '../../models/Map'
-import useApiRequest from '../util/useApiRequest'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
-const MapListGrid = () => {
-  const limit = 12
-  const [offset, setOffset] = useState(0)
-  const [pageCount, setPageCount] = useState(0)
-  const [apiOptions, setApiOptions] = useState({
-    limit: limit,
-    offset: offset,
-    is_verified: true,
-  })
-  const { error, isLoaded, data } = useApiRequest('/maps', apiOptions)
+interface Props {
+  maps: Map[]
+}
 
-  const paginationButtonClass =
-    'ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150'
+const MapListGrid = (props: Props) => {
+  const [items, setItems] = useState<Map[]>([])
 
-  const fetchMaps = () => {
-    setApiOptions({
-      limit: limit,
-      offset: offset,
-      is_verified: true,
-    })
-    setPageCount(Math.ceil(300 / limit))
+  const fetchMore = () => {
+    setItems(items.concat(props.maps.slice(items.length, items.length + 12)))
   }
 
-  const handlePageClick = (data: any) => {
-    let selected = data.selected
-    setOffset(Math.ceil(selected * limit))
-    fetchMaps()
-  }
-
-  if (error !== null) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div className="loader"></div>
-  if (pageCount === 0 && data.length > 0) setPageCount(300 / limit)
+  useMemo(() => {
+    setItems(props.maps.slice(0, 12))
+  }, [props.maps])
 
   return (
     <div>
-      <div className="grid lg:grid-cols-4 grid-cols-1 md:grid-cols-2 gap-4 mt-10">
-        {data.map((map: Map) => (
-          <MapCard map={map} key={map.id} />
-        ))}
-      </div>
-      <div className="text-center h-full mt-10">
-        <ReactPaginate
-          previousLabel={'<'}
-          nextLabel={'>'}
-          breakLabel={'...'}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={'relative z-0 inline-flex shadow-sm'}
-          activeClassName={'active'}
-          pageClassName={paginationButtonClass}
-          breakClassName={paginationButtonClass}
-          nextLinkClassName={paginationButtonClass}
-          previousLinkClassName={paginationButtonClass}
-        />
-      </div>
+      <InfiniteScroll
+        dataLength={items.length}
+        next={fetchMore}
+        hasMore={items.length < props.maps.length}
+        loader={<div className="loader"></div>}
+        scrollThreshold={0.9}
+        className="inline-block"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4">
+          {items.map((map: Map) => (
+            <MapListCard map={map} key={map.id} />
+          ))}
+        </div>
+      </InfiniteScroll>
     </div>
   )
 }
