@@ -8,6 +8,7 @@ const NavModeSelect = () => {
     const tick =
       event.target.value !== 'kz_timer' ? '128' : modeContextState.tickrate
     localStorage.setItem('kzMode', event.target.value)
+    localStorage.setItem('tickrate', tick)
     modeContextDispatch(event.target.value, tick)
   }
 

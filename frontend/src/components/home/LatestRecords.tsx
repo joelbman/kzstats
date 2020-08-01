@@ -84,7 +84,6 @@ const LatestRecords = () => {
       {items.map((record: Record) => (
         <RecordBlock record={record} key={record.id} />
       ))}
-      {/* </InfiniteScroll> */}
     </Panel>
   )
 }

@@ -1,7 +1,10 @@
 import React from 'react'
 
 const ModeContext = React.createContext({
-  modeContextState: { kzMode: 'kz_timer', tickrate: '128' },
+  modeContextState: {
+    kzMode: '',
+    tickrate: '',
+  },
   modeContextDispatch: (mode: string, tickrate: string) => {},
 })
 

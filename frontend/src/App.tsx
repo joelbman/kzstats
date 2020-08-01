@@ -11,8 +11,8 @@ import './tailwind.output.css'
 const App = () => {
   useBodyClass(['flex', 'flex-col', 'min-h-screen', 'bg-gray-700'])
   const [modeState, setModeState] = useState({
-    kzMode: 'kz_timer',
-    tickrate: '128',
+    kzMode: localStorage.getItem('kzMode') || 'kz_timer',
+    tickrate: localStorage.getItem('tickrate') || '128',
   })
   const dispatchModeState = (mode: string, tick: string) => {
     setModeState({ kzMode: mode, tickrate: tick })
