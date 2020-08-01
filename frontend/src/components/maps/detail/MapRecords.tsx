@@ -9,9 +9,9 @@ interface Props {
   mapname: string
 }
 
-const MapDetailRecords = ({ mapname }: Props) => {
+const MapRecords = ({ mapname }: Props) => {
   const { modeContextState } = useContext(ModeContext)
-  const [apiOptions, setApiOptions] = useState({
+  const [apiOptions] = useState({
     limit: 50,
     map_name: mapname,
     modes_list_string: modeContextState.kzMode,
@@ -24,11 +24,13 @@ const MapDetailRecords = ({ mapname }: Props) => {
 
   return (
     <div>
-      <Table>
+      <Table className="w-full">
         {data.map((r: Record, i: number) => (
-          <tr>
-            <td>{i + 1}</td>
-            <td>{r.player_name}</td>
+          <tr className="odd:bg-gray-900">
+            <td>{i + 1}.</td>
+            <td>
+              <a href={`/players/${r.steamid64}`}>{r.player_name}</a>
+            </td>
             <td>
               <RunTimeFormatter time={r.time} />
             </td>
@@ -41,4 +43,4 @@ const MapDetailRecords = ({ mapname }: Props) => {
   )
 }
 
-export default MapDetailRecords
+export default MapRecords

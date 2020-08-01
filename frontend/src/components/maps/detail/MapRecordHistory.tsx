@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useContext } from 'react'
 import useApiRequest from '../../util/useApiRequest'
 import Record from '../../../models/Record'
 import ReactApexChart from 'react-apexcharts'
+import { ModeContext } from '../../../context/ModeContext'
 
 interface Props {
   mapname: string
@@ -11,12 +12,14 @@ interface ChartObj {
   data: any[]
 }
 
-const MapDetailRecordHistory = ({ mapname }: Props) => {
+const MapRecordHistory = ({ mapname }: Props) => {
+  const { modeContextState: ctx } = useContext(ModeContext)
   const [apiOptions, setApiOptions] = useState({
     map_name: mapname,
     stage: 0,
     place_top_at_least: 1,
-    modes_list_string: 200,
+    modes_list_string: ctx.kzMode,
+    tickrates: ctx.tickrate,
   })
   const { error, isLoaded, data } = useApiRequest(
     '/records/top/recent',
@@ -37,7 +40,7 @@ const MapDetailRecordHistory = ({ mapname }: Props) => {
       enabled: false,
     },
     markers: {
-      size: 5,
+      size: 3,
     },
     title: {
       text: 'History for ' + mapname,
@@ -81,9 +84,14 @@ const MapDetailRecordHistory = ({ mapname }: Props) => {
   }
 
   useMemo(() => {
-    const chartData = data.map((r: Record) => {
-      return { x: r.updated_on, y: r.time }
-    })
+    const chartData = data
+      .map((r: Record) => {
+        return { x: r.updated_on, y: r.time }
+      })
+      .sort((a: any, b: any) => {
+        return a.y - b.y
+      })
+    console.log(chartData)
 
     setSeries([{ name: 'Runtime', data: chartData }])
   }, [data])
@@ -100,4 +108,4 @@ const MapDetailRecordHistory = ({ mapname }: Props) => {
   )
 }
 
-export default MapDetailRecordHistory
+export default MapRecordHistory

@@ -21,9 +21,12 @@ const RecordBlock = ({ record }: Props) => {
         />
       </div>
       <div className="ml-2 block md:inline-block lg:inline-block">
-        <p className="font-bold text-gray-200 text-xl break-words ">
+        <a
+          className="font-bold text-gray-200 text-xl hover:text-white"
+          href={`maps/${record.map_name}`}
+        >
           {record.map_name}
-        </p>
+        </a>
         <p className="text-lg">
           <RunTimeFormatter time={record.time} />
           {record.place === 1 ? (
