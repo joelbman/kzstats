@@ -30,7 +30,7 @@ const MapDetailRecordHistory = ({ mapname }: Props) => {
       type: 'area',
       stacked: false,
       height: 350,
-      background: '#3d3d3d',
+      background: '#1a202c',
       foreColor: '#fff',
       toolbar: { show: false },
     },
@@ -92,14 +92,12 @@ const MapDetailRecordHistory = ({ mapname }: Props) => {
   if (error) return <div>Error: {error.message}</div>
   if (!isLoaded) return <div className="loader"></div>
   return (
-    <div>
-      <ReactApexChart
-        options={graphOptions}
-        series={series}
-        type="line"
-        height={350}
-      />
-    </div>
+    <ReactApexChart
+      options={graphOptions}
+      series={series}
+      type="line"
+      height={350}
+    />
   )
 }
 

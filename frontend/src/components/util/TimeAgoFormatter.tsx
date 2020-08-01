@@ -5,8 +5,9 @@ interface Props {
 }
 
 const TimeAgoFormatter = ({ datetime }: Props) => {
-  const stamp = Date.parse(datetime) / 1000
-  let result = Date.now() / 1000 - stamp
+  const dt =
+    Date.parse(datetime) - new Date(datetime).getTimezoneOffset() * 60000
+  let result = (Date.now() - dt) / 1000
   let unit = 'seconds'
 
   if (result > 59) {
