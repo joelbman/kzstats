@@ -24,6 +24,8 @@ const MapRecords = ({ mapname }: Props) => {
 
   return (
     <div>
+      <h2 className="text-xl">Records</h2>
+      {data.length < 1 && <div>No records found.</div>}
       <Table className="w-full">
         {data.map((r: Record, i: number) => (
           <tr className="odd:bg-gray-900">

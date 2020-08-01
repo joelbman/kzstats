@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext } from 'react'
+import React, { useState, useMemo, useContext, useEffect } from 'react'
 import useApiRequest from '../../util/useApiRequest'
 import Record from '../../../models/Record'
 import ReactApexChart from 'react-apexcharts'
@@ -20,6 +20,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
     place_top_at_least: 1,
     modes_list_string: ctx.kzMode,
     tickrates: ctx.tickrate,
+    has_teleports: false,
   })
   const { error, isLoaded, data } = useApiRequest(
     '/records/top/recent',
@@ -83,7 +84,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
     },
   }
 
-  useMemo(() => {
+  useEffect(() => {
     const chartData = data
       .map((r: Record) => {
         return { x: r.updated_on, y: r.time }
@@ -91,20 +92,36 @@ const MapRecordHistory = ({ mapname }: Props) => {
       .sort((a: any, b: any) => {
         return a.y - b.y
       })
-    console.log(chartData)
 
     setSeries([{ name: 'Runtime', data: chartData }])
   }, [data])
 
+  useMemo(() => {
+    setApiOptions({
+      map_name: mapname,
+      stage: 0,
+      place_top_at_least: 1,
+      modes_list_string: ctx.kzMode,
+      tickrates: ctx.tickrate,
+      has_teleports: false,
+    })
+  }, [ctx.tickrate, ctx.kzMode, mapname])
+
   if (error) return <div>Error: {error.message}</div>
   if (!isLoaded) return <div className="loader"></div>
   return (
-    <ReactApexChart
-      options={graphOptions}
-      series={series}
-      type="line"
-      height={350}
-    />
+    <div>
+      {data.length > 0 ? (
+        <ReactApexChart
+          options={graphOptions}
+          series={series}
+          type="line"
+          height={350}
+        />
+      ) : (
+        <div className="text-xl">No data available</div>
+      )}
+    </div>
   )
 }
 

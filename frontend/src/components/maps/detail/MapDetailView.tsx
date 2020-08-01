@@ -17,10 +17,10 @@ const MapDetailView = (props: Props) => {
         className="border-2 border-black"
       >
         <TabList className="bg-gray-900 h-12 list-none align-middle border-b-2 border-black table table-fixed w-full">
-          <Tab className="table-cell h-full pl-4 pr-4 w-1/6 hover:bg-blue-900 hover:cursor-pointer hover:font-bold align-middle border-r-2 border-black">
+          <Tab className="table-cell h-full pl-4 pr-4 w-1/6 hover:bg-blue-800 hover:cursor-pointer hover:font-bold align-middle border-r-2 border-black">
             Records
           </Tab>
-          <Tab className="table-cell h-full pl-4 pr-4 w-1/6 hover:bg-blue-900 hover:cursor-pointer hover:font-bold align-middle  border-r-2 border-black">
+          <Tab className="table-cell h-full pl-4 pr-4 w-1/6 hover:bg-blue-800 hover:cursor-pointer hover:font-bold align-middle  border-r-2 border-black">
             WR history
           </Tab>
           <Tab disabled={true} className="table-cell h-full pl-4 pr-4"></Tab>
