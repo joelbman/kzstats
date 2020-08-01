@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import MapListView from './maps/MapListView'
+import MapListView from './maps/list/MapListView'
 import PlayerListView from './players/list/PlayerListView'
 import BanListView from './bans/BanListView'
 import HomeView from './home/HomeView'
@@ -8,7 +8,7 @@ import JumpStats from './jumpstats/JumpStats'
 import { Helmet } from 'react-helmet'
 import SearchView from './search/SearchView'
 import PlayerDetailView from './players/detail/PlayerDetailView'
-import MapDetailView from './maps/MapDetailView'
+import MapDetailView from './maps/detail/MapDetailView'
 
 const ContentWrapper = () => {
   const [title, setTitle] = useState('')

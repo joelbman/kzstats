@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
-import useApiRequest from '../util/useApiRequest'
-import { ModeContext } from '../../context/ModeContext'
-import Table from '../general/Table'
-import Record from '../../models/Record'
-import RunTimeFormatter from '../util/RunTimeFormatter'
+import useApiRequest from '../../util/useApiRequest'
+import { ModeContext } from '../../../context/ModeContext'
+import Table from '../../general/Table'
+import Record from '../../../models/Record'
+import RunTimeFormatter from '../../util/RunTimeFormatter'
 
 interface Props {
   mapname: string

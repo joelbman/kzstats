@@ -1,5 +1,5 @@
 import React from 'react'
-import Map from '../../models/Map'
+import Map from '../../../models/Map'
 interface Props {
   maps: Map[]
 }

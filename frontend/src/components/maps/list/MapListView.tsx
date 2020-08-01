@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import MapListGrid from './MapListGrid'
 import MapListTable from './MapListTable'
-import useApiRequest from '../util/useApiRequest'
+import useApiRequest from '../../util/useApiRequest'
 
 const MapListView = () => {
   const [apiOptions, setApiOptions] = useState({

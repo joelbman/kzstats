@@ -1,6 +1,6 @@
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import Map from '../../models/Map'
+import Map from '../../../models/Map'
 
 interface Props {
   map: Map

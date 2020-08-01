@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import useApiRequest from '../util/useApiRequest'
-// import { VictoryChart, VictoryLine, VictoryAxis } from 'victory'
-import Record from '../../models/Record'
+import React, { useState, useMemo } from 'react'
+import useApiRequest from '../../util/useApiRequest'
+import Record from '../../../models/Record'
 import ReactApexChart from 'react-apexcharts'
 
 interface Props {

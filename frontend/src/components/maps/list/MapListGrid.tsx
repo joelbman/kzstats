@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import MapListCard from './MapListCard'
-import Map from '../../models/Map'
+import Map from '../../../models/Map'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 interface Props {
