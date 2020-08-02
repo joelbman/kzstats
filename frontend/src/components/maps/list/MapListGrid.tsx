@@ -20,6 +20,7 @@ const MapListGrid = (props: Props) => {
 
   return (
     <div>
+      {items.length < 1 && <p>No maps found. Try different filters.</p>}
       <InfiniteScroll
         dataLength={items.length}
         next={fetchMore}

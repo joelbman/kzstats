@@ -11,12 +11,22 @@ body {
   font-family: 'Jaldi';
 }
 
+h1 {
+  @apply text-5xl font-bold text-gray-300;
+}
+
 td {
   padding: 5px;
+  padding-left: 8px;
+}
+
+th input {
+  width: 100px;
 }
 
 th {
   padding: 5px;
+  padding-left: 8px;
 }
 
 select {
@@ -25,10 +35,15 @@ select {
 
 main a {
   font-weight: bold;
+  color: #b2cdeb;
 }
 
 main a:hover {
   color: #fff;
+}
+
+input {
+  @apply bg-gray-800 text-gray-300 pl-2 pr-2 border-2 border-black;
 }
 
 input:focus {

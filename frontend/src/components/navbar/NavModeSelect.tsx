@@ -18,7 +18,7 @@ const NavModeSelect = () => {
   }
 
   return (
-    <div className="order-6 flex flex-wrap flex-grow flex-row text-gray-300 lg:ml-2 mt-4 border-black border-t-2 md:border-0 lg:border-0 pt-4 lg:pt-0 lg:mt-0">
+    <div className="order-6 flex flex-wrap flex-grow flex-row text-gray-300 mt-4 border-black border-t-2 md:border-0 lg:border-0 pt-4 lg:pt-0 lg:mt-0">
       <div style={{ width: '10rem' }}>
         Mode:
         <select

@@ -62,7 +62,11 @@ const JumpStatTable = ({ jumpType, crouchBind }: Props) => {
         {data.map((jumpstat: Jumpstat, key: number) => (
           <tr className="w-full bg-gray-800 text-left" key={key}>
             <td>{key + 1}.</td>
-            <td>{jumpstat.player_name}</td>
+            <td>
+              <a href={`/players/${jumpstat.steamid64}`}>
+                {jumpstat.player_name}
+              </a>
+            </td>
             <td>{jumpstat.strafe_count}</td>
             <td>{jumpstat.distance}</td>
             <td>{jumpstat.updated_on.replace('T', ' ')}</td>

@@ -30,16 +30,26 @@ const PlayersTopPerMode = (props: Props) => {
   )
 
   if (error && error.message) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div className="loader"></div>
+  if (!isLoaded)
+    return (
+      <div
+        className="mb-8 lg:mr-8 md:mr-8 flex-grow"
+        style={{ margin: '0 1em' }}
+      >
+        <div className="loader"></div>
+      </div>
+    )
 
   return (
     <div className="mb-8 lg:mr-8 md:mr-8 flex-grow" style={{ margin: '0 1em' }}>
       <h3 className="text-lg font-bold block">{props.mode_name}</h3>
-      <Table headers={['#', 'Player', 'Count']}>
+      <Table headers={['#', 'Player', 'Count']} className="w-full">
         {data.slice(0, 15).map((p: Player, i: number) => (
           <tr key={i}>
             <td>{i + 1}.</td>
-            <td>{p.player_name}</td>
+            <td>
+              <a href={`/players/${p.steamid64}`}>{p.player_name}</a>
+            </td>
             <td>{p.count}</td>
           </tr>
         ))}

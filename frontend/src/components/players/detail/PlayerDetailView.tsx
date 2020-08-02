@@ -31,9 +31,9 @@ const PlayerDetailView = (props: Props) => {
   if (!isLoaded) return <div className="loader"></div>
 
   return (
-    <div className="flex">
+    <div>
       {player && <Helmet title={player.name} />}
-      <Tabs className="border-2 border-black rounded-lg">
+      <Tabs className="border-2 border-black">
         <TabList className="bg-gray-900 h-12 list-none align-middle border-b-2 border-black table w-full">
           <Tab className="table-cell h-full pl-4 pr-4 hover:bg-teal-900 hover:font-bold align-middle border-r-2 border-black">
             Records
@@ -46,10 +46,10 @@ const PlayerDetailView = (props: Props) => {
           </Tab>
         </TabList>
 
-        <TabPanel className="bg-gray-800 h-64 p-4">
+        <TabPanel className="bg-gray-800 p-4">
           <PlayerRecords steamid64={steamid64} />
         </TabPanel>
-        <TabPanel className="bg-gray-800 h-64 p-4">
+        <TabPanel className="bg-gray-800 p-4">
           <PlayerJumpStats steamid64={steamid64} />
         </TabPanel>
       </Tabs>

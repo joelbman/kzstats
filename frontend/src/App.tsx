@@ -9,7 +9,13 @@ import { ModeContext } from './context/ModeContext'
 import './tailwind.output.css'
 
 const App = () => {
-  useBodyClass(['flex', 'flex-col', 'min-h-screen', 'bg-gray-700'])
+  useBodyClass([
+    'flex',
+    'flex-col',
+    'min-h-screen',
+    'bg-gray-700',
+    'text-gray-600',
+  ])
   const [modeState, setModeState] = useState({
     kzMode: localStorage.getItem('kzMode') || 'kz_timer',
     tickrate: localStorage.getItem('tickrate') || '128',

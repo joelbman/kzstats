@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent } from 'react'
 import { Helmet } from 'react-helmet'
 import JumpStatTable from './JumpStatTable'
 
-const JumpStats = () => {
+const JumpStatsView = () => {
   const [jumpType, setJumpType] = useState('longjump')
   const [crouchBind, setCrouchBind] = useState(false)
 
@@ -47,4 +47,4 @@ const JumpStats = () => {
   )
 }
 
-export default JumpStats
+export default JumpStatsView

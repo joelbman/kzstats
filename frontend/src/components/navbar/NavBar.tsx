@@ -10,12 +10,10 @@ function NavBar() {
   }
 
   return (
-    <nav className="flex items-center flex-wrap lg:flex-no-wrap justify-center content-start bg-gray-900 w-full border-black border-b-2 p-2 pb-1 lg:pl-24 fixed">
+    <nav className="flex items-center flex-wrap lg:flex-no-wrap justify-center content-start bg-gray-900 w-full border-black border-b-2 p-2 pb-1 lg:pl-32 fixed">
       <div className="hidden lg:flex items-center flex-shrink-0 text-white mr-6">
         <NavLink to="/">
-          <span className="font-semibold text-2xl tracking-tight">
-            KZStats.com
-          </span>
+          <span className="font-semibold text-2xl tracking-tight">KZStats</span>
         </NavLink>
       </div>
       <NavSearchBar />

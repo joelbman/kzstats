@@ -19,7 +19,7 @@ const Table: FunctionComponent<Props> = (props) => {
           </tr>
         </thead>
       )}
-      <tbody className="bg-gray-800">{props.children}</tbody>
+      <tbody className="bg-gray-800 text-gray-300">{props.children}</tbody>
     </table>
   )
 }
