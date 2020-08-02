@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: 'Jaldi';
+  font-family: 'Jaldi', sans-serif;
 }
 
 h1 {
@@ -44,6 +44,10 @@ main a:hover {
 
 input {
   @apply bg-gray-800 text-gray-300 pl-2 pr-2 border-2 border-black;
+}
+
+.texticon {
+  @apply inline w-4 h-4 fill-current mr-2;
 }
 
 input:focus {
