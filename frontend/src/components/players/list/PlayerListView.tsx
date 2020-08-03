@@ -1,34 +1,19 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import PlayersTopPerMode from './PlayersTopPerMode'
+import PlayersTopWorldRecords from './PlayersTopWorldRecords'
 
 const PlayerList = () => {
   return (
     <div>
       <Helmet title="Players" />
-      <h2>Top 15</h2>
+      <h1>Players</h1>
+      <h2>Top 15 - World records</h2>
       <div
-        className="flex justify-between flex-wrap"
+        className="flex justify-between flex-wrap lg:w-3/5"
         style={{ margin: '0 -1em' }}
       >
-        <PlayersTopPerMode
-          mode_name="KZTimer"
-          tickrates={128}
-          mode_ids={200}
-          has_teleports={false}
-        />
-        <PlayersTopPerMode
-          mode_name="Simple KZ"
-          tickrates={128}
-          mode_ids={201}
-          has_teleports={false}
-        />
-        <PlayersTopPerMode
-          mode_name="Vanilla"
-          tickrates={128}
-          mode_ids={202}
-          has_teleports={false}
-        />
+        <PlayersTopWorldRecords pro={true} />
+        <PlayersTopWorldRecords />
       </div>
     </div>
   )

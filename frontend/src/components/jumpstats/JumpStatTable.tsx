@@ -47,7 +47,7 @@ const JumpStatTable = ({ jumpType, crouchBind }: Props) => {
   if (error) return <div>Error: {error.message}</div>
   if (!isLoaded) return <div className="loader"></div>
   return (
-    <table className="w-full mt-10">
+    <table className="w-full lg:w-3/5 mt-10">
       <thead className="w-full bg-gray-900 text-left">
         <tr>
           <th>#</th>
@@ -55,7 +55,6 @@ const JumpStatTable = ({ jumpType, crouchBind }: Props) => {
           <th>Strafes</th>
           <th>Distance</th>
           <th>Date</th>
-          <th>Server</th>
         </tr>
       </thead>
       <tbody>
@@ -70,7 +69,6 @@ const JumpStatTable = ({ jumpType, crouchBind }: Props) => {
             <td>{jumpstat.strafe_count}</td>
             <td>{jumpstat.distance}</td>
             <td>{jumpstat.updated_on.replace('T', ' ')}</td>
-            <td>{jumpstat.server_id}</td>
           </tr>
         ))}
       </tbody>

@@ -17,6 +17,7 @@ const JumpStatsView = () => {
   return (
     <div>
       <Helmet title="Jumpstats" />
+      <h1>Jumpstats</h1>
       <div className="block mt-2">
         Jump type:
         <select
