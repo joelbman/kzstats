@@ -12,14 +12,15 @@ const MapListView = () => {
   const { error, isLoaded, data } = useApiRequest('/maps', apiOptions)
   const [nameFilter, setNameFilter] = useState('')
   const [difficultyFilter, setDifficultyFilter] = useState('0')
-  const [isGrid, setIsGrid] = useState(true)
+  const [isFancy, setIsFancy] = useState(true)
   const [filtered, setFiltered] = useState<Map[]>([])
 
+  // Update filter 0.6secs after user has stopped typing
   let timer = 0
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     clearTimeout(timer)
     const val = e.target.value
-    timer = setTimeout(() => {
+    timer = window.setTimeout(() => {
       setNameFilter(val)
     }, 600)
   }
@@ -56,7 +57,9 @@ const MapListView = () => {
   return (
     <>
       <Helmet title="Maps" />
-      <h1>Maps</h1>
+      <h1>
+        Maps <small> - Total: {data.length}</small>
+      </h1>
       <div className="flex flex-wrap items-center mb-8">
         <div className="mr-4 mb-4 md:mb-0 lg:mb-0">
           Mapname: <input type="text" onChange={handleInput} className="ml-2" />
@@ -78,18 +81,18 @@ const MapListView = () => {
           </select>
         </div>
         <div>
-          Grid:
+          Fancy:
           <input
             type="checkbox"
             className="ml-2"
-            checked={isGrid}
+            checked={isFancy}
             onChange={() => {
-              setIsGrid(!isGrid)
+              setIsFancy(!isFancy)
             }}
           />
         </div>
       </div>
-      {isGrid ? (
+      {isFancy ? (
         <MapListGrid maps={filtered || data} />
       ) : (
         <MapListTable maps={filtered || data} />

@@ -1,6 +1,6 @@
 import React from 'react'
 import Record from '../../models/Record'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { Img } from 'react-image'
 import RunTimeFormatter from '../util/RunTimeFormatter'
 import TimeAgoFormatter from '../util/TimeAgoFormatter'
 
@@ -11,12 +11,11 @@ const RecordBlock = ({ record }: Props) => {
   return (
     <div className="mt-4 pt-4 border-t-2 border-gray-900 first:border-t-0 first:mt-0 first:pt-0">
       <div className="w-48 block md:inline-block lg:inline-block">
-        <LazyLoadImage
+        <Img
           alt={record.map_name}
-          src={`img/map/thumb/tn_${record.map_name}.jpg`}
-          height="150"
+          src={[`img/map/thumb/tn_${record.map_name}.jpg`, 'img/noimage.png']}
+          height="90"
           width="150"
-          placeholderSrc="img/questionmark.png"
           className="h-full border-black border-2 rounded-lg"
         />
       </div>
