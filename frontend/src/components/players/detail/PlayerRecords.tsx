@@ -35,31 +35,36 @@ const PlayerRecords = (props: Props) => {
 
   return (
     <div>
-      Filter mapname: <input type="text" onChange={handleInput} />
-      <table>
-        <thead>
-          <tr>
-            <th>Mapname</th>
-            <th>Runtime</th>
-            <th>Date</th>
-            <th>Server</th>
-          </tr>
-        </thead>
-        <tbody>
-          {records.map((r: Record) => (
+      <h2>Records</h2>
+      Mapname: <input type="text" onChange={handleInput} />
+      {records.length > 0 ? (
+        <table>
+          <thead>
             <tr>
-              <td>
-                <a href={`/maps/${r.map_name}`}>{r.map_name}</a>
-              </td>
-              <td>
-                <RunTimeFormatter time={r.time} />
-              </td>
-              <td>{r.updated_on}</td>
-              <td>{r.server_name}</td>
+              <th>Mapname</th>
+              <th>Runtime</th>
+              <th>Date</th>
+              <th>Server</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {records.map((r: Record) => (
+              <tr>
+                <td>
+                  <a href={`/maps/${r.map_name}`}>{r.map_name}</a>
+                </td>
+                <td>
+                  <RunTimeFormatter time={r.time} />
+                </td>
+                <td>{r.updated_on}</td>
+                <td>{r.server_name}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p className="mt-4">No records found.</p>
+      )}
     </div>
   )
 }
