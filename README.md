@@ -1,8 +1,7 @@
 # KZStats
 
 A Web GUI for viewing CS:GO Kreedz mod world records and other related data.
-
-[http://www.kzstats.com/](http://www.kzstats.com/)
+This is the 3.0 rework repo, currently under development.
 
 # Features & TODO
 
