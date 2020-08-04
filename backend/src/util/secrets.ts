@@ -12,9 +12,8 @@ if (denvload.error) {
   }
 }
 
-export const ENVIRONMENT = process.env.NODE_ENV
-const production = ENVIRONMENT === 'production'
-
+export const production = process.env.NODE_ENV === 'production'
+export const STEAM_API_KEY = process.env['STEAM_API_KEY']
 export const SESSION_SECRET = process.env['SESSION_SECRET']
 
 if (!SESSION_SECRET) {
