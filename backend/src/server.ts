@@ -24,12 +24,9 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-console.log(process.cwd())
-console.log(__dirname)
-
 const options = {
-  key: readFileSync(path.join(__dirname + '/ssl/key.key')),
-  cert: readFileSync(path.join(__dirname + '/ssl/cert.crt')),
+  key: readFileSync(path.join(process.cwd() + '/../ssl/key.key')),
+  cert: readFileSync(path.join(process.cwd() + '/../ssl/cert.crt')),
 }
 https.createServer(options, app).listen(62513, () => {
   console.log('Server started')

@@ -8,7 +8,7 @@
     "backend"
   ],
   "scripts": {
-    "backend": "yarn --cwd backend \"watch-ts\"",
+    "backend": "yarn --cwd backend \"watch-debug\"",
     "frontend": "yarn --cwd frontend start"
   },
   "license": "MIT",

@@ -1,6 +1,7 @@
 import passport from 'passport'
 import { Strategy } from 'passport-steam'
 import { production, STEAM_API_KEY } from './util/secrets'
+import { db } from './db/db'
 
 const realm = production ? 'https://kzstats.com/' : 'https://localhost/'
 const returnURL = production
@@ -22,13 +23,15 @@ passport.use(
       realm: realm,
       apiKey: STEAM_API_KEY,
     },
-    (
-      identifier: Record<string, unknown>,
-      profile: Record<string, unknown>,
-      done: unknown
-    ) => {
+    (identifier: any, profile: any, done: any) => {
       process.nextTick(() => {
-        // ...
+        return db('kzstats_user')
+          .where('steamid64', profile.id)
+          .then(function (data) {
+            profile.admin = data.length > 0
+            profile.identifier = identifier
+            return done(null, profile)
+          })
       })
     }
   )

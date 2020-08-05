@@ -28,10 +28,16 @@
     "tailwindcss": "^1.5.2",
     "typescript": "~3.7.2"
   },
+  "devDependencies": {
+    "@types/react-helmet": "^6.0.0",
+    "@types/react-tabs": "^2.3.2",
+    "chokidar-cli": "^2.1.0",
+    "npm-run-all": "^4.1.5",
+    "stylelint-config-recommended": "^3.0.0"
+  },
   "scripts": {
     "build:tailwind": "tailwind build src/css/App.css -o src/tailwind.output.css",
     "watch:tailwind": "chokidar src/css/*.css --ignore src/tailwind.output.css -c \"npm run build:tailwind\"",
-    "watch-tailwindcfg": "chokidar tailwind.config.js --initial=true -c \"npm run start\"",
     "start": "npm-run-all build:tailwind --parallel watch:tailwind start:react",
     "start:react": "react-scripts start",
     "prebuild": "run-s build:tailwind",
@@ -54,11 +60,11 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@types/react-helmet": "^6.0.0",
-    "@types/react-tabs": "^2.3.2",
-    "chokidar-cli": "^2.1.0",
-    "npm-run-all": "^4.1.5",
-    "stylelint-config-recommended": "^3.0.0"
+  "importSort": {
+    ".ts, .tsx": {
+      "parser": "typescript",
+      "style": "module-compact",
+      "options": {}
+    }
   }
 }

@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,9 +13,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "paths": {
+      "@components": ["src/components/*"],
+      "@context": ["src/context/*"],
+      "@css": ["src/css/*"],
+      "@models": ["src/models/*"]
+    }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

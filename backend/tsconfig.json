@@ -4,13 +4,18 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "es6",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*", "src/types/*"]
+      "*": ["node_modules/*", "src/types/*"],
+      "@controllers": ["src/controllers/*"],
+      "@services": ["src/services/*"],
+      "@util": ["src/util/*"],
+      "@db": ["src/db/*"],
+      "@base": ["src/*"]
     }
   },
   "include": ["src/**/*"]
