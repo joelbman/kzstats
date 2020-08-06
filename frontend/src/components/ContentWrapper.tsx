@@ -30,8 +30,6 @@ const ContentWrapper = () => {
         <Route exact path="/bans" component={BanListView} />
 
         <Route path="/search/:searchStr" component={SearchView} />
-
-        <Route render={() => <h1>404</h1>} />
       </Switch>
     </main>
   )

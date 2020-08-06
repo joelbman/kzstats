@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import NavModeSelect from './NavModeSelect'
 import NavSearchBar from './NavSearchBar'
 
@@ -78,6 +78,11 @@ function NavBar() {
       </div>
       <div className={`${!showMenu ? 'hidden' : ''} lg:flex flex-grow order-6`}>
         <NavModeSelect />
+      </div>
+      <div className={`${!showMenu ? 'hidden' : ''} lg:flex flex-grow order-6`}>
+        <a href="/api/auth">
+          <button>Login</button>
+        </a>
       </div>
     </nav>
   )

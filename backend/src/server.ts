@@ -7,10 +7,16 @@ import passport from './passportInit'
 import path from 'path'
 import { readFileSync } from 'fs'
 import session from 'express-session'
+import router from './router'
 
 const app = express()
 
-app.set('port', process.env.PORT || 62513)
+const httpsOptions = {
+  key: readFileSync(path.join(process.cwd() + '/../ssl/key.key')),
+  cert: readFileSync(path.join(process.cwd() + '/../ssl/cert.crt')),
+}
+
+app.set('port', process.env.PORT || 3001)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(
@@ -24,10 +30,12 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-const options = {
-  key: readFileSync(path.join(process.cwd() + '/../ssl/key.key')),
-  cert: readFileSync(path.join(process.cwd() + '/../ssl/cert.crt')),
-}
-https.createServer(options, app).listen(62513, () => {
+app.use(function (req, res, next) {
+  res.contentType('application/json')
+  next()
+})
+app.use('/api', router)
+
+https.createServer(httpsOptions, app).listen(app.get('port'), () => {
   console.log('Server started')
 })
