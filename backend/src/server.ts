@@ -37,5 +37,5 @@ app.use(function (req, res, next) {
 app.use('/api', router)
 
 https.createServer(httpsOptions, app).listen(app.get('port'), () => {
-  console.log('Server started')
+  console.log('Server running on: ' + app.get('port'))
 })

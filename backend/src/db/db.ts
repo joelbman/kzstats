@@ -1,11 +1,12 @@
 import Knex from 'knex'
+import { DB_CONFIG } from '../util/secrets'
 
 export const config = {
   client: 'mysql',
   connection: {
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    database: DB_CONFIG.name,
+    user: DB_CONFIG.user,
+    password: DB_CONFIG.password,
   },
   pool: {
     min: 2,

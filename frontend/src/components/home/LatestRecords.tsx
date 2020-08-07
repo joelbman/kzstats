@@ -1,19 +1,36 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react'
-import useApiRequest from '../util/useApiRequest'
+import useApiRequest from 'components/util/useApiRequest'
 import RecordBlock from './RecordBlock'
-import Record from '../../models/Record'
-import Panel from '../general/Panel'
-import { ModeContext } from '../../context/ModeContext'
+import Record from 'models/Record'
+import Panel from 'components/general/Panel'
+import { ModeContext } from 'context/ModeContext'
 
-const LatestRecords = () => {
+interface Props {
+  myRecords?: boolean
+}
+
+const LatestRecords = (props: Props) => {
   const { modeContextState } = useContext(ModeContext)
-  const [apiOptions, setApiOptions] = useState({
-    limit: 300,
-    place_top_at_least: 20,
-    has_teleports: false,
-    tickrate: modeContextState.tickrate,
-    modes_list_string: modeContextState.kzMode,
-  })
+  // const { userCtx } = useContext(UserContext)
+  let apiOpt = props.myRecords
+    ? {
+        limit: 300,
+        place_top_at_least: 20,
+        has_teleports: false,
+        tickrate: modeContextState.tickrate,
+        modes_list_string: modeContextState.kzMode,
+        steamid64: 'xxx',
+      }
+    : {
+        limit: 300,
+        place_top_at_least: 20,
+        has_teleports: false,
+        tickrate: modeContextState.tickrate,
+        modes_list_string: modeContextState.kzMode,
+      }
+
+  const [apiOptions, setApiOptions] = useState(apiOpt)
+
   const { error, isLoaded, data } = useApiRequest(
     '/records/top/recent',
     apiOptions

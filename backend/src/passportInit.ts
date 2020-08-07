@@ -3,10 +3,10 @@ import { Strategy } from 'passport-steam'
 import { production, STEAM_API_KEY } from './util/secrets'
 import { db } from './db/db'
 
-const realm = production ? 'https://kzstats.com/' : 'https://localhost/'
+const realm = production ? 'https://kzstats.com/' : 'https://localhost:3001/'
 const returnURL = production
   ? 'https://kzstats.com/api/auth/return/'
-  : 'https://localhost/api/auth/return/'
+  : 'https://localhost:3001/api/auth/return/'
 
 passport.serializeUser((user, done) => {
   done(null, user)
@@ -28,9 +28,12 @@ passport.use(
         return db('kzstats_user')
           .where('steamid64', profile.id)
           .then(function (data) {
-            profile.admin = data.length > 0
+            profile.data = data
             profile.identifier = identifier
             return done(null, profile)
+          })
+          .catch((e: Error) => {
+            console.log(e.message)
           })
       })
     }

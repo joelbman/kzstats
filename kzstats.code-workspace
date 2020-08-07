@@ -9,7 +9,8 @@
       "**/node_modules": true,
       "**/tailwind.output.css": true,
       "**/package-lock.json": true,
-      "**/yarn.lock": true
+      "**/yarn.lock": true,
+      "backend/dist": true
     }
   }
 }
