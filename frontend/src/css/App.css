@@ -8,6 +8,7 @@
 }
 
 body {
+  @apply flex flex-col min-h-screen bg-gray-700 text-gray-600;
   font-family: 'Jaldi', sans-serif;
 }
 

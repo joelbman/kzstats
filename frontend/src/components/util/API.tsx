@@ -1,16 +1,22 @@
 import axios from 'axios'
 
-const devConfig = {
+const devCfg = {
   baseURL: 'https://staging.kztimerglobal.com/api/v2/',
   headers: { 'X-ApiKey': process.env.REACT_APP_API_KEY },
-  responseType: 'json',
+  responseType: 'json' as 'json',
 }
-const prodConfig = {
+const prodCfg = {
   baseURL: 'https://kztimerglobal.com/api/v2/',
-  responseType: 'json',
+  responseType: 'json' as 'json',
+}
+const localCfg = {
+  baseURL: '/',
+  responseType: 'json' as 'json',
 }
 
-let config = {}
-config = process.env.NODE_ENV === 'production' ? prodConfig : devConfig
+const globalApiCfg = process.env.NODE_ENV === 'production' ? prodCfg : devCfg
 
-export default axios.create(config)
+const globalAPI = axios.create(globalApiCfg)
+const localAPI = axios.create(localCfg)
+
+export { globalAPI, localAPI }

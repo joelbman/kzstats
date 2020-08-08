@@ -1,42 +1,60 @@
-import React, { useState } from 'react'
-import NavBar from './components/navbar/NavBar'
-import ContentWrapper from './components/ContentWrapper'
-import Footer from './components/Footer'
-import { BrowserRouter } from 'react-router-dom'
-import { Helmet } from 'react-helmet'
-import useBodyClass from './components/util/useBodyClass'
-import { ModeContext } from './context/ModeContext'
 import './tailwind.output.css'
 
+import ContentWrapper from 'components/ContentWrapper'
+import Footer from 'components/Footer'
+import NavBar from 'components/navbar/NavBar'
+import useApiRequest from 'components/util/useApiRequest'
+import { ModeContext } from 'context/ModeContext'
+import { UserContext } from 'context/UserContext'
+import User from 'models/User'
+import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
+import { BrowserRouter } from 'react-router-dom'
+
 const App = () => {
-  useBodyClass([
-    'flex',
-    'flex-col',
-    'min-h-screen',
-    'bg-gray-700',
-    'text-gray-600',
-  ])
   const [modeState, setModeState] = useState({
     kzMode: localStorage.getItem('kzMode') || 'kz_timer',
     tickrate: localStorage.getItem('tickrate') || '128',
   })
-  const dispatchModeState = (mode: string, tick: string) => {
+  const [userState, setUserState] = useState({})
+  const dispatchMode = (mode: string, tick: string) => {
     setModeState({ kzMode: mode, tickrate: tick })
   }
+  const dispatchUser = (user: User) => {
+    setUserState(user)
+  }
+
+  const { data } = useApiRequest('api/auth/account', {}, true)
+
+  useEffect(() => {
+    if (!data.id) return
+    dispatchUser({
+      steamid32: data.userObj.steamid32,
+      steamid64: data.id,
+      country: data.userObj.country,
+      countryCode: data.userObj.countrycode,
+      alias: data.userObj.alias,
+      avatarUrl: data.photos[0].url,
+    })
+  }, [data])
 
   return (
     <>
       <Helmet htmlAttributes={{ lang: 'en' }} />
       <BrowserRouter>
-        <ModeContext.Provider
-          value={{
-            modeContextState: modeState,
-            modeContextDispatch: dispatchModeState,
-          }}
+        <UserContext.Provider
+          value={{ userCtx: userState, userCtxDispatch: dispatchUser }}
         >
-          <NavBar></NavBar>
-          <ContentWrapper></ContentWrapper>
-        </ModeContext.Provider>
+          <ModeContext.Provider
+            value={{
+              modeCtxState: modeState,
+              modeCtxDispatch: dispatchMode,
+            }}
+          >
+            <NavBar></NavBar>
+            <ContentWrapper></ContentWrapper>
+          </ModeContext.Provider>
+        </UserContext.Provider>
       </BrowserRouter>
       <Footer></Footer>
     </>

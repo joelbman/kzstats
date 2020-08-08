@@ -1,8 +1,11 @@
+import { ModeContext } from 'context/ModeContext'
 import React, { useContext } from 'react'
-import { ModeContext } from '../../context/ModeContext'
 
 const NavModeSelect = () => {
-  const { modeContextState, modeContextDispatch } = useContext(ModeContext)
+  const {
+    modeCtxState: modeContextState,
+    modeCtxDispatch: modeContextDispatch,
+  } = useContext(ModeContext)
 
   const changeMode = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const tick =

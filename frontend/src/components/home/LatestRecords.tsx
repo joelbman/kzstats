@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react'
-import useApiRequest from 'components/util/useApiRequest'
-import RecordBlock from './RecordBlock'
-import Record from 'models/Record'
 import Panel from 'components/general/Panel'
+import useApiRequest from 'components/util/useApiRequest'
 import { ModeContext } from 'context/ModeContext'
+import Record from 'models/Record'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import RecordBlock from './RecordBlock'
 
 interface Props {
   myRecords?: boolean
 }
 
 const LatestRecords = (props: Props) => {
-  const { modeContextState } = useContext(ModeContext)
+  const { modeCtxState: modeContextState } = useContext(ModeContext)
   // const { userCtx } = useContext(UserContext)
   let apiOpt = props.myRecords
     ? {
@@ -57,7 +57,7 @@ const LatestRecords = (props: Props) => {
     const filtered = data
       .slice()
       .filter(
-        (v: Record, i, a) =>
+        (v: Record, i: number, a: []) =>
           a.findIndex(
             (t: Record) =>
               t.map_id === v.map_id && t.player_name === v.player_name

@@ -1,10 +1,10 @@
-import React, { useState, useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import { Img } from 'react-image'
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
+import useApiRequest from '../../util/useApiRequest'
 import PlayerJumpStats from './PlayerJumpStats'
 import PlayerRecords from './PlayerRecords'
-import useApiRequest from '../../util/useApiRequest'
-import { Img } from 'react-image'
 
 interface Player {
   steamid64: string

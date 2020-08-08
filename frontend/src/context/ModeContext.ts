@@ -1,11 +1,11 @@
 import React from 'react'
 
 const ModeContext = React.createContext({
-  modeContextState: {
+  modeCtxState: {
     kzMode: '',
     tickrate: '',
   },
-  modeContextDispatch: (mode: string, tickrate: string) => {},
+  modeCtxDispatch: (mode: string, tickrate: string) => {},
 })
 
 export { ModeContext }

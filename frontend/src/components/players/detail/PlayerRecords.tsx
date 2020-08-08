@@ -1,15 +1,15 @@
-import React, { useState, useContext, useEffect } from 'react'
-import useApiRequest from '../../util/useApiRequest'
+import React, { useContext, useEffect, useState } from 'react'
 import { ModeContext } from '../../../context/ModeContext'
 import Record from '../../../models/Record'
 import RunTimeFormatter from '../../util/RunTimeFormatter'
+import useApiRequest from '../../util/useApiRequest'
 
 interface Props {
   steamid64: string
 }
 
 const PlayerRecords = (props: Props) => {
-  const { modeContextState: ctx } = useContext(ModeContext)
+  const { modeCtxState: ctx } = useContext(ModeContext)
   const [apiOptions, setApiOptions] = useState({
     steamid64: props.steamid64,
     modes_list_string: ctx.kzMode,

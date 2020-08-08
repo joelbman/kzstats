@@ -29,11 +29,6 @@ app.use(
 
 app.use(passport.initialize())
 app.use(passport.session())
-
-app.use(function (req, res, next) {
-  res.contentType('application/json')
-  next()
-})
 app.use('/api', router)
 
 https.createServer(httpsOptions, app).listen(app.get('port'), () => {

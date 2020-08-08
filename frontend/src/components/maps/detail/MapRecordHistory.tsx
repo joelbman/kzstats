@@ -1,8 +1,8 @@
-import React, { useState, useMemo, useContext, useEffect } from 'react'
-import useApiRequest from '../../util/useApiRequest'
-import Record from '../../../models/Record'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
 import { ModeContext } from '../../../context/ModeContext'
+import Record from '../../../models/Record'
+import useApiRequest from '../../util/useApiRequest'
 
 interface Props {
   mapname: string
@@ -13,7 +13,7 @@ interface ChartObj {
 }
 
 const MapRecordHistory = ({ mapname }: Props) => {
-  const { modeContextState: ctx } = useContext(ModeContext)
+  const { modeCtxState: ctx } = useContext(ModeContext)
   const [apiOptions, setApiOptions] = useState({
     map_name: mapname,
     stage: 0,

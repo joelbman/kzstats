@@ -1,16 +1,16 @@
 import React, { useContext, useState } from 'react'
-import useApiRequest from '../../util/useApiRequest'
 import { ModeContext } from '../../../context/ModeContext'
-import Table from '../../general/Table'
 import Record from '../../../models/Record'
+import Table from '../../general/Table'
 import RunTimeFormatter from '../../util/RunTimeFormatter'
+import useApiRequest from '../../util/useApiRequest'
 
 interface Props {
   mapname: string
 }
 
 const MapRecords = ({ mapname }: Props) => {
-  const { modeContextState } = useContext(ModeContext)
+  const { modeCtxState: modeContextState } = useContext(ModeContext)
   const [apiOptions] = useState({
     limit: 50,
     map_name: mapname,

@@ -11,18 +11,23 @@ const checkAuth = (req: Request, res: Response, next: NextFunction) => {
 
 router.get(
   '/return',
-  function (req, res, next) {
+  (req, res, next) => {
     req.url = req.originalUrl
     next()
   },
   passport.authenticate('steam', { failureRedirect: '/' }),
-  function (req, res) {
+  (req, res) => {
     res.redirect('/')
   }
 )
 
 router.get('/account', checkAuth, (req, res) => {
   res.json(req.user)
+})
+
+router.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect('/')
 })
 
 router.get('/', passport.authenticate('steam'), () => {

@@ -1,7 +1,7 @@
-import React, { useState, useContext, useMemo } from 'react'
-import useApiRequest from '../../util/useApiRequest'
-import Table from '../../general/Table'
+import React, { useContext, useMemo, useState } from 'react'
 import { ModeContext } from '../../../context/ModeContext'
+import Table from '../../general/Table'
+import useApiRequest from '../../util/useApiRequest'
 
 interface Props {
   pro?: boolean
@@ -28,7 +28,7 @@ const PlayersTopWorldRecords = (props: Props) => {
     }
   }
 
-  const { modeContextState: ctx } = useContext(ModeContext)
+  const { modeCtxState: ctx } = useContext(ModeContext)
   const [apiOptions, setApiOptions] = useState({
     limit: props.limit || 20,
     mode_ids: modeNameToId(ctx.kzMode),

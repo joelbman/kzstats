@@ -1,8 +1,8 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import MapRecords from './MapRecords'
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import MapRecordHistory from './MapRecordHistory'
-import { TabList, Tabs, Tab, TabPanel } from 'react-tabs'
+import MapRecords from './MapRecords'
 
 interface Props {
   match: { params: { mapname: string } }

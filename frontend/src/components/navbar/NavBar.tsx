@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import NavModeSelect from './NavModeSelect'
 import NavSearchBar from './NavSearchBar'
 
