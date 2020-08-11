@@ -1,7 +1,8 @@
 import passport from 'passport'
 import { Strategy } from 'passport-steam'
-import { production, STEAM_API_KEY } from './util/secrets'
-import { db } from './db/db'
+import AuthService from 'services/AuthService'
+import { DoneFunction, PassportSteamProfile, UserObject } from 'types'
+import { STEAM_API_KEY, production } from './util/config'
 import logger from './util/logger'
 
 const realm = production ? 'https://kzstats.com/' : 'https://localhost:3001/'
@@ -24,42 +25,17 @@ passport.use(
       realm: realm,
       apiKey: STEAM_API_KEY,
     },
-    (identifier: any, profile: any, done: any) => {
+    (identifier: string, profile: PassportSteamProfile, done: DoneFunction) => {
       process.nextTick(() => {
-        return db('kzstats_user')
-          .where('steamid64', profile.id)
-          .then((data) => {
-            let userObj
-
-            // Handle new users
-            if (data.length === 0) {
-              let country = ''
-              const countryCode = profile._json.locCountryCode
-              if (countryCode) {
-                // eslint-disable-next-line @typescript-eslint/no-var-requires
-                const countryCodes = require('./util/countrycodes.json')
-                country = countryCodes[countryCode]
-              }
-
-              userObj = {
-                steamid64: profile.id,
-                alias: profile._json.displayName,
-                countrycode: countryCode,
-                country: country,
-              }
-              return db('kzstats_user').insert(userObj)
-            }
-            // Handle existing users
-            else {
-              userObj = data[0]
-            }
-
+        AuthService.handleLogin(profile)
+          .then((userObj: UserObject) => {
             profile.userObj = userObj
             profile.identifier = identifier
             return done(null, profile)
           })
           .catch((e: Error) => {
             logger.error(e.message)
+            return done(null, profile)
           })
       })
     }

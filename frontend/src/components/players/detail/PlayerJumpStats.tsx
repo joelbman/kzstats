@@ -1,5 +1,5 @@
+import useApiRequest from 'components/util/useApiRequest'
 import React, { useState } from 'react'
-import useApiRequest from '../../util/useApiRequest'
 
 interface Props {
   steamid64: string

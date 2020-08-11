@@ -1,5 +1,5 @@
 import Knex from 'knex'
-import { DB_CONFIG } from '../util/secrets'
+import { DB_CONFIG } from '../util/config'
 
 export const config = {
   client: 'mysql',

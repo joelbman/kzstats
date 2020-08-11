@@ -13,13 +13,13 @@ interface ChartObj {
 }
 
 const MapRecordHistory = ({ mapname }: Props) => {
-  const { modeCtxState: ctx } = useContext(ModeContext)
+  const { state: modeState } = useContext(ModeContext)
   const [apiOptions, setApiOptions] = useState({
     map_name: mapname,
     stage: 0,
     place_top_at_least: 1,
-    modes_list_string: ctx.kzMode,
-    tickrates: ctx.tickrate,
+    modes_list_string: modeState.kzMode,
+    tickrates: modeState.tickrate,
     has_teleports: false,
   })
   const { error, isLoaded, data } = useApiRequest(
@@ -101,11 +101,11 @@ const MapRecordHistory = ({ mapname }: Props) => {
       map_name: mapname,
       stage: 0,
       place_top_at_least: 1,
-      modes_list_string: ctx.kzMode,
-      tickrates: ctx.tickrate,
+      modes_list_string: modeState.kzMode,
+      tickrates: modeState.tickrate,
       has_teleports: false,
     })
-  }, [ctx.tickrate, ctx.kzMode, mapname])
+  }, [modeState.tickrate, modeState.kzMode, mapname])
 
   if (error) return <div>Error: {error.message}</div>
   if (!isLoaded) return <div className="loader"></div>

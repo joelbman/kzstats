@@ -3,7 +3,7 @@ import * as Knex from 'knex'
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('kzstats_user', function (table) {
     table.increments()
-    table.string('steamid64', 20).notNullable()
+    table.string('steamid64', 20).notNullable().unique()
     table.string('steamid32', 30).nullable()
     table.string('country', 50).nullable()
     table.string('countrycode', 5).nullable()

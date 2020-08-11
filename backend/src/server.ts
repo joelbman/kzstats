@@ -1,13 +1,12 @@
+import { readFileSync } from 'fs'
 import * as https from 'https'
-
-import { SESSION_SECRET } from './util/secrets'
+import path from 'path'
 import bodyParser from 'body-parser'
 import express from 'express'
-import passport from './passportInit'
-import path from 'path'
-import { readFileSync } from 'fs'
 import session from 'express-session'
+import passport from './passportInit'
 import router from './router'
+import { SESSION_SECRET } from './util/config'
 
 const app = express()
 

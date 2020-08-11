@@ -28,11 +28,11 @@ const PlayersTopWorldRecords = (props: Props) => {
     }
   }
 
-  const { modeCtxState: ctx } = useContext(ModeContext)
+  const { state: modeState } = useContext(ModeContext)
   const [apiOptions, setApiOptions] = useState({
     limit: props.limit || 20,
-    mode_ids: modeNameToId(ctx.kzMode),
-    tickrates: ctx.tickrate || 128,
+    mode_ids: modeNameToId(modeState.kzMode),
+    tickrates: modeState.tickrate || 128,
     has_teleports: props.pro ? true : undefined,
   })
 
@@ -44,11 +44,11 @@ const PlayersTopWorldRecords = (props: Props) => {
   useMemo(() => {
     setApiOptions({
       limit: props.limit || 20,
-      mode_ids: modeNameToId(ctx.kzMode),
-      tickrates: ctx.tickrate || 128,
+      mode_ids: modeNameToId(modeState.kzMode),
+      tickrates: modeState.tickrate || 128,
       has_teleports: props.pro ? true : undefined,
     })
-  }, [ctx.kzMode, ctx.tickrate])
+  }, [modeState.kzMode, modeState.tickrate])
 
   if (error && error.message) return <div>Error: {error.message}</div>
   if (!isLoaded)

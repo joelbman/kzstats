@@ -16,17 +16,21 @@ const App = () => {
     kzMode: localStorage.getItem('kzMode') || 'kz_timer',
     tickrate: localStorage.getItem('tickrate') || '128',
   })
-  const [userState, setUserState] = useState({})
+  const [userState, setUserState] = useState<User | null>(null)
   const dispatchMode = (mode: string, tick: string) => {
     setModeState({ kzMode: mode, tickrate: tick })
   }
-  const dispatchUser = (user: User) => {
+  const dispatchUser = (user: User | null) => {
     setUserState(user)
   }
 
-  const { data } = useApiRequest('api/auth/account', {}, true)
+  const { error, data } = useApiRequest('api/auth/account', {}, true)
 
   useEffect(() => {
+    if (error) {
+      dispatchUser(null)
+      return
+    }
     if (!data.id) return
     dispatchUser({
       steamid32: data.userObj.steamid32,
@@ -36,19 +40,19 @@ const App = () => {
       alias: data.userObj.alias,
       avatarUrl: data.photos[0].url,
     })
-  }, [data])
+  }, [data, error])
 
   return (
     <>
       <Helmet htmlAttributes={{ lang: 'en' }} />
       <BrowserRouter>
         <UserContext.Provider
-          value={{ userCtx: userState, userCtxDispatch: dispatchUser }}
+          value={{ user: userState, dispatch: dispatchUser }}
         >
           <ModeContext.Provider
             value={{
-              modeCtxState: modeState,
-              modeCtxDispatch: dispatchMode,
+              state: modeState,
+              dispatch: dispatchMode,
             }}
           >
             <NavBar></NavBar>

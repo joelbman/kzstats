@@ -2,21 +2,17 @@ import { ModeContext } from 'context/ModeContext'
 import React, { useContext } from 'react'
 
 const NavModeSelect = () => {
-  const {
-    modeCtxState: modeContextState,
-    modeCtxDispatch: modeContextDispatch,
-  } = useContext(ModeContext)
+  const { state: modeState, dispatch: modeDispatch } = useContext(ModeContext)
 
   const changeMode = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const tick =
-      event.target.value !== 'kz_timer' ? '128' : modeContextState.tickrate
+    const tick = event.target.value !== 'kz_timer' ? '128' : modeState.tickrate
     localStorage.setItem('kzMode', event.target.value)
     localStorage.setItem('tickrate', tick)
-    modeContextDispatch(event.target.value, tick)
+    modeDispatch(event.target.value, tick)
   }
 
   const changeTickrate = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    modeContextDispatch(modeContextState.kzMode, event.target.value)
+    modeDispatch(modeState.kzMode, event.target.value)
     localStorage.setItem('tickrate', event.target.value)
   }
 
@@ -25,7 +21,7 @@ const NavModeSelect = () => {
       <div style={{ width: '10rem' }}>
         Mode:
         <select
-          value={modeContextState.kzMode}
+          value={modeState.kzMode}
           onChange={changeMode}
           className="border-black border-2 mr-4 ml-2 bg-gray-700 rounded-lg text-gray-400"
         >
@@ -34,11 +30,11 @@ const NavModeSelect = () => {
           <option value="kz_vanilla">Vanilla</option>
         </select>
       </div>
-      {modeContextState.kzMode === 'kz_timer' && (
+      {modeState.kzMode === 'kz_timer' && (
         <div style={{ width: '9rem' }}>
           Tick:
           <select
-            value={modeContextState.tickrate}
+            value={modeState.tickrate}
             onChange={changeTickrate}
             className="border-black border-2 mr-4 ml-2 bg-gray-700 rounded-lg text-gray-400"
           >

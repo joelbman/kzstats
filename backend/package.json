@@ -14,12 +14,13 @@
     "start": "npm run serve",
     "test": "jest --forceExit --coverage --verbose",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \",cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
-    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\"",
+    "watch-debug": "npm run postbuild && concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\"",
     "watch-node": "nodemon dist/server.js",
     "watch-test": "npm run test -- --watchAll",
     "watch-ts": "tsc -w",
     "seed": "npx knex seed:run --knexfile ./src/db/knexfile.ts",
-    "migrate": "npx knex migrate:latest --knexfile ./src/db/knexfile.ts"
+    "migrate": "npx knex migrate:latest --knexfile ./src/db/knexfile.ts",
+    "postbuild": "cpy --cwd=src --parents \"**/*.json\" \"../dist/\""
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -47,17 +48,11 @@
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
     "concurrently": "^5.2.0",
+    "cpy-cli": "^3.1.1",
     "eslint": "^7.4.0",
     "jest": "^24.1.0",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
     "typescript": "~3.7.2"
-  },
-  "importSort": {
-    ".ts, .tsx": {
-      "parser": "typescript",
-      "style": "module-compact",
-      "options": {}
-    }
   }
 }

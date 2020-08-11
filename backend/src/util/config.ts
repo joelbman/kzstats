@@ -1,6 +1,6 @@
-import logger from './logger'
-import dotenv from 'dotenv'
 import path from 'path'
+import dotenv from 'dotenv'
+import logger from './logger'
 
 let denv = dotenv.config({ path: path.join(process.cwd(), '.env') })
 if (denv.error) {

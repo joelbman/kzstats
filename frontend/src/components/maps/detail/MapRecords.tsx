@@ -1,21 +1,21 @@
+import Table from 'components/general/Table'
+import RunTimeFormatter from 'components/util/RunTimeFormatter'
+import useApiRequest from 'components/util/useApiRequest'
+import { ModeContext } from 'context/ModeContext'
+import Record from 'models/Record'
 import React, { useContext, useState } from 'react'
-import { ModeContext } from '../../../context/ModeContext'
-import Record from '../../../models/Record'
-import Table from '../../general/Table'
-import RunTimeFormatter from '../../util/RunTimeFormatter'
-import useApiRequest from '../../util/useApiRequest'
 
 interface Props {
   mapname: string
 }
 
 const MapRecords = ({ mapname }: Props) => {
-  const { modeCtxState: modeContextState } = useContext(ModeContext)
+  const { state: modeState } = useContext(ModeContext)
   const [apiOptions] = useState({
     limit: 50,
     map_name: mapname,
-    modes_list_string: modeContextState.kzMode,
-    tickrate: modeContextState.tickrate,
+    modes_list_string: modeState.kzMode,
+    tickrate: modeState.tickrate,
   })
   const { error, isLoaded, data } = useApiRequest('records/top', apiOptions)
 

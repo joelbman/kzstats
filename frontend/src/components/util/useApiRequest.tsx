@@ -13,7 +13,7 @@ const useApiRequest = (url: string, params: object, local?: boolean) => {
   useEffect(() => {
     setIsLoaded(false)
     instance
-      .get(url, { params: ref })
+      .get(url, { params: ref.current })
       .then((response) => {
         setIsLoaded(true)
         setError(null)

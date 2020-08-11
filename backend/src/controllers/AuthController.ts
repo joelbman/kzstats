@@ -1,5 +1,9 @@
-import express, { Request, Response, NextFunction } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import passport from 'passport'
+import AuthService from 'services/AuthService'
+import { PassportSteamProfile } from 'types'
+import logger from 'util/logger'
+
 const router = express.Router()
 
 const checkAuth = (req: Request, res: Response, next: NextFunction) => {
@@ -9,23 +13,36 @@ const checkAuth = (req: Request, res: Response, next: NextFunction) => {
   return next()
 }
 
+// (req, res, next) => {
+//   req.url = req.originalUrl
+//   next()
+// },
+
 router.get(
   '/return',
-  (req, res, next) => {
-    req.url = req.originalUrl
-    next()
-  },
+
   passport.authenticate('steam', { failureRedirect: '/' }),
   (req, res) => {
     res.redirect('/')
   }
 )
 
-router.get('/account', checkAuth, (req, res) => {
+router.get('/profile', checkAuth, (req, res) => {
   res.json(req.user)
 })
 
-router.get('/logout', (req, res) => {
+router.put('/profile', checkAuth, (req, res) => {
+  AuthService.editProfile(req.user as PassportSteamProfile, req.body)
+    .then((data) => {
+      res.json(data)
+    })
+    .catch((e: Error) => {
+      logger.error(e.message)
+      res.sendStatus(400)
+    })
+})
+
+router.get('/logout', checkAuth, (req, res) => {
   req.logout()
   res.redirect('/')
 })

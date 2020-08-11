@@ -1,19 +1,19 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { Route, Switch } from 'react-router-dom'
-import MapListView from './maps/list/MapListView'
-import PlayerListView from './players/list/PlayerListView'
 import BanListView from './bans/BanListView'
 import HomeView from './home/HomeView'
 import JumpStatsView from './jumpstats/JumpStatsView'
-import { Helmet } from 'react-helmet'
-import SearchView from './search/SearchView'
-import PlayerDetailView from './players/detail/PlayerDetailView'
 import MapDetailView from './maps/detail/MapDetailView'
+import MapListView from './maps/list/MapListView'
+import PlayerDetailView from './players/detail/PlayerDetailView'
+import PlayerListView from './players/list/PlayerListView'
+import SearchView from './search/SearchView'
 
 const ContentWrapper = () => {
   return (
     <main
-      className="flex-grow w-full text-gray-200 ml-5 mr-5 mt-20 mb-20 pr-8 lg:pl-24 lg:pr-20"
+      className="flex-grow w-full text-gray-200 ml-5 mr-5 mt-20 mb-20 pr-8 lg:pl-16 lg:pr-20"
       style={{ minHeight: '85vh' }}
     >
       <Helmet defaultTitle="KZStats" titleTemplate="%s - KZStats" />

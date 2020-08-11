@@ -2,11 +2,15 @@ import React from 'react'
 
 interface Props {
   header: () => {}
+  className?: string
 }
 
 const Panel: React.FC<Props> = (props) => {
+  let classes = 'w-full bg-gray-800 h-auto border-2 border-black mr-4'
+  if (props.className) classes = classes.concat(` ${props.className}`)
+  console.log(classes)
   return (
-    <div className="w-full bg-gray-800 h-auto border-2 border-black rounded mr-4">
+    <div className={classes}>
       <div className="bg-gray-900 px-4 py-3 border-solid border-black border-b font-bold text-xl">
         {props.header()}
       </div>

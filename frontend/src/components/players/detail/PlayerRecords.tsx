@@ -9,10 +9,10 @@ interface Props {
 }
 
 const PlayerRecords = (props: Props) => {
-  const { modeCtxState: ctx } = useContext(ModeContext)
+  const { state: modeState } = useContext(ModeContext)
   const [apiOptions, setApiOptions] = useState({
     steamid64: props.steamid64,
-    modes_list_string: ctx.kzMode,
+    modes_list_string: modeState.kzMode,
   })
   const { error, isLoaded, data } = useApiRequest('/records/top/', apiOptions)
   const [records, setRecords] = useState<Record[]>([])

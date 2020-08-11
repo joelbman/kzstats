@@ -1,6 +1,7 @@
 import Panel from 'components/general/Panel'
 import useApiRequest from 'components/util/useApiRequest'
 import { ModeContext } from 'context/ModeContext'
+import { UserContext } from 'context/UserContext'
 import Record from 'models/Record'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import RecordBlock from './RecordBlock'
@@ -10,23 +11,23 @@ interface Props {
 }
 
 const LatestRecords = (props: Props) => {
-  const { modeCtxState: modeContextState } = useContext(ModeContext)
-  // const { userCtx } = useContext(UserContext)
+  const { state: modeState } = useContext(ModeContext)
+  const userCtx = useContext(UserContext)
   let apiOpt = props.myRecords
     ? {
         limit: 300,
         place_top_at_least: 20,
         has_teleports: false,
-        tickrate: modeContextState.tickrate,
-        modes_list_string: modeContextState.kzMode,
-        steamid64: 'xxx',
+        tickrate: modeState.tickrate,
+        modes_list_string: modeState.kzMode,
+        steamid64: userCtx?.user?.steamid64,
       }
     : {
         limit: 300,
         place_top_at_least: 20,
         has_teleports: false,
-        tickrate: modeContextState.tickrate,
-        modes_list_string: modeContextState.kzMode,
+        tickrate: modeState.tickrate,
+        modes_list_string: modeState.kzMode,
       }
 
   const [apiOptions, setApiOptions] = useState(apiOpt)
@@ -47,26 +48,26 @@ const LatestRecords = (props: Props) => {
       limit: 300,
       place_top_at_least: 20,
       has_teleports: false,
-      modes_list_string: modeContextState.kzMode,
-      tickrate: modeContextState.tickrate,
+      modes_list_string: modeState.kzMode,
+      tickrate: modeState.tickrate,
     })
-  }, [modeContextState.kzMode, modeContextState.tickrate])
+  }, [modeState.kzMode, modeState.tickrate])
 
   useEffect(() => {
     // remove duplicate map+player combos and keep the newest one
-    const filtered = data
-      .slice()
-      .filter(
-        (v: Record, i: number, a: []) =>
-          a.findIndex(
-            (t: Record) =>
-              t.map_id === v.map_id && t.player_name === v.player_name
-          ) === i
-      )
-      .reverse()
+    const filterRecords = () => {
+      const filtered = data
+        .slice()
+        .filter(
+          (r: Record, i: number, a: []) =>
+            a.findIndex(
+              (re: Record) =>
+                re.map_id === r.map_id && re.player_name === r.player_name
+            ) === i
+        )
+        .reverse()
 
-    setItems(
-      filtered
+      return filtered
         .filter((r: Record) => {
           if (wrOnly) return r.place === 1
           else return true
@@ -78,16 +79,17 @@ const LatestRecords = (props: Props) => {
         })
         .reverse()
         .slice(0, 50)
-    )
+    }
+
+    setItems(filterRecords)
   }, [data, wrOnly])
 
-  if (error && error.message) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div className="loader"></div>
+  if (error?.message) return <div>Error: {error.message}</div>
 
   const panelHeader = () => {
     return (
       <>
-        New records
+        {props.myRecords ? 'My records' : 'Global records'}
         <div className="float-right">
           <input type="checkbox" onChange={toggleWROnly} checked={wrOnly} /> WRs
           only
@@ -98,9 +100,15 @@ const LatestRecords = (props: Props) => {
 
   return (
     <Panel header={panelHeader}>
-      {items.map((record: Record) => (
-        <RecordBlock record={record} key={record.id} />
-      ))}
+      {!isLoaded ? (
+        <div className="loader"></div>
+      ) : items.length > 0 ? (
+        items.map((record: Record) => (
+          <RecordBlock record={record} key={record.id} />
+        ))
+      ) : (
+        <p>No records found.</p>
+      )}
     </Panel>
   )
 }
