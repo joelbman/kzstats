@@ -1,5 +1,5 @@
-import { db } from 'db/db'
 import { PassportSteamProfile, UserObject } from 'types'
+import { db } from '../db/db'
 
 class AuthService {
   static editProfile = (

@@ -1,0 +1,13 @@
+td {
+  padding: 5px;
+  padding-left: 8px;
+}
+
+th input {
+  width: 100px;
+}
+
+th {
+  padding: 5px;
+  padding-left: 8px;
+}

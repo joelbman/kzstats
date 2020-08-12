@@ -24,7 +24,7 @@ const App = () => {
     setUserState(user)
   }
 
-  const { error, data } = useApiRequest('api/auth/account', {}, true)
+  const { error, data } = useApiRequest('api/auth/profile', {}, true)
 
   useEffect(() => {
     if (error) {
@@ -38,7 +38,8 @@ const App = () => {
       country: data.userObj.country,
       countryCode: data.userObj.countrycode,
       alias: data.userObj.alias,
-      avatarUrl: data.photos[0].url,
+      avatarSmall: data.photos[0].value,
+      avatarMedium: data.photos[1].value,
     })
   }, [data, error])
 

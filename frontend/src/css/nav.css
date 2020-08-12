@@ -1,0 +1,18 @@
+nav a {
+  @apply block mt-4 text-teal-200 mr-4;
+}
+
+nav a:hover {
+  color: #fff;
+  font-weight: bold;
+}
+
+@media (min-width: 1024px) {
+  nav a {
+    @apply inline-block mt-0;
+  }
+
+  nav a:last-child {
+    @apply mr-0;
+  }
+}

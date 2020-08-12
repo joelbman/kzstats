@@ -1,8 +1,8 @@
 import express, { NextFunction, Request, Response } from 'express'
 import passport from 'passport'
-import AuthService from 'services/AuthService'
 import { PassportSteamProfile } from 'types'
-import logger from 'util/logger'
+import AuthService from '../services/AuthService'
+import logger from '../util/logger'
 
 const router = express.Router()
 

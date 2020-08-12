@@ -1,7 +1,7 @@
 import passport from 'passport'
 import { Strategy } from 'passport-steam'
-import AuthService from 'services/AuthService'
 import { DoneFunction, PassportSteamProfile, UserObject } from 'types'
+import AuthService from './services/AuthService'
 import { STEAM_API_KEY, production } from './util/config'
 import logger from './util/logger'
 

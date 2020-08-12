@@ -1,6 +1,8 @@
-@tailwind base;
-
-@import 'css/spinner.css';
+@import 'tailwindcss/base';
+@import 'spinner.css';
+@import 'table.css';
+@import 'form.css';
+@import 'nav.css';
 
 @font-face {
   font-family: Jaldi;
@@ -25,24 +27,6 @@ h1 small {
   font-weight: normal;
 }
 
-td {
-  padding: 5px;
-  padding-left: 8px;
-}
-
-th input {
-  width: 100px;
-}
-
-th {
-  padding: 5px;
-  padding-left: 8px;
-}
-
-select {
-  padding: 4px;
-}
-
 main a {
   font-weight: bold;
   color: #b2cdeb;
@@ -52,22 +36,8 @@ main a:hover {
   color: #fff;
 }
 
-input {
-  @apply bg-gray-900 text-gray-300 pl-2 pr-2 border-2 border-black;
-}
-
 .texticon {
   @apply inline w-4 h-4 fill-current mr-2;
-}
-
-input:focus {
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-  outline: 0;
-}
-
-select:focus {
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-  outline: 0;
 }
 
 @tailwind components;

@@ -1,0 +1,17 @@
+input {
+  @apply bg-gray-900 text-gray-300 pl-2 pr-2 border-2 border-black;
+}
+
+input:focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  outline: 0;
+}
+
+select:focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  outline: 0;
+}
+
+select {
+  padding: 4px;
+}

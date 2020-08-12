@@ -3,6 +3,7 @@ export default interface User {
   steamid32: string
   country: string
   countryCode: string
-  avatarUrl: string
+  avatarSmall: string
+  avatarMedium: string
   alias: string
 }
