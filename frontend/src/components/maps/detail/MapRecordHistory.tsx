@@ -111,6 +111,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
   if (!isLoaded) return <div className="loader"></div>
   return (
     <div>
+      <h2>World record history</h2>
       {data.length > 0 ? (
         <ReactApexChart
           options={graphOptions}

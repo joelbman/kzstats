@@ -8,7 +8,11 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {},
+      colors: {
+        'gray-650': '#65748a',
+        'gray-750': '#3d4759',
+        'gray-850': '#242d3d',
+      },
       fontFamily: {
         sans: ['Jaldi', 'sans', 'sans-serif', 'Arial'],
       },

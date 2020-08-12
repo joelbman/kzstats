@@ -1,5 +1,5 @@
-input {
-  @apply bg-gray-900 text-gray-300 pl-2 pr-2 border-2 border-black;
+main input {
+  @apply bg-gray-900 text-gray-300 pl-2 pr-2 border-2 border-black rounded ml-2;
 }
 
 input:focus {

@@ -43,7 +43,7 @@ const RecordBlock = ({ record }: Props) => {
             <sup className="ml-2">#{record.place}</sup>
           )}
         </p>
-        by <a href={`/players/${record.steamid64}`}>{record.player_name}</a>
+        by <Link to={`/players/${record.steamid64}`}>{record.player_name}</Link>
         <br />
         <TimeAgoFormatter datetime={record.updated_on} />
       </div>

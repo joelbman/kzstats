@@ -1,0 +1,29 @@
+.tab-main {
+  @apply border-2 border-black;
+}
+
+.tab-main ul {
+  @apply bg-gray-900 h-12 list-none align-middle border-b-2 border-black table table-fixed w-full;
+}
+
+.react-tabs__tab {
+  @apply table-cell h-full pl-4 pr-4 w-48 align-middle border-r-2 border-black;
+}
+
+.react-tabs__tab:hover {
+  @apply bg-blue-800 font-bold cursor-pointer;
+}
+
+.tab-filler {
+  @apply table-cell h-full pl-4 pr-4;
+}
+
+.react-tabs__tab-panel {
+  @apply bg-gray-800 p-4;
+}
+
+@media screen and (max-width: 650px) {
+  .react-tabs__tab {
+    @apply w-24;
+  }
+}

@@ -1,13 +1,19 @@
 td {
-  padding: 5px;
-  padding-left: 8px;
+  @apply p-2;
+}
+
+th {
+  @apply p-2;
 }
 
 th input {
   width: 100px;
 }
 
-th {
-  padding: 5px;
-  padding-left: 8px;
+tbody tr {
+  @apply bg-gray-850;
+}
+
+tbody tr:nth-child(odd) {
+  @apply bg-gray-800;
 }

@@ -1,3 +1,6 @@
+import ChartIcon from 'components/icons/ChartIcon'
+import JumpIcon from 'components/icons/JumpIcon'
+import TrophyIcon from 'components/icons/TrophyIcon'
 import React, { useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Img } from 'react-image'
@@ -55,23 +58,27 @@ const PlayerDetailView = (props: Props) => {
         </div>
       </div>
       <div className="flex-grow mt-8">
-        <Tabs className="border-2 border-black w-full">
-          <TabList className="bg-gray-900 h-12 list-none align-middle border-b-2 border-black table w-full">
-            <Tab className="table-cell h-full pl-4 pr-4 hover:bg-teal-900 hover:font-bold align-middle border-r-2 border-black">
+        <Tabs className="tab-main">
+          <TabList>
+            <Tab>
+              <TrophyIcon />
               Records
             </Tab>
-            <Tab className="table-cell h-full pl-4 pr-4 hover:bg-teal-900 hover:font-bold align-middle border-r-2 border-black">
+            <Tab>
+              <JumpIcon />
               Jumpstats
             </Tab>
-            <Tab className="table-cell h-full pl-4 pr-4 hover:bg-teal-900 hover:font-bold align-middle">
+            <Tab>
+              <ChartIcon />
               Statistics
             </Tab>
+            <Tab className="tab-filler"></Tab>
           </TabList>
 
-          <TabPanel className="bg-gray-800 p-4">
+          <TabPanel>
             <PlayerRecords steamid64={steamid64} />
           </TabPanel>
-          <TabPanel className="bg-gray-800 p-4">
+          <TabPanel>
             <PlayerJumpStats steamid64={steamid64} />
           </TabPanel>
         </Tabs>

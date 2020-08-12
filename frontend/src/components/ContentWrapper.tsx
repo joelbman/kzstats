@@ -14,7 +14,7 @@ import SearchView from './search/SearchView'
 const ContentWrapper = () => {
   return (
     <main
-      className="flex-grow w-full text-gray-200 ml-5 mr-5 mt-20 mb-20 pr-8 lg:pl-8 lg:pr-20"
+      className="flex-grow w-full text-gray-200 overflow-x-hidden ml-5 mr-5 mt-24 mb-20 pr-8 lg:pl-8 lg:pr-20"
       style={{ minHeight: '85vh' }}
     >
       <Helmet defaultTitle="KZStats" titleTemplate="%s - KZStats" />

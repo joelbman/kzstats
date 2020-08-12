@@ -1,4 +1,6 @@
+import Table from 'components/general/Table'
 import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ModeContext } from '../../../context/ModeContext'
 import Record from '../../../models/Record'
 import RunTimeFormatter from '../../util/RunTimeFormatter'
@@ -10,7 +12,7 @@ interface Props {
 
 const PlayerRecords = (props: Props) => {
   const { state: modeState } = useContext(ModeContext)
-  const [apiOptions, setApiOptions] = useState({
+  const [apiOptions] = useState({
     steamid64: props.steamid64,
     modes_list_string: modeState.kzMode,
   })
@@ -36,32 +38,31 @@ const PlayerRecords = (props: Props) => {
   return (
     <div>
       <h2>Records</h2>
-      Mapname: <input type="text" onChange={handleInput} />
+      Mapname:{' '}
+      <input
+        type="text"
+        onChange={handleInput}
+        maxLength={20}
+        className="w-40"
+      />
       {records.length > 0 ? (
-        <table>
-          <thead>
+        <Table
+          headers={['Mapname', 'Runtime', 'Date', 'Server']}
+          className="mt-4 w-full"
+        >
+          {records.map((r: Record) => (
             <tr>
-              <th>Mapname</th>
-              <th>Runtime</th>
-              <th>Date</th>
-              <th>Server</th>
+              <td>
+                <Link to={`/maps/${r.map_name}`}>{r.map_name}</Link>
+              </td>
+              <td>
+                <RunTimeFormatter time={r.time} />
+              </td>
+              <td>{r.updated_on.replace('T', ' ')}</td>
+              <td>{r.server_name}</td>
             </tr>
-          </thead>
-          <tbody>
-            {records.map((r: Record) => (
-              <tr>
-                <td>
-                  <a href={`/maps/${r.map_name}`}>{r.map_name}</a>
-                </td>
-                <td>
-                  <RunTimeFormatter time={r.time} />
-                </td>
-                <td>{r.updated_on}</td>
-                <td>{r.server_name}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          ))}
+        </Table>
       ) : (
         <p className="mt-4">No records found.</p>
       )}

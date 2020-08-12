@@ -3,6 +3,7 @@
 @import 'table.css';
 @import 'form.css';
 @import 'nav.css';
+@import 'tab.css';
 
 @font-face {
   font-family: Jaldi;
@@ -10,7 +11,7 @@
 }
 
 body {
-  @apply flex flex-col min-h-screen bg-gray-700 text-gray-600;
+  @apply flex flex-col min-h-screen bg-gray-700 text-gray-600 overflow-x-hidden;
   font-family: 'Jaldi', sans-serif;
 }
 
@@ -37,7 +38,7 @@ main a:hover {
 }
 
 .texticon {
-  @apply inline w-4 h-4 fill-current mr-2;
+  @apply inline w-6 h-6 fill-current mr-2;
 }
 
 @tailwind components;

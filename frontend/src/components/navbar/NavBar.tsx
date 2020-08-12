@@ -12,7 +12,7 @@ function NavBar() {
   }
 
   return (
-    <nav className="flex justify-center items-center flex-wrap lg:flex-no-wrap content-start bg-gray-900 w-full border-black border-b-2 p-2 pb-4 lg:pl-12 lg:pb-1 fixed">
+    <nav className="flex justify-center items-center flex-wrap lg:flex-no-wrap content-start bg-gray-900 w-full border-black border-b-2 p-2 lg:pl-12 lg:pb-1 fixed">
       <div className="hidden lg:flex items-center flex-shrink-0 text-white mr-4">
         <NavLink to="/">
           <span className="font-semibold text-2xl tracking-tight">KZStats</span>
@@ -22,7 +22,7 @@ function NavBar() {
       <div className="order-2 lg:hidden ml-4">
         <button
           onClick={toggleMenu}
-          className="text-white border-gray-300 border-2 p-4 rounded-lg"
+          className="text-gray-500 border-gray-500 border-2 p-2 rounded"
         >
           <ListIcon />
         </button>
