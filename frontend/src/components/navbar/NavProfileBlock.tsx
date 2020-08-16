@@ -4,14 +4,18 @@ import React, { useContext } from 'react'
 import { Img } from 'react-image'
 import { Link } from 'react-router-dom'
 
-interface Props {}
+interface Props {
+  hidden: boolean
+}
 
-const NavProfileBlock = () => {
+const NavProfileBlock = (props: Props) => {
   const userCtx = useContext(UserContext)
   const user = userCtx?.user
+  const hidden = props.hidden ? 'hidden' : ''
+  const classes = `${hidden} lg:flex order-7 items-centerflex flex-grow justify-start items-center pt-2 lg:ml-4 lg:pl-8 lg:pt-0 lg:border-l-2 border-black`
 
   return (
-    <div className="flex flex-grow justify-start items-center ml-4 pl-8 pt-4 lg:pt-0 lg:border-l-2 border-black">
+    <div className={classes}>
       <div>
         {user ? (
           <Link to={`players/${user?.steamid64}`}>

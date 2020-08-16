@@ -20,7 +20,15 @@ const PlayerRecords = (props: Props) => {
   const [records, setRecords] = useState<Record[]>([])
 
   useEffect(() => {
-    setRecords(data)
+    setRecords(
+      data
+        .sort((a: Record, b: Record) => {
+          return (
+            new Date(a.updated_on).getTime() - new Date(b.updated_on).getTime()
+          )
+        })
+        .reverse()
+    )
   }, [data])
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,17 +55,20 @@ const PlayerRecords = (props: Props) => {
       />
       {records.length > 0 ? (
         <Table
-          headers={['Mapname', 'Runtime', 'Date', 'Server']}
+          headers={['Mapname', 'Runtime', 'Teleports', 'Date', 'Server']}
           className="mt-4 w-full"
         >
-          {records.map((r: Record) => (
-            <tr>
+          {records.map((r: Record, i: number) => (
+            <tr key={i}>
               <td>
-                <Link to={`/maps/${r.map_name}`}>{r.map_name}</Link>
+                <Link to={`/maps/${r.map_name}`}>
+                  {r.map_name ? r.map_name : '<unknown>'}
+                </Link>
               </td>
               <td>
                 <RunTimeFormatter time={r.time} />
               </td>
+              <td>{r.teleports}</td>
               <td>{r.updated_on.replace('T', ' ')}</td>
               <td>{r.server_name}</td>
             </tr>

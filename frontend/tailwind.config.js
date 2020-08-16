@@ -12,6 +12,7 @@ module.exports = {
         'gray-650': '#65748a',
         'gray-750': '#3d4759',
         'gray-850': '#242d3d',
+        'gray-950': '#131821',
       },
       fontFamily: {
         sans: ['Jaldi', 'sans', 'sans-serif', 'Arial'],

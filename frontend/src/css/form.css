@@ -12,6 +12,6 @@ select:focus {
   outline: 0;
 }
 
-select {
-  padding: 4px;
+main select {
+  @apply p-1 pl-2 pr-2 bg-gray-900 text-gray-300;
 }

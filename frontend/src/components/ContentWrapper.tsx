@@ -8,7 +8,6 @@ import MapDetailView from './maps/detail/MapDetailView'
 import MapListView from './maps/list/MapListView'
 import PlayerDetailView from './players/detail/PlayerDetailView'
 import PlayerListView from './players/list/PlayerListView'
-import ProfileView from './profile/ProfileView'
 import SearchView from './search/SearchView'
 
 const ContentWrapper = () => {
@@ -31,8 +30,6 @@ const ContentWrapper = () => {
         <Route exact path="/bans" component={BanListView} />
 
         <Route path="/search/:searchStr" component={SearchView} />
-
-        <Route path="/profile" component={ProfileView} />
       </Switch>
     </main>
   )

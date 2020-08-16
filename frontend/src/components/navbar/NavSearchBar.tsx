@@ -22,7 +22,7 @@ const NavSearchBar = () => {
   }
 
   return (
-    <div className="order-0 lg:order-4 flex-grow lg:flex-initial border-black lg:border-l-2 lg:border-r-2 lg:ml-8 lg:pl-8 lg:mr-8 lg:pr-8">
+    <div className="order-0 lg:order-4 flex-grow border-black lg:border-l-2 lg:border-r-2 lg:ml-8 lg:pl-8 lg:mr-8 lg:pr-8">
       <input
         type="text"
         value={state}

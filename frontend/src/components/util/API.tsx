@@ -10,7 +10,7 @@ const prodCfg = {
   responseType: 'json' as 'json',
 }
 const localCfg = {
-  baseURL: '/',
+  baseURL: '/api/',
   responseType: 'json' as 'json',
 }
 

@@ -1,9 +1,9 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import Map from '../../../models/Map'
+import useApiRequest from '../../util/useApiRequest'
 import MapListGrid from './MapListGrid'
 import MapListTable from './MapListTable'
-import useApiRequest from '../../util/useApiRequest'
-import Map from '../../../models/Map'
 
 const MapListView = () => {
   const [apiOptions] = useState({
@@ -62,7 +62,12 @@ const MapListView = () => {
       </h1>
       <div className="flex flex-wrap items-center mb-8">
         <div className="mr-4 mb-4 md:mb-0 lg:mb-0">
-          Mapname: <input type="text" onChange={handleInput} className="ml-2" />
+          Mapname:{' '}
+          <input
+            type="text"
+            onChange={handleInput}
+            className="ml-2 bg-gray-800"
+          />
         </div>
         <div className="mr-4">
           Difficulty:

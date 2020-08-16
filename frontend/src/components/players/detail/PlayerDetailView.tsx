@@ -1,13 +1,20 @@
-import ChartIcon from 'components/icons/ChartIcon'
-import JumpIcon from 'components/icons/JumpIcon'
-import TrophyIcon from 'components/icons/TrophyIcon'
-import React, { useMemo, useState } from 'react'
+import {
+  ChartIcon,
+  FlagIcon,
+  JumpIcon,
+  SettingsIcon,
+  TrophyIcon,
+} from 'components/icons/'
+import { UserContext } from 'context/UserContext'
+import React, { useContext, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Img } from 'react-image'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import useApiRequest from '../../util/useApiRequest'
 import PlayerJumpStats from './PlayerJumpStats'
+import PlayerProfileSettings from './PlayerProfileSettings'
 import PlayerRecords from './PlayerRecords'
+import PlayerStats from './PlayerStats'
 
 interface Player {
   steamid64: string
@@ -17,43 +24,93 @@ interface Player {
   name: string
 }
 
+interface SteamProfile {
+  avatar: string
+  avatarfull: string
+  avatarhash: string
+  avatarmedium: string
+  communityvisibilitystate: number
+  lastlogoff: number
+  loccountrycode: string
+  personaname: string
+  personastate: number
+  personastateflags: number
+  primaryclanid: string
+  profilestate: number
+  profileurl: string
+  steamid: string
+  timecreated: number
+  country?: string
+}
+
 interface Props {
   match: { params: { steamid64: string } }
 }
 
 const PlayerDetailView = (props: Props) => {
+  const userCtx = useContext(UserContext)
+  const user = userCtx?.user
   const steamid64 = props.match.params.steamid64
-  const [apiOptions] = useState({ steamid64_list: steamid64 })
-  const { error, isLoaded, data } = useApiRequest('/players', apiOptions)
-  const [player, setPlayer] = useState<Player | null>(null)
+  const { error, isLoaded, data } = useApiRequest(
+    `/player/${steamid64}/steam`,
+    {},
+    true
+  )
+  const [steamProfile, setSteamProfile] = useState<SteamProfile | null>(null)
 
   useMemo(() => {
-    setPlayer(data[0])
+    setSteamProfile(data)
   }, [data])
 
   if (error) return <div>Error: {error.message}</div>
   if (!isLoaded) return <div className="loader"></div>
-  if (!player) return <h1>Error</h1>
+  if (!steamProfile)
+    return (
+      <div>
+        <h1>Error</h1>
+        Error retrieving Steam profile
+      </div>
+    )
+
+  const renderCountry = () => {
+    if (!steamProfile.country) return <p>Country: N/A</p>
+    return (
+      <p>
+        <FlagIcon code={steamProfile.loccountrycode} /> {steamProfile.country}
+      </p>
+    )
+  }
 
   return (
     <div className="flex flex-col">
-      <Helmet title={player.name} />
+      <Helmet title={steamProfile.personaname} />
       <div className="flex flex-row">
-        <div className="w-56">
-          <Img
-            src="/img/noimage.png"
-            alt="img"
-            width="200"
-            height="200"
-            className="border-black border-2"
-          />
+        <div className="w-40 lg:mr-4">
+          <a
+            href={steamProfile.profileurl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Img
+              src={[steamProfile.avatarmedium, '/img/noimage.png']}
+              alt={steamProfile.personaname}
+              width="150"
+              height="150"
+              className="border-black border-2"
+            />
+          </a>
         </div>
         <div className="flex-grow">
-          <p className="text-2xl font-bold">{player.name}</p>
-          <p>Country: N/A</p>
-          <p>{player.steam_id}</p>
+          <p className="text-2xl font-bold">{steamProfile.personaname}</p>
+          {renderCountry()}
           <p>
-            <a href="#asd">Steam profile</a>
+            <a
+              href={steamProfile.profileurl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Steam profile
+            </a>
           </p>
         </div>
       </div>
@@ -72,7 +129,13 @@ const PlayerDetailView = (props: Props) => {
               <ChartIcon />
               Statistics
             </Tab>
-            <Tab className="tab-filler"></Tab>
+            {user?.steamid64 === steamid64 && (
+              <Tab>
+                <SettingsIcon />
+                Settings
+              </Tab>
+            )}
+            <div className="tab-filler"></div>
           </TabList>
 
           <TabPanel>
@@ -81,6 +144,14 @@ const PlayerDetailView = (props: Props) => {
           <TabPanel>
             <PlayerJumpStats steamid64={steamid64} />
           </TabPanel>
+          <TabPanel>
+            <PlayerStats steamid64={steamid64} />
+          </TabPanel>
+          {user?.steamid64 === steamid64 && (
+            <TabPanel>
+              <PlayerProfileSettings user={user} />
+            </TabPanel>
+          )}
         </Tabs>
       </div>
     </div>

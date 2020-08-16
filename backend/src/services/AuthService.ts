@@ -1,8 +1,8 @@
 import { PassportSteamProfile, UserObject } from 'types'
 import { db } from '../db/db'
 
-class AuthService {
-  static editProfile = (
+const AuthService = {
+  editProfile: (
     profile: PassportSteamProfile,
     body: UserObject
   ): Promise<void> => {
@@ -12,9 +12,9 @@ class AuthService {
       .then((data) => {
         return console.log(data)
       })
-  }
+  },
 
-  static handleLogin = (profile: PassportSteamProfile): Promise<UserObject> => {
+  handleLogin: (profile: PassportSteamProfile): Promise<UserObject> => {
     return db('kzstats_user')
       .where('steamid64', profile.id)
       .then((data) => {
@@ -46,7 +46,7 @@ class AuthService {
           return data[0]
         }
       })
-  }
+  },
 }
 
 export default AuthService

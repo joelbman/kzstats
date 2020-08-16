@@ -24,7 +24,7 @@ const App = () => {
     setUserState(user)
   }
 
-  const { error, data } = useApiRequest('api/auth/profile', {}, true)
+  const { error, data } = useApiRequest('/auth/profile', {}, true)
 
   useEffect(() => {
     if (error) {

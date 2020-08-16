@@ -18,7 +18,7 @@
   @apply table-cell h-full pl-4 pr-4;
 }
 
-.react-tabs__tab-panel {
+.react-tabs__tab-panel--selected {
   @apply bg-gray-800 p-4;
 }
 

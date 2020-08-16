@@ -29,7 +29,7 @@ const MapDetailView = (props: Props) => {
             <ChartIcon />
             WR History
           </Tab>
-          <Tab disabled={true} className="tab-filler"></Tab>
+          <div className="tab-filler"></div>
         </TabList>
         <TabPanel>
           <MapRecords mapname={mapname} />

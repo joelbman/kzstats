@@ -12,7 +12,7 @@ function NavBar() {
   }
 
   return (
-    <nav className="flex justify-center items-center flex-wrap lg:flex-no-wrap content-start bg-gray-900 w-full border-black border-b-2 p-2 lg:pl-12 lg:pb-1 fixed">
+    <nav className="flex justify-center items-center flex-wrap lg:flex-no-wrap content-start bg-gray-950 w-full border-black border-b-2 p-2 lg:pl-12 lg:pb-1 fixed">
       <div className="hidden lg:flex items-center flex-shrink-0 text-white mr-4">
         <NavLink to="/">
           <span className="font-semibold text-2xl tracking-tight">KZStats</span>
@@ -34,6 +34,9 @@ function NavBar() {
         }`}
       >
         <div className="lg:flex-grow">
+          <NavLink activeClassName="font-bold" to="/maps" className="lg:hidden">
+            Latest
+          </NavLink>
           <NavLink activeClassName="font-bold" to="/maps">
             Maps
           </NavLink>
@@ -51,16 +54,8 @@ function NavBar() {
           </NavLink>
         </div>
       </div>
-      <div className={`${!showMenu ? 'hidden' : ''} lg:flex order-6`}>
-        <NavModeSelect />
-      </div>
-      <div
-        className={`${
-          !showMenu ? 'hidden' : ''
-        } lg:flex flex-grow order-7 justify-center items-center`}
-      >
-        <NavProfileBlock />
-      </div>
+      <NavModeSelect hidden={!showMenu} />
+      <NavProfileBlock hidden={!showMenu} />
     </nav>
   )
 }

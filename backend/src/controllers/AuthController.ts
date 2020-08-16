@@ -13,11 +13,6 @@ const checkAuth = (req: Request, res: Response, next: NextFunction) => {
   return next()
 }
 
-// (req, res, next) => {
-//   req.url = req.originalUrl
-//   next()
-// },
-
 router.get(
   '/return',
 
