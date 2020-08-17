@@ -13,6 +13,7 @@ const NavModeSelect = (props: Props) => {
     localStorage.setItem('kzMode', event.target.value)
     localStorage.setItem('tickrate', tick)
     modeDispatch(event.target.value, tick)
+    console.log(modeState.kzMode)
   }
 
   const changeTickrate = (event: React.ChangeEvent<HTMLSelectElement>) => {

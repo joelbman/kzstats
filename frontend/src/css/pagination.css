@@ -1,0 +1,11 @@
+.pagination-container {
+  @apply bg-gray-850 text-white list-none mt-4 h-10 flex flex-row justify-center;
+}
+
+.pagination-active {
+  @apply bg-gray-750 text-white font-bold;
+}
+
+.pagination-container li {
+  @apply inline p-2 pl-3 pr-3;
+}

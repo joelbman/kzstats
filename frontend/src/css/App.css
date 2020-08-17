@@ -4,6 +4,7 @@
 @import 'form.css';
 @import 'nav.css';
 @import 'tab.css';
+@import 'pagination.css';
 
 @font-face {
   font-family: Jaldi;
@@ -19,13 +20,26 @@ h1 {
   @apply text-5xl font-bold text-gray-300;
 }
 
-h2 {
-  font-size: 2rem;
-}
-
 h1 small {
   font-size: 1.5rem;
   font-weight: normal;
+}
+
+h2 {
+  font-size: 2rem;
+  vertical-align: middle;
+}
+
+h2 small {
+  font-size: 1.2rem;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+a:focus,
+button:focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  outline: 0;
 }
 
 main a {

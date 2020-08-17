@@ -2,7 +2,7 @@
   @apply border-2 border-black;
 }
 
-.tab-main ul {
+.react-tabs__tab-list {
   @apply bg-gray-900 h-12 list-none align-middle border-b-2 border-black table table-fixed w-full;
 }
 
@@ -24,6 +24,7 @@
 
 @media screen and (max-width: 650px) {
   .react-tabs__tab {
-    @apply w-24;
+    @apply w-16;
+    font-size: 0;
   }
 }

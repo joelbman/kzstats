@@ -3,7 +3,7 @@ import RunTimeFormatter from 'components/util/RunTimeFormatter'
 import useApiRequest from 'components/util/useApiRequest'
 import { ModeContext } from 'context/ModeContext'
 import Record from 'models/Record'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 
 interface Props {
   mapname: string
@@ -11,13 +11,22 @@ interface Props {
 
 const MapRecords = ({ mapname }: Props) => {
   const { state: modeState } = useContext(ModeContext)
-  const [apiOptions] = useState({
+  const [apiOptions, setApiOptions] = useState({
     limit: 50,
     map_name: mapname,
     modes_list_string: modeState.kzMode,
     tickrate: modeState.tickrate,
   })
   const { error, isLoaded, data } = useApiRequest('records/top', apiOptions)
+
+  useMemo(() => {
+    setApiOptions({
+      limit: 50,
+      map_name: mapname,
+      tickrate: modeState.tickrate,
+      modes_list_string: modeState.kzMode,
+    })
+  }, [modeState.kzMode, modeState.tickrate, mapname])
 
   if (error && error.message) return <div>Error: {error.message}</div>
   if (!isLoaded) return <div className="loader"></div>

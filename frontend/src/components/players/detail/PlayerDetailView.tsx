@@ -1,3 +1,4 @@
+import ImageC from 'components/general/ImageC'
 import {
   ChartIcon,
   FlagIcon,
@@ -6,9 +7,8 @@ import {
   TrophyIcon,
 } from 'components/icons/'
 import { UserContext } from 'context/UserContext'
-import React, { useContext, useMemo, useState } from 'react'
+import React, { Suspense, useContext, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { Img } from 'react-image'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import useApiRequest from '../../util/useApiRequest'
 import PlayerJumpStats from './PlayerJumpStats'
@@ -53,7 +53,7 @@ const PlayerDetailView = (props: Props) => {
   const steamid64 = props.match.params.steamid64
   const { error, isLoaded, data } = useApiRequest(
     `/player/${steamid64}/steam`,
-    {},
+    null,
     true
   )
   const [steamProfile, setSteamProfile] = useState<SteamProfile | null>(null)
@@ -85,19 +85,21 @@ const PlayerDetailView = (props: Props) => {
     <div className="flex flex-col">
       <Helmet title={steamProfile.personaname} />
       <div className="flex flex-row">
-        <div className="w-40 lg:mr-4">
+        <div className="w-36 mr-4">
           <a
             href={steamProfile.profileurl}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Img
-              src={[steamProfile.avatarmedium, '/img/noimage.png']}
-              alt={steamProfile.personaname}
-              width="150"
-              height="150"
-              className="border-black border-2"
-            />
+            <Suspense fallback={<div></div>}>
+              <ImageC
+                url={steamProfile.avatarfull}
+                alt="Steam"
+                width="140"
+                height="140"
+                className="border-black border-2"
+              />
+            </Suspense>
           </a>
         </div>
         <div className="flex-grow">

@@ -9,6 +9,8 @@ import MapListView from './maps/list/MapListView'
 import PlayerDetailView from './players/detail/PlayerDetailView'
 import PlayerListView from './players/list/PlayerListView'
 import SearchView from './search/SearchView'
+import ServerDetailView from './servers/ServerDetailView'
+import ServerListView from './servers/ServerListView'
 
 const ContentWrapper = () => {
   return (
@@ -28,6 +30,9 @@ const ContentWrapper = () => {
 
         <Route exact path="/jumpstats" component={JumpStatsView} />
         <Route exact path="/bans" component={BanListView} />
+
+        <Route exact path="/servers" component={ServerListView} />
+        <Route exact path="/servers/:id" component={ServerDetailView} />
 
         <Route path="/search/:searchStr" component={SearchView} />
       </Switch>

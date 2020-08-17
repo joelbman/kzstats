@@ -11,7 +11,7 @@ interface Props {
 const PlayerProfileSettings = (props: Props) => {
   const userCtx = useContext(UserContext)
   const user = userCtx?.user
-  const { error, isLoaded, data } = useApiRequest('api/country/', {}, true)
+  const { error, isLoaded, data } = useApiRequest('api/country/', null, true)
 
   if (!user) return <Redirect to="/" />
   if (error?.message) return <div>Error: {error.message}</div>

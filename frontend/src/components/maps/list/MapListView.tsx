@@ -45,7 +45,7 @@ const MapListView = () => {
       })
     }
     setFiltered(temp)
-  }, [nameFilter, difficultyFilter])
+  }, [nameFilter, difficultyFilter, data])
 
   useEffect(() => {
     setFiltered(data)
@@ -62,7 +62,7 @@ const MapListView = () => {
       </h1>
       <div className="flex flex-wrap items-center mb-8">
         <div className="mr-4 mb-4 md:mb-0 lg:mb-0">
-          Mapname:{' '}
+          Mapname:
           <input
             type="text"
             onChange={handleInput}
