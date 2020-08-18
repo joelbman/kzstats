@@ -6,9 +6,9 @@ interface Props {
 }
 
 const PlayerJumpStats = (props: Props) => {
-  const [apiOptions, setApiOptions] = useState({ steamid64: props.steamid64 })
+  const [apiOptions] = useState({ steamid64: props.steamid64 })
   const { error, isLoaded, data } = useApiRequest('/jumpstats', apiOptions)
-  if (error && error.message) return <div>Error: {error.message}</div>
+  if (error?.message) return <div>Error: {error.message}</div>
   if (!isLoaded) return <div className="loader"></div>
   return <div></div>
 }

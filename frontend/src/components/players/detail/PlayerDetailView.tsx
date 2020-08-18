@@ -10,10 +10,10 @@ import { UserContext } from 'context/UserContext'
 import React, { Suspense, useContext, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
+import RecordTable from '../../general/RecordTable'
 import useApiRequest from '../../util/useApiRequest'
 import PlayerJumpStats from './PlayerJumpStats'
 import PlayerProfileSettings from './PlayerProfileSettings'
-import PlayerRecords from './PlayerRecords'
 import PlayerStats from './PlayerStats'
 
 interface Player {
@@ -93,7 +93,7 @@ const PlayerDetailView = (props: Props) => {
           >
             <Suspense fallback={<div></div>}>
               <ImageC
-                url={steamProfile.avatarfull}
+                src={steamProfile.avatarfull}
                 alt="Steam"
                 width="140"
                 height="140"
@@ -141,7 +141,7 @@ const PlayerDetailView = (props: Props) => {
           </TabList>
 
           <TabPanel>
-            <PlayerRecords steamid64={steamid64} />
+            <RecordTable steamid64={steamid64} />
           </TabPanel>
           <TabPanel>
             <PlayerJumpStats steamid64={steamid64} />

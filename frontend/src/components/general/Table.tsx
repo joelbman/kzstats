@@ -8,7 +8,7 @@ interface Props {
 const Table: FunctionComponent<Props> = (props) => {
   const classes = props.className
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto w-full lg:w-3/4">
       <table className={classes}>
         {props.headers && (
           <thead>

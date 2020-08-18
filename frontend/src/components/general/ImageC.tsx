@@ -2,7 +2,7 @@ import React from 'react'
 import { useImage } from 'react-image'
 
 interface ImgProps {
-  url: string
+  src: string
   alt?: string
   width?: string
   height?: string
@@ -11,7 +11,7 @@ interface ImgProps {
 
 const ImageC = (props: ImgProps) => {
   const { src } = useImage({
-    srcList: [props.url, '/img/noimage.png'],
+    srcList: [props.src, '/img/noimage.png'],
     useSuspense: true,
   })
 

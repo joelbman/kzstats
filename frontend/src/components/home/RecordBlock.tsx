@@ -1,8 +1,7 @@
-import RunTimeFormatter from 'components/util/RunTimeFormatter'
-import TimeAgoFormatter from 'components/util/TimeAgoFormatter'
+import ImageC from 'components/general/ImageC'
+import { runtimeFormat, timeAgoFormat } from 'components/util/filters'
 import Record from 'models/Record'
-import React from 'react'
-import { Img } from 'react-image'
+import React, { Suspense } from 'react'
 import { Link } from 'react-router-dom'
 
 interface Props {
@@ -12,15 +11,17 @@ const RecordBlock = ({ record }: Props) => {
   return (
     <div className="mt-4 pt-4 border-t-2 border-gray-900 first:border-t-0 first:mt-0 first:pt-0">
       <div className="w-48 block md:inline-block lg:inline-block">
-        <Link to={`maps/${record.map_name}`}>
-          <Img
-            alt={record.map_name}
-            src={[`img/map/thumb/tn_${record.map_name}.jpg`, 'img/noimage.png']}
-            height="90"
-            width="150"
-            className="h-full border-black border-2 rounded-lg"
-          />
-        </Link>
+        <Suspense fallback="<div></div>">
+          <Link to={`maps/${record.map_name}`}>
+            <ImageC
+              alt={record.map_name}
+              src={`img/map/thumb/tn_${record.map_name}.jpg`}
+              height="90"
+              width="150"
+              className="h-full border-black border-2 rounded-lg"
+            />
+          </Link>
+        </Suspense>
       </div>
       <div className="ml-2 block md:inline-block lg:inline-block">
         <Link
@@ -30,7 +31,7 @@ const RecordBlock = ({ record }: Props) => {
           {record.map_name}
         </Link>
         <p className="text-lg">
-          <RunTimeFormatter time={record.time} />
+          {runtimeFormat(record.time)}
           {record.place === 1 ? (
             <img
               src="img/icon/trophy.svg"
@@ -45,7 +46,7 @@ const RecordBlock = ({ record }: Props) => {
         </p>
         by <Link to={`/players/${record.steamid64}`}>{record.player_name}</Link>
         <br />
-        <TimeAgoFormatter datetime={record.updated_on} />
+        {timeAgoFormat(record.updated_on)}
       </div>
     </div>
   )

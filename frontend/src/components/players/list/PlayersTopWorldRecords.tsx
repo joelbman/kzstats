@@ -48,7 +48,7 @@ const PlayersTopWorldRecords = (props: Props) => {
       tickrates: modeState.tickrate || 128,
       has_teleports: props.pro ? true : undefined,
     })
-  }, [modeState.kzMode, modeState.tickrate])
+  }, [modeState.kzMode, modeState.tickrate, props.limit, props.pro])
 
   if (error && error.message) return <div>Error: {error.message}</div>
   if (!isLoaded)
