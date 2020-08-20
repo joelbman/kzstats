@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import JumpStatTable from './JumpStatTable'
 
@@ -18,13 +18,9 @@ const JumpStatsView = () => {
     <div>
       <Helmet title="Jumpstats" />
       <h1>Jumpstats</h1>
-      <div className="block mt-2">
+      <div className="inline-block mt-2">
         Jump type:
-        <select
-          className="bg-gray-900 text-gray-300 ml-4"
-          value={jumpType}
-          onChange={changeJumpType}
-        >
+        <select value={jumpType} onChange={changeJumpType} className="ml-2">
           <option value="lj">Longjump</option>
           <option value="bhop">Bunnyhop</option>
           <option value="dropbhop">Drop B-Hop</option>
@@ -34,7 +30,7 @@ const JumpStatsView = () => {
           <option value="countjump">Countjump</option>
         </select>
       </div>
-      <div className="block mt-2">
+      <div className="inline-block mt-2 md:ml-4">
         Crouch bind:
         <input
           type="checkbox"

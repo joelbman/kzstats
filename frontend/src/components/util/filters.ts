@@ -40,4 +40,23 @@ const timeAgoFormat = (datetime: string) => {
   return `${result.toFixed(0)} ${unit} ago`
 }
 
-export { textLimiter, runtimeFormat, timeAgoFormat }
+const difficultyToText = (difficulty: number): string => {
+  switch (difficulty) {
+    case 1:
+      return 'Very easy'
+    case 2:
+      return 'Easy'
+    case 3:
+      return 'Medium'
+    case 4:
+      return 'Hard'
+    case 5:
+      return 'Very hard'
+    case 6:
+      return 'Death'
+    default:
+      return 'Unknown'
+  }
+}
+
+export { textLimiter, runtimeFormat, timeAgoFormat, difficultyToText }

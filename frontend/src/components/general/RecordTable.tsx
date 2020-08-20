@@ -133,8 +133,8 @@ const RecordTable = (props: Props) => {
                 </td>
               )}
               <td className={r.points === 1000 ? 'font-bold' : ''}>
-                {r.points === 1000 ? <TrophyIcon /> : ''}
                 {runtimeFormat(r.time)}
+                {r.points === 1000 ? <TrophyIcon className="ml-2" /> : ''}
               </td>
               <td>{r.teleports}</td>
               <td>{r.updated_on.replace('T', ' ')}</td>

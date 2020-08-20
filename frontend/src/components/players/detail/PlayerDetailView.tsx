@@ -117,7 +117,7 @@ const PlayerDetailView = (props: Props) => {
         </div>
       </div>
       <div className="flex-grow mt-8">
-        <Tabs className="tab-main">
+        <Tabs selectedTabClassName="tab-selected" className="tab-main">
           <TabList>
             <Tab>
               <TrophyIcon />

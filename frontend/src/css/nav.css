@@ -1,22 +1,33 @@
-nav a {
-  @apply block mt-4 text-teal-200 mr-4;
+#navmenu a {
+  @apply block mr-4 mt-4 text-teal-200 md:inline-block md:mt-0;
+  @apply hover:text-white hover:font-bold;
 }
 
-nav a:hover {
-  color: #fff;
-  font-weight: bold;
+#navmenu {
+  @apply w-full order-3 mt-4 pb-4 border-gray-850 border-t-2 border-b-2;
+  @apply md:order-2 md:mt-0 md:flex md:pb-0 md:items-center md:w-auto md:border-0;
 }
 
 nav select {
   @apply border-black border-2 mr-4 ml-2 bg-gray-700 rounded-lg text-gray-400 pl-2 pr-2;
 }
 
-@media (min-width: 1024px) {
-  nav a {
-    @apply inline-block mt-0;
+@screen md {
+  #navmenu a {
+    font-size: 0;
+  }
+  #navmenu a:last-child {
+    @apply mr-0;
+  }
+}
+
+@screen lg {
+  .nav-latest {
+    display: none !important;
   }
 
-  nav a:last-child {
-    @apply mr-0;
+  #navmenu a {
+    @apply text-base;
+    min-width: 4rem;
   }
 }

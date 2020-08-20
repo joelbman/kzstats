@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import Table from 'components/general/Table'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import useApiRequest from '../util/useApiRequest'
 
 interface Props {
@@ -33,7 +35,7 @@ const JumpStatTable = ({ jumpType, crouchBind }: Props) => {
     limit: 20,
   })
   const { error, isLoaded, data } = useApiRequest(
-    '/jumpstats/' + jumpType + '/top',
+    `/jumpstats/${jumpType}/top`,
     apiOptions
   )
 
@@ -47,32 +49,24 @@ const JumpStatTable = ({ jumpType, crouchBind }: Props) => {
   if (error) return <div>Error: {error.message}</div>
   if (!isLoaded) return <div className="loader"></div>
   return (
-    <table className="w-full lg:w-3/5 mt-10">
-      <thead className="w-full bg-gray-900 text-left">
-        <tr>
-          <th>#</th>
-          <th>Player</th>
-          <th>Strafes</th>
-          <th>Distance</th>
-          <th>Date</th>
+    <Table
+      headers={['#', 'Player', 'Strafes', 'Distance', 'Date']}
+      className="w-full mt-6"
+    >
+      {data.map((jumpstat: Jumpstat, key: number) => (
+        <tr key={key}>
+          <td>{key + 1}.</td>
+          <td>
+            <Link to={`/players/${jumpstat.steamid64}`}>
+              {jumpstat.player_name}
+            </Link>
+          </td>
+          <td>{jumpstat.strafe_count}</td>
+          <td>{jumpstat.distance}</td>
+          <td>{jumpstat.updated_on.replace('T', ' ')}</td>
         </tr>
-      </thead>
-      <tbody>
-        {data.map((jumpstat: Jumpstat, key: number) => (
-          <tr className="w-full bg-gray-800 text-left" key={key}>
-            <td>{key + 1}.</td>
-            <td>
-              <a href={`/players/${jumpstat.steamid64}`}>
-                {jumpstat.player_name}
-              </a>
-            </td>
-            <td>{jumpstat.strafe_count}</td>
-            <td>{jumpstat.distance}</td>
-            <td>{jumpstat.updated_on.replace('T', ' ')}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+      ))}
+    </Table>
   )
 }
 export default JumpStatTable

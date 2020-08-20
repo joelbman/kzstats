@@ -22,7 +22,7 @@ const NavSearchBar = () => {
   }
 
   return (
-    <div className="order-0 lg:order-4 flex-grow border-black lg:border-l-2 lg:border-r-2 lg:ml-8 lg:pl-8 lg:mr-8 lg:pr-8">
+    <div className="order-0 md:order-4 flex-grow border-gray-850 md:border-l-2 md:border-r-2 md:ml-4 md:pl-4 md:mr-4 md:pr-4">
       <input
         type="text"
         value={state}
@@ -30,7 +30,7 @@ const NavSearchBar = () => {
         onKeyDown={onKeyDown}
         onChange={handleChange}
         placeholder="Search maps, players..."
-        className="p-2 border-black border-2 bg-gray-800 text-white rounded-lg w-full"
+        className="p-1 pl-2 pr-2 border-black border-2 bg-gray-800 text-white rounded-lg w-full"
       />
     </div>
   )

@@ -2,6 +2,10 @@
   @apply border-2 border-black;
 }
 
+.tab-selected {
+  @apply font-bold text-white border-b-2 border-black bg-blue-900;
+}
+
 .react-tabs__tab-list {
   @apply bg-gray-900 h-12 list-none align-middle border-b-2 border-black table table-fixed w-full;
 }

@@ -63,8 +63,8 @@ const PlayersTopWorldRecords = (props: Props) => {
 
   return (
     <div className="mb-8 lg:mr-8 md:mr-8 flex-grow" style={{ margin: '0 1em' }}>
-      <h3 className="text-lg font-bold block">
-        {props.pro ? 'Pro' : 'Overall'}
+      <h3 className="text-lg block">
+        Top 15 - {props.pro ? 'Pro' : 'Overall'}
       </h3>
       <Table headers={['#', 'Player', 'Count']} className="w-full">
         {data.slice(0, 15).map((p: Player, i: number) => (

@@ -7,9 +7,8 @@ const PlayerList = () => {
     <div>
       <Helmet title="Players" />
       <h1>Players</h1>
-      <h2>Top 15 - World records</h2>
       <div
-        className="flex justify-between flex-wrap lg:w-3/5"
+        className="flex justify-between flex-wrap lg:w-4/5"
         style={{ margin: '0 -1em' }}
       >
         <PlayersTopWorldRecords pro={true} />

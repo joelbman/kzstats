@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: Jaldi;
-  src: local('Jaldi'), url(fonts/Jaldi/Jaldi-Regular.ttf);
+  src: local('Jaldi'), url(css/fonts/Jaldi/Jaldi-Regular.ttf);
 }
 
 body {
@@ -40,13 +40,12 @@ a:focus {
   outline: 0;
 }
 
-main a {
-  font-weight: bold;
-  color: #b2cdeb;
+main {
+  @apply text-gray-300;
 }
 
-main a:hover {
-  color: #fff;
+main a {
+  @apply font-semibold text-blue-200 hover:font-bold hover:text-blue-100;
 }
 
 .texticon {

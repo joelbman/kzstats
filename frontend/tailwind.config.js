@@ -119,4 +119,7 @@ module.exports = {
     zIndex: ['responsive'],
   },
   plugins: [],
+  experimental: {
+    applyComplexClasses: true,
+  },
 }

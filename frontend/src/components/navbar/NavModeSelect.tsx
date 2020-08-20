@@ -1,11 +1,7 @@
 import { ModeContext } from 'context/ModeContext'
 import React, { useContext } from 'react'
 
-interface Props {
-  hidden: boolean
-}
-
-const NavModeSelect = (props: Props) => {
+const NavModeSelect = () => {
   const { state: modeState, dispatch: modeDispatch } = useContext(ModeContext)
 
   const changeMode = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -21,13 +17,9 @@ const NavModeSelect = (props: Props) => {
     localStorage.setItem('tickrate', event.target.value)
   }
 
-  const hidden = props.hidden ? 'hidden' : ''
-
-  let classes = `${hidden} order-6 flex-wrap lg:flex-1 flex-row lg:flex lg:flex-no-wrap text-gray-300 mt-4 pt-4 lg:pt-0 lg:mt-0`
-
   return (
-    <div className={classes}>
-      <div style={{ width: '10.5rem' }} className="inline">
+    <div className="order-6 flex flex-row flex-wrap">
+      <div style={{ width: '10.5rem' }} className="flex-auto">
         Mode:
         <select value={modeState.kzMode} onChange={changeMode}>
           <option value="kz_timer">KZTimer</option>
@@ -36,7 +28,7 @@ const NavModeSelect = (props: Props) => {
         </select>
       </div>
       {modeState.kzMode === 'kz_timer' && (
-        <div style={{ width: '7.5rem' }} className="inline">
+        <div style={{ width: '7.5rem' }} className="flex-auto">
           Tick:
           <select value={modeState.tickrate} onChange={changeTickrate}>
             <option value="128">128</option>
