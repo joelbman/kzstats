@@ -48,6 +48,7 @@ const JumpStatTable = ({ jumpType, crouchBind }: Props) => {
 
   if (error) return <div>Error: {error.message}</div>
   if (!isLoaded) return <div className="loader"></div>
+
   return (
     <Table
       headers={['#', 'Player', 'Strafes', 'Distance', 'Date']}

@@ -6,6 +6,7 @@ import express from 'express'
 import session from 'express-session'
 import passport from './passportInit'
 import router from './router'
+import { updateList } from './tasks/ServerListTask'
 import { SESSION_SECRET } from './util/config'
 
 const app = express()
@@ -29,6 +30,8 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 app.use('/api', router)
+
+updateList()
 
 https.createServer(httpsOptions, app).listen(app.get('port'), () => {
   console.log('Server running on: ' + app.get('port'))
