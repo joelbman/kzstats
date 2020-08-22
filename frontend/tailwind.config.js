@@ -17,6 +17,9 @@ module.exports = {
       fontFamily: {
         sans: ['Jaldi', 'sans', 'sans-serif', 'Arial'],
       },
+      screens: {
+        light: { raw: '(prefers-color-scheme: light)' },
+      },
     },
   },
   variants: {
