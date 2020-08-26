@@ -20,7 +20,7 @@ function NavBar() {
   }
 
   return (
-    <nav className="flex justify-center items-center flex-wrap md:flex-no-wrap content-start bg-gray-950 w-full border-black border-b-2 p-2 lg:pl-12 md:pb-1 fixed">
+    <nav className="nav-main">
       <div className="hidden lg:flex items-center flex-shrink-0 text-white mr-4">
         <NavLink to="/">
           <span className="font-semibold text-2xl tracking-tight text-">

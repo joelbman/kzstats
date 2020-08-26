@@ -9,25 +9,22 @@ interface Props {
 }
 const RecordBlock = ({ record }: Props) => {
   return (
-    <div className="mt-4 pt-4 border-t-2 border-gray-900 first:border-t-0 first:mt-0 first:pt-0">
-      <div className="w-48 block md:inline-block lg:inline-block">
-        <Suspense fallback="<div></div>">
+    <div className="record-block">
+      <div className="w-48 block md:inline-block">
+        <Suspense fallback={<div></div>}>
           <Link to={`maps/${record.map_name}`}>
             <ImageC
               alt={record.map_name}
               src={`img/map/thumb/tn_${record.map_name}.jpg`}
               height="90"
               width="150"
-              className="h-full border-black border-2 rounded-lg"
+              className="h-full border-gray-verydark border-2"
             />
           </Link>
         </Suspense>
       </div>
-      <div className="ml-2 block md:inline-block lg:inline-block">
-        <Link
-          className="font-bold text-gray-200 text-xl hover:text-white"
-          to={`maps/${record.map_name}`}
-        >
+      <div className="ml-2 block md:inline-block">
+        <Link className="font-bold text-xl" to={`maps/${record.map_name}`}>
           {record.map_name}
         </Link>
         <p className="text-lg">

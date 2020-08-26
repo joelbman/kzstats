@@ -1,0 +1,102 @@
+.lightmode .nav-main {
+  @apply bg-gray-medium text-gray-100;
+}
+
+.lightmode #navmenu a {
+  @apply text-gray-100;
+}
+
+.lightmode .nav-main select,
+.lightmode .nav-main input {
+  @apply bg-gray-dark text-gray-200;
+}
+
+.lightmode body {
+  @apply bg-gray-100 text-gray-verydark !important;
+}
+
+.lightmode h1,
+.lightmode h2,
+.lightmode h3,
+.lightmode main,
+.lightmode td {
+  @apply text-gray-verydark !important;
+}
+
+.lightmode main select,
+.lightmode main input {
+  @apply bg-gray-300 text-gray-verydark !important;
+}
+
+.lightmode main a {
+  @apply text-orange-600 hover:text-orange-400;
+}
+
+.lightmode table {
+  @apply border border-gray-light text-gray-verydark;
+}
+
+.lightmode th,
+.lightmode thead {
+  @apply bg-gray-medium text-gray-200 !important;
+}
+
+.lightmode tbody tr {
+  @apply bg-white border-t border-gray-light;
+}
+
+.lightmode tbody tr:nth-child(odd) > td {
+  @apply bg-orange-250;
+}
+
+.lightmode .panel {
+  @apply bg-white text-gray-verydark;
+}
+
+.lightmode .panel-header {
+  @apply bg-gray-medium text-gray-100;
+}
+
+.lightmode .maplist-card {
+  @apply bg-gray-200 text-gray-verydark !important;
+}
+
+.lightmode .tab-main {
+  @apply border-gray-dark;
+}
+
+.lightmode .tab-selected {
+  @apply font-bold text-white border-b-2 border-black bg-orange-900;
+}
+
+.lightmode .react-tabs__tab-list {
+  @apply bg-gray-medium text-gray-100 border-black;
+}
+
+.lightmode .react-tabs__tab:hover {
+  @apply bg-orange-800;
+}
+
+.lightmode .react-tabs__tab-panel--selected {
+  @apply bg-white;
+}
+
+.lightmode .pagination-container {
+  @apply bg-gray-200;
+}
+
+.lightmode .pagination-container a {
+  @apply text-blue-600 hover:text-blue-500;
+}
+
+.lightmode .lightmode .pagination-active {
+  @apply bg-blue-400;
+}
+
+.lightmode .pagination-active a {
+  @apply font-bold text-gray-100 hover:text-white;
+}
+
+.lightmode .record-table-wr {
+  @apply text-red-700 !important;
+}

@@ -59,4 +59,23 @@ const difficultyToText = (difficulty: number): string => {
   }
 }
 
-export { textLimiter, runtimeFormat, timeAgoFormat, difficultyToText }
+const sortByColumn = (
+  data: [],
+  column: string,
+  type: string,
+  reverse?: boolean
+): [] => {
+  const sorted = data.sort((a, b) => {
+    return a[column] - b[column]
+  })
+  if (reverse) sorted.reverse()
+  return sorted
+}
+
+export {
+  textLimiter,
+  runtimeFormat,
+  timeAgoFormat,
+  difficultyToText,
+  sortByColumn,
+}

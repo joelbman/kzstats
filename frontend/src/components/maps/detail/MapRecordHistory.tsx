@@ -22,7 +22,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
     tickrates: modeState.tickrate,
     has_teleports: false,
   })
-  const { error, isLoaded, data } = useApiRequest(
+  const { error, loader, data } = useApiRequest(
     '/records/top/recent',
     apiOptions
   )
@@ -108,7 +108,8 @@ const MapRecordHistory = ({ mapname }: Props) => {
   }, [modeState.tickrate, modeState.kzMode, mapname])
 
   if (error) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div className="loader"></div>
+  if (loader) return <>{loader}</>
+
   return (
     <div>
       <h2>World record history</h2>

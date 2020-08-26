@@ -17,9 +17,9 @@ const MapDetailView = (props: Props) => {
   const mapname = props.match.params.mapname
 
   const [apiOptions] = useState({ name: mapname })
-  const { error, isLoaded, data } = useApiRequest('/maps/', apiOptions)
+  const { error, loader, data } = useApiRequest('/maps/', apiOptions)
 
-  if (!isLoaded || !data) return <div className="loader"></div>
+  if (loader) return <>{loader}</>
   if (error?.message) return <div>Error: {error.message}</div>
 
   return (

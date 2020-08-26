@@ -1,5 +1,5 @@
 .tab-main {
-  @apply border-2 border-black;
+  @apply border border-gray-verydark xl:w-3/4;
 }
 
 .tab-selected {

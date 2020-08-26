@@ -1,9 +1,17 @@
 .pagination-container {
-  @apply bg-gray-850 text-white list-none mt-4 h-10 flex flex-row justify-center;
+  @apply bg-gray-850 list-none mt-4 h-10 flex flex-row justify-center;
+}
+
+.pagination-container a {
+  @apply font-normal hover:font-bold;
 }
 
 .pagination-active {
-  @apply bg-gray-750 text-white font-bold;
+  @apply bg-gray-750;
+}
+
+.pagination-active a {
+  @apply font-bold;
 }
 
 .pagination-container li {

@@ -1,17 +1,62 @@
-main input {
-  @apply bg-gray-900 text-gray-300 pl-2 pr-2 border-2 border-black rounded ml-2;
+main input,
+main select {
+  @apply bg-gray-900 text-gray-300 px-1 border border-gray-950 ml-2;
 }
 
 input:focus {
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  box-shadow: 0 0 0 1px rgba(66, 153, 225, 0.5);
   outline: 0;
 }
 
 select:focus {
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  box-shadow: 0 0 0 1px rgba(66, 153, 225, 0.5);
   outline: 0;
 }
 
-main select {
-  @apply p-1 pl-2 pr-2 bg-gray-900 text-gray-300;
+.switch {
+  @apply relative inline-block w-12 h-6;
+}
+
+.switch input {
+  @apply opacity-0 w-0 h-0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 22px;
+  width: 22px;
+  left: 1px;
+  bottom: 1px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  @apply bg-gray-700;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }

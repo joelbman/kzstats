@@ -1,6 +1,6 @@
 import './tailwind.output.css'
 
-import ContentWrapper from 'components/ContentWrapper'
+import MainContent from 'components/ContentWrapper'
 import Footer from 'components/Footer'
 import NavBar from 'components/navbar/NavBar'
 import useApiRequest from 'components/util/useApiRequest'
@@ -44,25 +44,22 @@ const App = () => {
   }, [data, error])
 
   return (
-    <>
+    <BrowserRouter>
       <Helmet htmlAttributes={{ lang: 'en' }} />
-      <BrowserRouter>
-        <UserContext.Provider
-          value={{ user: userState, dispatch: dispatchUser }}
+
+      <UserContext.Provider value={{ user: userState, dispatch: dispatchUser }}>
+        <ModeContext.Provider
+          value={{
+            state: modeState,
+            dispatch: dispatchMode,
+          }}
         >
-          <ModeContext.Provider
-            value={{
-              state: modeState,
-              dispatch: dispatchMode,
-            }}
-          >
-            <NavBar></NavBar>
-            <ContentWrapper></ContentWrapper>
-          </ModeContext.Provider>
-        </UserContext.Provider>
-      </BrowserRouter>
-      <Footer></Footer>
-    </>
+          <NavBar />
+          <MainContent />
+        </ModeContext.Provider>
+      </UserContext.Provider>
+      <Footer />
+    </BrowserRouter>
   )
 }
 

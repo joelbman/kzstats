@@ -36,7 +36,7 @@ const PlayersTopWorldRecords = (props: Props) => {
     has_teleports: props.pro ? true : undefined,
   })
 
-  const { error, isLoaded, data } = useApiRequest(
+  const { error, loader, data } = useApiRequest(
     '/records/top/world_records',
     apiOptions
   )
@@ -51,18 +51,10 @@ const PlayersTopWorldRecords = (props: Props) => {
   }, [modeState.kzMode, modeState.tickrate, props.limit, props.pro])
 
   if (error && error.message) return <div>Error: {error.message}</div>
-  if (!isLoaded)
-    return (
-      <div
-        className="mb-8 lg:mr-8 md:mr-8 flex-grow"
-        style={{ margin: '0 1em' }}
-      >
-        <div className="loader"></div>
-      </div>
-    )
+  if (loader) return <>{loader}</>
 
   return (
-    <div className="mb-8 lg:mr-8 md:mr-8 flex-grow" style={{ margin: '0 1em' }}>
+    <div className="mb-8 lg:mr-4 mr-2 flex-grow">
       <h3 className="text-lg block">
         Top 15 - {props.pro ? 'Pro' : 'Overall'}
       </h3>

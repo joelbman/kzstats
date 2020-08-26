@@ -34,7 +34,7 @@ const JumpStatTable = ({ jumpType, crouchBind }: Props) => {
     is_crouch_bind: crouchBind,
     limit: 20,
   })
-  const { error, isLoaded, data } = useApiRequest(
+  const { error, loader, data } = useApiRequest(
     `/jumpstats/${jumpType}/top`,
     apiOptions
   )
@@ -47,7 +47,7 @@ const JumpStatTable = ({ jumpType, crouchBind }: Props) => {
   }, [crouchBind])
 
   if (error) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div className="loader"></div>
+  if (loader) return <>{loader}</>
 
   return (
     <Table

@@ -9,7 +9,7 @@ const MapListView = () => {
   const [apiOptions] = useState({
     is_verified: true,
   })
-  const { error, isLoaded, data } = useApiRequest('/maps', apiOptions)
+  const { error, loader, data } = useApiRequest('/maps', apiOptions)
   const [nameFilter, setNameFilter] = useState('')
   const [difficultyFilter, setDifficultyFilter] = useState('0')
   const [isFancy, setIsFancy] = useState(true)
@@ -52,7 +52,7 @@ const MapListView = () => {
   }, [data])
 
   if (error) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div className="loader"></div>
+  if (loader) return <>{loader}</>
 
   return (
     <>
@@ -63,18 +63,14 @@ const MapListView = () => {
       <div className="flex flex-wrap items-center mb-8">
         <div className="mr-4 mb-4 md:mb-0 lg:mb-0">
           Mapname:
-          <input
-            type="text"
-            onChange={handleInput}
-            className="ml-2 bg-gray-800"
-          />
+          <input type="text" onChange={handleInput} className="ml-2" />
         </div>
         <div className="mr-4">
           Difficulty:
           <select
-            className="bg-gray-800 border-2 border-black p-0 pl-2 pr-2 ml-2"
             onChange={handleSelect}
             value={difficultyFilter}
+            className="ml-2"
           >
             <option value="0">Any</option>
             <option value="1">Very easy</option>

@@ -26,10 +26,10 @@ const HomeView = () => {
       <h1>Latest</h1>
       <div className="flex flex-col lg:flex-row w-full">
         <Helmet title="Latest" />
-        <div className="lg:w-1/2 mr-10">
+        <div className="xl:w-1/3 mr-10">
           <LatestRecords />
         </div>
-        <div className="lg:w-1/2">
+        <div className="xl:w-1/3">
           {userCtx?.user?.steamid64 ? (
             <LatestRecords myRecords={true} />
           ) : (

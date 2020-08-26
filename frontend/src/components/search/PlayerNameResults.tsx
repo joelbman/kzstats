@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import useApiRequest from '../util/useApiRequest'
 
 interface Props {
@@ -18,7 +18,7 @@ const PlayerNameResults = (props: Props) => {
     name: props.searchStr,
     limit: 200,
   })
-  const { error, isLoaded, data } = useApiRequest('/players', apiOptions)
+  const { error, loader, data } = useApiRequest('/players', apiOptions)
 
   useMemo(() => {
     setApiOptions({
@@ -28,7 +28,7 @@ const PlayerNameResults = (props: Props) => {
   }, [props.searchStr])
 
   if (error && error.message) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div className="loader"></div>
+  if (!loader) return <div className="loader"></div>
   return (
     <div>
       {data.map((p: Player) => (

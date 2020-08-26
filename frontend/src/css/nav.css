@@ -1,3 +1,8 @@
+.nav-main {
+  @apply flex justify-center items-center flex-wrap md:flex-no-wrap content-start bg-gray-950 w-full border-black border-b-2 p-2 md:pb-1 fixed;
+  @apply xl:pl-24 xl:pr-24;
+}
+
 #navmenu a {
   @apply block mr-4 mt-4 text-teal-200 md:inline-block md:mt-0;
   @apply hover:text-white hover:font-bold;

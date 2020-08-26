@@ -10,16 +10,14 @@ interface Props {
 
 const MapListCard = ({ map }: Props) => {
   return (
-    <div className="bg-gray-850 border-2 border-black flex flex-col w-64">
-      <div className="mt-5 bg-cover text-center h-24 overflow-hidden">
+    <div className="maplist-card">
+      <div className="h-32 border-b border-black overflow-hidden">
         <Suspense fallback={<div></div>}>
           <Link to={`maps/${map.name}`}>
             <ImageC
               src={`img/map/thumb/tn_${map.name}.jpg`}
               alt={map.name}
-              width="150"
-              height="100"
-              className="m-auto border-black border-2"
+              className="w-full h-full border-gray-verydark"
             />
           </Link>
         </Suspense>
@@ -27,10 +25,10 @@ const MapListCard = ({ map }: Props) => {
 
       <div className="p-4 justify-between leading-normal">
         <div className="mb-2">
-          <div className="text-gray-200 font-bold text-xl mb-2">
+          <div className="text-xl mb-2">
             <Link to={`maps/${map.name}`}>{map.name}</Link>
           </div>
-          <p className="text-gray-400 text-base">
+          <p className="text-base">
             Difficulty: {difficultyToText(map.difficulty)}
           </p>
         </div>

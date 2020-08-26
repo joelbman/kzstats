@@ -1,0 +1,7 @@
+.panel {
+  @apply w-full bg-gray-800 h-auto border border-black mr-4;
+}
+
+.panel-header {
+  @apply bg-gray-900 px-4 py-3 border-black border-b font-bold text-xl;
+}

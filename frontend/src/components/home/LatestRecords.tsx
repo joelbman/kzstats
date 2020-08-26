@@ -32,7 +32,7 @@ const LatestRecords = (props: Props) => {
 
   const [apiOptions, setApiOptions] = useState(apiOpt)
 
-  const { error, isLoaded, data } = useApiRequest(
+  const { error, loader, data } = useApiRequest(
     '/records/top/recent',
     apiOptions
   )
@@ -100,8 +100,8 @@ const LatestRecords = (props: Props) => {
 
   return (
     <Panel header={panelHeader}>
-      {!isLoaded ? (
-        <div className="loader"></div>
+      {loader ? (
+        <>{loader}</>
       ) : items.length > 0 ? (
         items.map((record: Record) => (
           <RecordBlock record={record} key={record.id} />

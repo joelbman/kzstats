@@ -13,6 +13,11 @@ module.exports = {
         'gray-750': '#3d4759',
         'gray-850': '#242d3d',
         'gray-950': '#131821',
+        'gray-light': '#dddddd',
+        'gray-medium': '#525252',
+        'gray-dark': '#3d3d3d',
+        'gray-verydark': '#333333',
+        'orange-250': '#f7faf5',
       },
       fontFamily: {
         sans: ['Jaldi', 'sans', 'sans-serif', 'Arial'],

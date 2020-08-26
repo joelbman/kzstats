@@ -51,7 +51,7 @@ const PlayerDetailView = (props: Props) => {
   const userCtx = useContext(UserContext)
   const user = userCtx?.user
   const steamid64 = props.match.params.steamid64
-  const { error, isLoaded, data } = useApiRequest(
+  const { error, loader, data } = useApiRequest(
     `/player/${steamid64}/steam`,
     null,
     true
@@ -63,7 +63,8 @@ const PlayerDetailView = (props: Props) => {
   }, [data])
 
   if (error) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div className="loader"></div>
+  if (loader) return loader
+
   if (!steamProfile)
     return (
       <div>

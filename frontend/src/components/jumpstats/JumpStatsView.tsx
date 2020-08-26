@@ -39,7 +39,7 @@ const JumpStatsView = () => {
           className="ml-4"
         />
       </div>
-      <div className="lg:w-1/2">
+      <div className="xl:w-1/2">
         <JumpStatTable jumpType={jumpType} crouchBind={crouchBind} />
       </div>
     </div>

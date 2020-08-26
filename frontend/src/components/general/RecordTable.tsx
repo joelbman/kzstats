@@ -38,7 +38,7 @@ const RecordTable = (props: Props) => {
   }
 
   const [apiOptions, setApiOptions] = useState(apiParams)
-  const { error, isLoaded, data } = useApiRequest('/records/top/', apiOptions)
+  const { error, loader, data } = useApiRequest('/records/top/', apiOptions)
   const [records, setRecords] = useState<Record[]>([])
   const [currentRecords, setCurrentRecords] = useState<Record[]>([])
 
@@ -90,7 +90,7 @@ const RecordTable = (props: Props) => {
   }
 
   if (error?.message) return <div>Error: {error.message}</div>
-  if (!isLoaded) return <div className="loader"></div>
+  if (loader) return loader
 
   return (
     <div>
@@ -132,7 +132,7 @@ const RecordTable = (props: Props) => {
                   </Link>
                 </td>
               )}
-              <td className={r.points === 1000 ? 'font-bold' : ''}>
+              <td className={r.points === 1000 ? 'record-table-wr' : ''}>
                 {runtimeFormat(r.time)}
                 {r.points === 1000 ? <TrophyIcon className="ml-2" /> : ''}
               </td>

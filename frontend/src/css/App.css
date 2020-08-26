@@ -5,52 +5,9 @@
 @import 'nav.css';
 @import 'tab.css';
 @import 'pagination.css';
-
-@font-face {
-  font-family: Jaldi;
-  src: local('Jaldi'), url(css/fonts/Jaldi/Jaldi-Regular.ttf);
-}
-
-body {
-  @apply flex flex-col min-h-screen bg-gray-700 text-gray-600 overflow-x-hidden;
-  font-family: 'Jaldi', sans-serif;
-}
-
-h1 {
-  @apply text-5xl font-bold text-gray-300;
-}
-
-h1 small {
-  font-size: 1.5rem;
-  font-weight: normal;
-}
-
-h2 {
-  font-size: 2rem;
-  vertical-align: middle;
-}
-
-h2 small {
-  font-size: 1.2rem;
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-a:focus {
-  outline: 0;
-}
-
-main {
-  @apply text-gray-300;
-}
-
-main a {
-  @apply font-semibold text-blue-200 hover:font-bold hover:text-blue-100;
-}
-
-.texticon {
-  @apply inline w-6 h-6 fill-current mr-2;
-}
+@import 'panel.css';
+@import 'general.css';
+@import 'lightmode.css';
 
 @tailwind components;
 @tailwind utilities;
