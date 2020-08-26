@@ -1,7 +1,7 @@
 import './tailwind.output.css'
 
-import MainContent from 'components/ContentWrapper'
 import Footer from 'components/Footer'
+import MainContent from 'components/MainContent'
 import NavBar from 'components/navbar/NavBar'
 import useApiRequest from 'components/util/useApiRequest'
 import { ModeContext } from 'context/ModeContext'

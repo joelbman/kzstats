@@ -15,7 +15,7 @@ import ServerListView from './servers/ServerListView'
 const MainContent = () => {
   return (
     <main
-      className="flex-grow w-full overflow-x-hidden ml-5 mr-5 mt-24 mb-20 pr-8 xl:pl-16 xl:pr-16"
+      className="flex-grow w-full overflow-x-hidden pl-5 mt-24 mb-20 pr-8 xl:pl-16 xl:pr-16"
       style={{ minHeight: '85vh' }}
     >
       <Helmet defaultTitle="KZStats" titleTemplate="%s - KZStats" />

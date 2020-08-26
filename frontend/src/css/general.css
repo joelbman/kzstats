@@ -18,7 +18,7 @@ h1 small {
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   vertical-align: middle;
 }
 
@@ -41,7 +41,7 @@ main a {
 }
 
 footer {
-  @apply flex justify-center w-full border-t p-4 pl-20 h-12 bg-gray-950 text-gray-300 border-black;
+  @apply flex justify-center w-full border-t p-4 h-24 md:h-12 bg-gray-950 text-gray-300 border-black;
 }
 
 .lightmode footer {

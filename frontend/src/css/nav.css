@@ -14,7 +14,7 @@
 }
 
 nav select {
-  @apply border-black border-2 mr-4 ml-2 bg-gray-700 rounded-lg text-gray-400 pl-2 pr-2;
+  @apply border-black border-2 mr-4 ml-2 bg-gray-750 rounded-lg text-gray-400 pl-2 pr-2;
 }
 
 @screen md {

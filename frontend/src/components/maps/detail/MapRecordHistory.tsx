@@ -44,7 +44,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
       size: 3,
     },
     title: {
-      text: 'History for ' + mapname,
+      text: `WR history for ${mapname} (PRO)`,
       align: 'left',
     },
     fill: {
@@ -81,13 +81,17 @@ const MapRecordHistory = ({ mapname }: Props) => {
             .replace('Z', '')
         },
       },
+      z: {
+        formatter: undefined,
+        title: 'Player: ',
+      },
     },
   }
 
   useEffect(() => {
     const chartData = data
       .map((r: Record) => {
-        return { x: r.updated_on, y: r.time }
+        return { x: r.updated_on, y: r.time, z: r.player_name }
       })
       .sort((a: any, b: any) => {
         return a.y - b.y
@@ -108,11 +112,11 @@ const MapRecordHistory = ({ mapname }: Props) => {
   }, [modeState.tickrate, modeState.kzMode, mapname])
 
   if (error) return <div>Error: {error.message}</div>
-  if (loader) return <>{loader}</>
+  if (loader) return loader
 
   return (
     <div>
-      <h2>World record history</h2>
+      <h2>Statistics</h2>
       {data.length > 0 ? (
         <ReactApexChart
           options={graphOptions}
@@ -121,7 +125,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
           height={350}
         />
       ) : (
-        <div className="text-xl">No data available</div>
+        <div>No data available</div>
       )}
     </div>
   )

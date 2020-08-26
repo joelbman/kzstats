@@ -12,10 +12,12 @@ const SearchView = (props: Props) => {
   if (!props.match.params.searchStr) return <div>Invalid search</div>
   return (
     <div>
+      <h1>Search</h1>
       <Helmet title="Search" />
-      <MapNameResults searchStr={props.match.params.searchStr} />
-      <PlayerNameResults searchStr={props.match.params.searchStr} />
-      <SteamIDResults />
+      <div className="flex">
+        <MapNameResults searchStr={props.match.params.searchStr} />
+        <PlayerNameResults searchStr={props.match.params.searchStr} />
+      </div>
     </div>
   )
 }

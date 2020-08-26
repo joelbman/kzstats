@@ -26,7 +26,7 @@ const RecordTable = (props: Props) => {
       tickrate: modeState.tickrate,
       limit: 2000,
     }
-    tableHeaders = ['Map', 'Runtime', 'Teleports', 'Date', 'Server']
+    tableHeaders = ['Map', 'Runtime', 'Points', 'Teleports', 'Date', 'Server']
   } else {
     apiParams = {
       limit: 200,
@@ -34,7 +34,14 @@ const RecordTable = (props: Props) => {
       modes_list_string: modeState.kzMode,
       tickrate: modeState.tickrate,
     }
-    tableHeaders = ['#', 'Player', 'Runtime', 'Teleports', 'Date', 'Server']
+    tableHeaders = [
+      'Player',
+      'Runtime',
+      'Points',
+      'Teleports',
+      'Date',
+      'Server',
+    ]
   }
 
   const [apiOptions, setApiOptions] = useState(apiParams)
@@ -116,15 +123,13 @@ const RecordTable = (props: Props) => {
         <Table headers={tableHeaders} className="mt-4 w-full">
           {currentRecords.map((r: Record, i: number) => (
             <tr key={i}>
-              <td>
-                {props.steamid64 ? (
+              {props.steamid64 && (
+                <td>
                   <Link to={`/maps/${r.map_name}`}>
                     {r.map_name ? r.map_name : '<unknown>'}
                   </Link>
-                ) : (
-                  <>{i + 1}.</>
-                )}
-              </td>
+                </td>
+              )}
               {props.mapname && (
                 <td>
                   <Link to={`/players/${r.steamid64}`}>
@@ -136,6 +141,7 @@ const RecordTable = (props: Props) => {
                 {runtimeFormat(r.time)}
                 {r.points === 1000 ? <TrophyIcon className="ml-2" /> : ''}
               </td>
+              <td>{r.points}</td>
               <td>{r.teleports}</td>
               <td>{r.updated_on.replace('T', ' ')}</td>
               <td>

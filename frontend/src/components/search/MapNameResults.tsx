@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Map from '../../models/Map'
 import useApiRequest from '../util/useApiRequest'
 
@@ -13,14 +14,22 @@ const MapNameResults = (props: Props) => {
   })
   const { error, loader, data } = useApiRequest('/maps', apiOptions)
 
-  if (error && error.message) return <div>Error: {error.message}</div>
-  if (!loader) return <div className="loader"></div>
+  if (error?.message) return <div>Error: {error.message}</div>
+  if (loader) return loader
   return (
-    <div>
-      <h2 className="text-xl block">Map results ({data.length})</h2>
-      {data.map((m: Map) => (
-        <p>{m.name}</p>
-      ))}
+    <div className="flex-grow">
+      <h2>
+        Maps <small>({data.length})</small>
+      </h2>
+      {data.length > 0 ? (
+        <div>
+          {data.map((m: Map) => (
+            <Link to={`/maps/${m.name}`}>{m.name}</Link>
+          ))}
+        </div>
+      ) : (
+        <p>No maps found.</p>
+      )}
     </div>
   )
 }

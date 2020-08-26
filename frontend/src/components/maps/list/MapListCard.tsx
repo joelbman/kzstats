@@ -11,7 +11,7 @@ interface Props {
 const MapListCard = ({ map }: Props) => {
   return (
     <div className="maplist-card">
-      <div className="h-32 border-b border-black overflow-hidden">
+      <div className="h-32 border-b bg-gray-medium border-black overflow-hidden">
         <Suspense fallback={<div></div>}>
           <Link to={`maps/${map.name}`}>
             <ImageC

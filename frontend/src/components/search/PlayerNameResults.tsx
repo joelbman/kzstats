@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import useApiRequest from '../util/useApiRequest'
 
 interface Props {
@@ -27,13 +28,25 @@ const PlayerNameResults = (props: Props) => {
     })
   }, [props.searchStr])
 
-  if (error && error.message) return <div>Error: {error.message}</div>
-  if (!loader) return <div className="loader"></div>
+  if (error?.message) return <div>Error: {error.message}</div>
+  if (loader) return loader
+
   return (
-    <div>
-      {data.map((p: Player) => (
-        <p>{p.name}</p>
-      ))}
+    <div className="flex-grow">
+      <h2>
+        Players <small>({data.length})</small>
+      </h2>
+      {data.length > 0 ? (
+        <div>
+          {data.map((p: Player) => (
+            <Link className="block" to={`/players/${p.steamid64}`}>
+              {p.name}
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <p>No players found.</p>
+      )}
     </div>
   )
 }
