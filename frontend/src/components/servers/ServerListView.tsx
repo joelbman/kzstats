@@ -1,4 +1,4 @@
-import Table from 'components/general/Table'
+import TableSimple from 'components/general/TableSimple'
 import { FlagIcon } from 'components/icons'
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
@@ -49,7 +49,7 @@ const ServerListView = () => {
       <h1>Servers</h1>
       <Helmet title="Servers" />
       {servers.length > 0 ? (
-        <Table>
+        <TableSimple>
           {servers.map((server: ServerObject, i: number) => (
             <tr key={i}>
               <td>
@@ -70,7 +70,7 @@ const ServerListView = () => {
               </td>
             </tr>
           ))}
-        </Table>
+        </TableSimple>
       ) : (
         <div>Error retrieving servers</div>
       )}

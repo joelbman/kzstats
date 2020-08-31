@@ -9,7 +9,7 @@ const NavProfileBlock = () => {
   const user = userCtx?.user
 
   return (
-    <div className="md:flex order-7 items-center flex md:flex-shrink-1 justify-center align-middle md:ml-4 md:pl-4 md:pt-0 md:border-l-2 border-gray-850">
+    <div className="order-7 items-center flex justify-center align-middle md:ml-4 md:pl-4 md:pt-0 md:border-l-2 border-gray-850 md:flex md:flex-shrink-0 ">
       <div>
         {user ? (
           <Link to={`players/${user?.steamid64}`}>

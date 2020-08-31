@@ -111,7 +111,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
     })
   }, [modeState.tickrate, modeState.kzMode, mapname])
 
-  if (error) return <div>Error: {error.message}</div>
+  if (error) return error
   if (loader) return loader
 
   return (

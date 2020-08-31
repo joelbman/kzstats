@@ -7,7 +7,6 @@
 @import 'pagination.css';
 @import 'panel.css';
 @import 'general.css';
-@import 'lightmode.css';
 
 @tailwind components;
 @tailwind utilities;

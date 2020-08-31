@@ -11,7 +11,15 @@
 }
 
 .react-tabs__tab {
-  @apply table-cell h-full pl-4 pr-4 w-48 align-middle border-r-2 border-black;
+  @apply table-cell h-full w-48 align-middle border-r-2 border-black;
+}
+
+.react-tabs__tab > a {
+  @apply text-gray-300 !important;
+}
+
+.react-tabs__tab button {
+  @apply w-full h-full text-left px-4 focus:outline-none;
 }
 
 .react-tabs__tab:hover {
@@ -24,6 +32,26 @@
 
 .react-tabs__tab-panel--selected {
   @apply bg-gray-800 p-4;
+}
+
+.lightmode .tab-main {
+  @apply border-gray-dark;
+}
+
+.lightmode .tab-selected {
+  @apply font-bold text-white border-b-2 border-black bg-orange-900;
+}
+
+.lightmode .react-tabs__tab-list {
+  @apply bg-gray-medium text-gray-100 border-black;
+}
+
+.lightmode .react-tabs__tab:hover {
+  @apply bg-orange-800;
+}
+
+.lightmode .react-tabs__tab-panel--selected {
+  @apply bg-white;
 }
 
 @media screen and (max-width: 650px) {

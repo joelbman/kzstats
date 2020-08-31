@@ -1,4 +1,5 @@
 const textLimiter = (content: string, limit?: number) => {
+  if (!content) return
   if (content.length > (limit || 25)) return `${content.slice(0, 20)}...`
   return content
 }

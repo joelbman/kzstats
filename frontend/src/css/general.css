@@ -56,10 +56,34 @@ footer {
   @apply bg-gray-850 border border-gray-verydark flex flex-col w-64;
 }
 
+.lightmode .maplist-card {
+  @apply bg-gray-200 text-gray-verydark !important;
+}
+
 .record-block {
   @apply mt-4 pt-4 border-t border-gray-950 first:border-t-0 first:mt-0 first:pt-0;
 }
 
-.lightmode > .record-block {
-  @apply border-gray-300;
+.lightmode .record-block {
+  @apply border-gray-300 !important;
+}
+
+.lightmode body {
+  @apply bg-gray-100 text-gray-verydark !important;
+}
+
+.lightmode h1,
+.lightmode h2,
+.lightmode h3,
+.lightmode main {
+  @apply text-gray-verydark !important;
+}
+
+.lightmode main select,
+.lightmode main input {
+  @apply bg-gray-300 text-gray-verydark !important;
+}
+
+.lightmode main a {
+  @apply text-orange-600 hover:text-orange-400;
 }

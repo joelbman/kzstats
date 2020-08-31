@@ -17,3 +17,19 @@
 .pagination-container li {
   @apply inline p-2 pl-3 pr-3;
 }
+
+.lightmode .pagination-container {
+  @apply bg-gray-200;
+}
+
+.lightmode .pagination-container a {
+  @apply text-blue-600 hover:text-blue-500;
+}
+
+.lightmode .lightmode .pagination-active {
+  @apply bg-blue-400;
+}
+
+.lightmode .pagination-active a {
+  @apply font-bold text-gray-100 hover:text-white;
+}

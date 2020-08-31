@@ -51,8 +51,8 @@ const MapListView = () => {
     setFiltered(data)
   }, [data])
 
-  if (error) return <div>Error: {error.message}</div>
-  if (loader) return <>{loader}</>
+  if (error) return error
+  if (loader) return loader
 
   return (
     <>

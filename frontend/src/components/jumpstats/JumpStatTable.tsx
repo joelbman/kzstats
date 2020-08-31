@@ -1,73 +1,69 @@
 import Table from 'components/general/Table'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import useApiRequest from '../util/useApiRequest'
 
 interface Props {
   jumpType: string
   crouchBind: boolean
+  steamid?: string
 }
 
-interface Jumpstat {
-  id: number
-  server_id: number
-  steamid64: string
-  jumpstat_data_id: number
-  player_name: string
-  steam_id: string
-  jump_type: number
-  distance: number
-  json_jump_info: string
-  tickrate: number
-  msl_count: number
-  strafe_count: number
-  is_crouch_bind: number
-  is_forward_bind: number
-  is_crouch_boost: number
-  updated_by_id: number
-  created_on: string
-  updated_on: string
+const stringToId = (str: string) => {
+  switch (str) {
+    case 'longjump':
+      return 1
+    case 'bhop':
+      return 2
+    case 'multibhop':
+      return 3
+    case 'weirdjump':
+      return 4
+    case 'dropbhop':
+      return 5
+    case 'countjump':
+      return 6
+    case 'ladderjump':
+      return 7
+    default:
+      return 0
+  }
 }
 
-const JumpStatTable = ({ jumpType, crouchBind }: Props) => {
-  const [apiOptions, setApiOptions] = useState({
-    is_crouch_bind: crouchBind,
-    limit: 20,
-  })
-  const { error, loader, data } = useApiRequest(
-    `/jumpstats/${jumpType}/top`,
-    apiOptions
-  )
+const JumpStatTable = (props: Props) => {
+  let url, apiOpt
 
-  useEffect(() => {
-    if (data.length > 0) {
-      setApiOptions({ is_crouch_bind: crouchBind, limit: 20 })
+  if (props.steamid) {
+    url = '/jumpstats/'
+    apiOpt = {
+      jump_type: stringToId(props.jumpType),
+      is_crouch_bind: props.crouchBind,
+      limit: 60,
+      steam_id: props.steamid,
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [crouchBind])
+  } else {
+    url = `/jumpstats/${props.jumpType}/top`
+    apiOpt = { is_crouch_bind: props.crouchBind, limit: 60 }
+  }
 
-  if (error) return <div>Error: {error.message}</div>
-  if (loader) return <>{loader}</>
+  const [apiOptions, setApiOptions] = useState(apiOpt)
+  const { error, loader, data } = useApiRequest(url, apiOptions)
+
+  if (error) return error
+  if (loader) return loader
+
+  const columns = [
+    { key: 'player_name', type: 'player', header: 'Player' },
+    { key: 'distance' },
+    { key: 'strafe_count', header: 'Strafes' },
+  ]
 
   return (
     <Table
-      headers={['#', 'Player', 'Strafes', 'Distance', 'Date']}
-      className="w-full mt-6"
-    >
-      {data.map((jumpstat: Jumpstat, key: number) => (
-        <tr key={key}>
-          <td>{key + 1}.</td>
-          <td>
-            <Link to={`/players/${jumpstat.steamid64}`}>
-              {jumpstat.player_name}
-            </Link>
-          </td>
-          <td>{jumpstat.strafe_count}</td>
-          <td>{jumpstat.distance}</td>
-          <td>{jumpstat.updated_on.replace('T', ' ')}</td>
-        </tr>
-      ))}
-    </Table>
+      data={data}
+      columns={columns}
+      sort={{ key: 'distance', desc: true }}
+      className="mt-4 w-full"
+    />
   )
 }
 export default JumpStatTable

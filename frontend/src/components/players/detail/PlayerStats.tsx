@@ -5,7 +5,12 @@ interface Props {
 }
 
 const PlayerStats = (props: Props) => {
-  return <div></div>
+  return (
+    <div>
+      <h1>Statistics</h1>
+      Work in progress...
+    </div>
+  )
 }
 
 export default PlayerStats

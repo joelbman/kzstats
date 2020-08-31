@@ -14,7 +14,7 @@ const MapNameResults = (props: Props) => {
   })
   const { error, loader, data } = useApiRequest('/maps', apiOptions)
 
-  if (error?.message) return <div>Error: {error.message}</div>
+  if (error) return error
   if (loader) return loader
   return (
     <div className="flex-grow">

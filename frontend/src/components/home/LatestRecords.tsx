@@ -84,7 +84,7 @@ const LatestRecords = (props: Props) => {
     setItems(filterRecords)
   }, [data, wrOnly])
 
-  if (error?.message) return <div>Error: {error.message}</div>
+  if (error) return error
 
   const panelHeader = () => {
     return (

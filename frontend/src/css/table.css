@@ -3,11 +3,11 @@ table {
 }
 
 td {
-  @apply p-2;
+  @apply p-2 text-left;
 }
 
 th {
-  @apply p-2;
+  @apply p-2 text-left bg-gray-900;
 }
 
 tbody tr {
@@ -20,4 +20,25 @@ tbody tr:nth-child(odd) {
 
 .record-table-wr {
   @apply text-red-700 font-bold;
+}
+
+.lightmode table {
+  @apply border border-gray-light text-gray-verydark;
+}
+
+.lightmode th,
+.lightmode thead {
+  @apply bg-gray-medium text-gray-200 !important;
+}
+
+.lightmode tbody tr {
+  @apply bg-white border-t border-gray-light;
+}
+
+.lightmode tbody tr:nth-child(odd) > td {
+  @apply bg-orange-250;
+}
+
+.lightmode .record-table-wr {
+  @apply text-red-700 !important;
 }

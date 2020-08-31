@@ -1,5 +1,5 @@
+import ErrorHandler from 'components/general/ErrorHandler'
 import ImageC from 'components/general/ImageC'
-import RecordTable from 'components/general/RecordTable'
 import ChartIcon from 'components/icons/ChartIcon'
 import TrophyIcon from 'components/icons/TrophyIcon'
 import { difficultyToText } from 'components/util/filters'
@@ -8,6 +8,7 @@ import React, { Suspense, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import MapRecordHistory from './MapRecordHistory'
+import MapRecords from './MapRecords'
 
 interface Props {
   match: { params: { mapname: string } }
@@ -18,9 +19,12 @@ const MapDetailView = (props: Props) => {
 
   const [apiOptions] = useState({ name: mapname })
   const { error, loader, data } = useApiRequest('/maps/', apiOptions)
+  const [activeTab, setActiveTab] = useState(0)
 
-  if (loader) return <>{loader}</>
-  if (error?.message) return <div>Error: {error.message}</div>
+  if (loader) return loader
+  if (error) return error
+
+  if (data.length === 0) return <ErrorHandler type={404} />
 
   return (
     <div className="flex flex-col">
@@ -43,20 +47,31 @@ const MapDetailView = (props: Props) => {
         </div>
       </div>
       <div className="flex-grow mt-8">
-        <Tabs selectedTabClassName="tab-selected" className="tab-main">
+        <Tabs
+          selectedIndex={activeTab}
+          selectedTabClassName="tab-selected"
+          className="tab-main"
+          onSelect={(i: number) => {
+            setActiveTab(i)
+          }}
+        >
           <TabList>
             <Tab>
-              <TrophyIcon />
-              Records
+              <button>
+                <TrophyIcon />
+                Records
+              </button>
             </Tab>
             <Tab>
-              <ChartIcon />
-              Statistics
+              <button>
+                <ChartIcon />
+                Statistics
+              </button>
             </Tab>
             <div className="tab-filler"></div>
           </TabList>
           <TabPanel>
-            <RecordTable mapname={mapname} />
+            <MapRecords mapname={mapname} />
           </TabPanel>
           <TabPanel>
             <MapRecordHistory mapname={mapname} />

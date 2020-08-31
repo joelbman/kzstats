@@ -14,7 +14,7 @@ const PlayerProfileSettings = (props: Props) => {
   const { error, loader, data } = useApiRequest('api/country/', null, true)
 
   if (!user) return <Redirect to="/" />
-  if (error?.message) return <div>Error: {error.message}</div>
+  if (error) return error
   if (loader) return loader
 
   const handleSubmit = () => {}

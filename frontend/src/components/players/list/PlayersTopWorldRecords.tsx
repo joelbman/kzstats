@@ -1,6 +1,6 @@
+import Table from 'components/general/Table'
 import React, { useContext, useMemo, useState } from 'react'
 import { ModeContext } from '../../../context/ModeContext'
-import Table from '../../general/Table'
 import useApiRequest from '../../util/useApiRequest'
 
 interface Props {
@@ -50,25 +50,25 @@ const PlayersTopWorldRecords = (props: Props) => {
     })
   }, [modeState.kzMode, modeState.tickrate, props.limit, props.pro])
 
-  if (error && error.message) return <div>Error: {error.message}</div>
-  if (loader) return <>{loader}</>
+  if (error) return error
+  if (loader) return loader
+
+  const columns = [
+    { key: 'player_name', type: 'player', header: 'Player' },
+    { key: 'count' },
+  ]
 
   return (
     <div className="mb-8 lg:mr-4 mr-2 flex-grow">
       <h3 className="text-lg block">
         Top 15 - {props.pro ? 'Pro' : 'Overall'}
       </h3>
-      <Table headers={['#', 'Player', 'Count']} className="w-full">
-        {data.slice(0, 15).map((p: Player, i: number) => (
-          <tr key={i}>
-            <td>{i + 1}.</td>
-            <td>
-              <a href={`/players/${p.steamid64}`}>{p.player_name}</a>
-            </td>
-            <td>{p.count}</td>
-          </tr>
-        ))}
-      </Table>
+      <Table
+        data={data}
+        columns={columns}
+        sort={{ key: 'count', desc: true }}
+        className="w-full"
+      />
     </div>
   )
 }

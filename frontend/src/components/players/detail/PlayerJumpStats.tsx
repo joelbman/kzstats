@@ -1,16 +1,28 @@
+import { Console } from 'console'
+import Table from 'components/general/Table'
+import JumpStatTable from 'components/jumpstats/JumpStatTable'
 import useApiRequest from 'components/util/useApiRequest'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Props {
-  steamid64: string
+  steamid: string
 }
 
 const PlayerJumpStats = (props: Props) => {
-  const [apiOptions] = useState({ steamid64: props.steamid64 })
-  const { error, loader, data } = useApiRequest('/jumpstats', apiOptions)
-  if (error?.message) return <div>Error: {error.message}</div>
-  if (loader) return loader
-  return <div></div>
+  const [jumpType] = useState('longjump')
+  const [crouchBind] = useState(false)
+
+  return (
+    <div>
+      {props.steamid && (
+        <JumpStatTable
+          jumpType={jumpType}
+          crouchBind={crouchBind}
+          steamid={props.steamid}
+        />
+      )}
+    </div>
+  )
 }
 
 export default PlayerJumpStats

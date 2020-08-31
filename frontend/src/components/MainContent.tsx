@@ -23,10 +23,13 @@ const MainContent = () => {
         <Route exact path="/" component={HomeView} />
 
         <Route exact path="/maps" component={MapListView} />
-        <Route path="/maps/:mapname" component={MapDetailView} />
+        <Route path="/maps/:mapname/:selectedTab?" component={MapDetailView} />
 
         <Route exact path="/players" component={PlayerListView} />
-        <Route path="/players/:steamid64" component={PlayerDetailView} />
+        <Route
+          path="/players/:steamid64/:selectedTab?"
+          component={PlayerDetailView}
+        />
 
         <Route exact path="/jumpstats" component={JumpStatsView} />
         <Route exact path="/bans" component={BanListView} />
