@@ -1,7 +1,7 @@
 import Table from 'components/general/Table'
 import useApiRequest from 'components/util/useApiRequest'
 import { ModeContext } from 'context/ModeContext'
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 
 interface Props {
   steamid64: string

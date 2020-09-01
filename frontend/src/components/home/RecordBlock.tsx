@@ -1,4 +1,5 @@
 import ImageC from 'components/general/ImageC'
+import { FlagIcon } from 'components/icons'
 import { runtimeFormat, timeAgoFormat } from 'components/util/filters'
 import Record from 'models/Record'
 import React, { Suspense } from 'react'
@@ -7,10 +8,11 @@ import { Link } from 'react-router-dom'
 interface Props {
   record: Record
 }
+
 const RecordBlock = ({ record }: Props) => {
   return (
     <div className="record-block">
-      <div className="w-48 block md:inline-block">
+      <div className="w-40 block md:inline-block">
         <Suspense fallback={<div></div>}>
           <Link to={`maps/${record.map_name}`}>
             <ImageC
@@ -35,13 +37,17 @@ const RecordBlock = ({ record }: Props) => {
               alt="trophy"
               height="16"
               width="16"
-              className="inline ml-2 pb-2"
+              className="inline ml-1 pb-2"
             />
           ) : (
             <sup className="ml-2">#{record.place}</sup>
           )}
         </p>
-        by <Link to={`/players/${record.steamid64}`}>{record.player_name}</Link>
+        by{' '}
+        <Link to={`/players/${record.steamid64}`}>
+          {record.player_name}
+          {record.countrycode ? <FlagIcon code={record.countrycode} /> : ''}
+        </Link>
         <br />
         {timeAgoFormat(record.updated_on)}
       </div>

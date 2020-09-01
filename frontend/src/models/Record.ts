@@ -21,4 +21,5 @@ export default interface Record {
   points: number
   record_filter_id: number
   replay_id: number
+  countrycode?: string
 }

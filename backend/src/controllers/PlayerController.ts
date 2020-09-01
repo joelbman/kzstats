@@ -5,7 +5,18 @@ import logger from '../util/logger'
 const router = express.Router()
 
 router.get('/:steamid64/steam', (req, res) => {
-  PlayerService.getSteamProfile(req.params.steamid64)
+  PlayerService.getProfile(req.params.steamid64)
+    .then((data) => {
+      res.json(data)
+    })
+    .catch((e: Error) => {
+      logger.error(e.message)
+      res.sendStatus(400)
+    })
+})
+
+router.post('/details/', (req, res) => {
+  PlayerService.getDetails(req.body)
     .then((data) => {
       res.json(data)
     })

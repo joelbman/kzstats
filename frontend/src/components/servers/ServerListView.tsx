@@ -21,13 +21,13 @@ const wsUrl =
     ? 'http://lakka.kapsi.fi:62513/'
     : 'https://localhost:3001/'
 
+const io = socketIOclient(wsUrl)
+
 const ServerListView = () => {
   const [servers, setServers] = useState<ServerObject[]>([])
   const [done, setDone] = useState(false)
 
   useEffect(() => {
-    const io = socketIOclient(wsUrl)
-
     const requestList = () => {
       io.emit('request-list')
       setTimeout(requestList, 60000)
@@ -42,7 +42,7 @@ const ServerListView = () => {
       })
       setServers(servers)
     })
-  })
+  }, [])
 
   return (
     <div>

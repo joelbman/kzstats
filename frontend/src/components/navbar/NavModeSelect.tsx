@@ -18,8 +18,8 @@ const NavModeSelect = () => {
   }
 
   return (
-    <div className="order-6 flex flex-row flex-wrap flex-auto">
-      <div style={{ width: '10.5rem' }}>
+    <div className="order-6">
+      <div className="inline-block" style={{ width: '10.5rem' }}>
         Mode:
         <select value={modeState.kzMode} onChange={changeMode}>
           <option value="kz_timer">KZTimer</option>
@@ -28,7 +28,7 @@ const NavModeSelect = () => {
         </select>
       </div>
       {modeState.kzMode === 'kz_timer' && (
-        <div style={{ width: '7.5rem' }}>
+        <div className="inline-block" style={{ width: '7.5rem' }}>
           Tick:
           <select value={modeState.tickrate} onChange={changeTickrate}>
             <option value="128">128</option>

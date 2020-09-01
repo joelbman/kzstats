@@ -1,26 +1,24 @@
 import Panel from 'components/general/Panel'
 import useApiRequest from 'components/util/useApiRequest'
 import { ModeContext } from 'context/ModeContext'
-import { UserContext } from 'context/UserContext'
 import Record from 'models/Record'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import RecordBlock from './RecordBlock'
 
 interface Props {
-  myRecords?: boolean
+  steamid64?: string
 }
 
 const LatestRecords = (props: Props) => {
   const { state: modeState } = useContext(ModeContext)
-  const userCtx = useContext(UserContext)
-  let apiOpt = props.myRecords
+
+  let apiOpt = props.steamid64
     ? {
         limit: 300,
-        place_top_at_least: 20,
         has_teleports: false,
         tickrate: modeState.tickrate,
         modes_list_string: modeState.kzMode,
-        steamid64: userCtx?.user?.steamid64,
+        steamid64: props.steamid64,
       }
     : {
         limit: 300,
@@ -34,7 +32,9 @@ const LatestRecords = (props: Props) => {
 
   const { error, loader, data } = useApiRequest(
     '/records/top/recent',
-    apiOptions
+    apiOptions,
+    false,
+    true
   )
   const [items, setItems] = useState([])
   const [wrOnly, setWrOnly] = useState(true)
@@ -45,12 +45,11 @@ const LatestRecords = (props: Props) => {
 
   useMemo(() => {
     setApiOptions({
-      limit: 300,
-      place_top_at_least: 20,
-      has_teleports: false,
+      ...apiOptions,
       modes_list_string: modeState.kzMode,
       tickrate: modeState.tickrate,
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modeState.kzMode, modeState.tickrate])
 
   useEffect(() => {
@@ -89,7 +88,7 @@ const LatestRecords = (props: Props) => {
   const panelHeader = () => {
     return (
       <>
-        {props.myRecords ? 'My records' : 'Global records'}
+        {props.steamid64 ? 'My records' : 'Global records'}
         <div className="float-right">
           <input type="checkbox" onChange={toggleWROnly} checked={wrOnly} /> WRs
           only

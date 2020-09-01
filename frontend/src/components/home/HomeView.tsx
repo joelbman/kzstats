@@ -8,7 +8,7 @@ import LatestRecords from './LatestRecords'
 const HomeView = () => {
   const userCtx = useContext(UserContext)
 
-  const notLoggedIn = () => {
+  const renderNotLoggedIn = () => {
     return (
       <Panel
         header={() => {
@@ -26,14 +26,14 @@ const HomeView = () => {
       <h1>Latest</h1>
       <div className="flex flex-col lg:flex-row w-full">
         <Helmet title="Latest" />
-        <div className="xl:w-1/3 mb-4 md:mr-10 md:mb-0">
+        <div className="xl:w-1/2 mb-4 md:mr-10 md:mb-0">
           <LatestRecords />
         </div>
-        <div className="xl:w-1/3">
+        <div className="xl:w-1/2">
           {userCtx?.user?.steamid64 ? (
-            <LatestRecords myRecords={true} />
+            <LatestRecords steamid64={userCtx?.user?.steamid64} />
           ) : (
-            notLoggedIn()
+            renderNotLoggedIn()
           )}
         </div>
       </div>

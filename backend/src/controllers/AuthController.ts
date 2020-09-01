@@ -18,6 +18,7 @@ router.get(
 
   passport.authenticate('steam', { failureRedirect: '/' }),
   (req, res) => {
+    if (!process.env.production) res.redirect('https://localhost:3000/')
     res.redirect('/')
   }
 )
@@ -39,6 +40,7 @@ router.put('/profile', checkAuth, (req, res) => {
 
 router.get('/logout', checkAuth, (req, res) => {
   req.logout()
+  if (!process.env.production) res.redirect('https://localhost:3000/')
   res.redirect('/')
 })
 

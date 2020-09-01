@@ -1,4 +1,4 @@
-import { TrophyIcon } from 'components/icons'
+import { FlagIcon, TrophyIcon } from 'components/icons'
 import { runtimeFormat, textLimiter } from 'components/util/filters'
 import React, { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
@@ -23,7 +23,7 @@ interface Props {
 
 const Table = (props: Props) => {
   const [sortKey, setSortKey] = useState(props.sort.key)
-  const [sortDesc, setSortDesc] = useState(true)
+  const [sortDesc, setSortDesc] = useState(props.sort.desc)
   const [data, setData] = useState<any>([])
   const [currentData, setCurrentData] = useState<any>([])
   const [pageCount, setPageCount] = useState(0)
@@ -72,21 +72,31 @@ const Table = (props: Props) => {
       case 'datetime':
         return obj[column.key].replace('T', ' ')
       case 'player':
-        return <Link to={`/players/${obj.steamid64}`}>{obj[column.key]}</Link>
+        let playerName = obj[column.key]
+        if (!playerName || playerName.length === 0) playerName = '<unknown>'
+        if (obj.countrycode)
+          return (
+            <Link to={`/players/${obj.steamid64}`}>
+              {playerName} <FlagIcon code={obj.countrycode} />
+            </Link>
+          )
+        return <Link to={`/players/${obj.steamid64}`}>{playerName}</Link>
       case 'map':
         return <Link to={`/maps/${obj[column.key]}`}>{obj[column.key]}</Link>
       case 'runtime':
         if (obj.points === 1000)
           return (
-            <b className="text-red-600">{runtimeFormat(obj[column.key])}</b>
+            <b className="text-red-500">{runtimeFormat(obj[column.key])}</b>
           )
         return runtimeFormat(obj[column.key])
       case 'points':
         return obj.points === 1000 ? <TrophyIcon /> : obj.points
       case 'server':
+        let serverName = obj[column.key]
+        if (!serverName) serverName = '<unknown>'
         return (
           <Link to={`/servers/${obj.server_id}`}>
-            {textLimiter(obj[column.key])}
+            {textLimiter(serverName)}
           </Link>
         )
       default:
@@ -94,11 +104,9 @@ const Table = (props: Props) => {
     }
   }
 
-  if (data.length < 1) return <p>No data available.</p>
-
   return (
     <div className={`overflow-x-auto w-full`}>
-      <table className={props.className}>
+      <table className={`w-full ${props.className}`}>
         {!props.noHead && (
           <thead>
             <tr>
