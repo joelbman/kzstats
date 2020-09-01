@@ -1,3 +1,5 @@
+import { Player } from 'gamedig'
+
 export interface PassportSteamProfile {
   provider: string
   _json: {
@@ -25,6 +27,13 @@ export interface UserObject {
   country?: string
   countrycode?: string
   steamid64: string
+}
+
+export interface QueryState {
+  name: string
+  map: string
+  maxplayers: number
+  players: Player[]
 }
 
 export interface DoneFunction {

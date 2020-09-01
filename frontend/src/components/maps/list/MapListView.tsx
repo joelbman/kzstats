@@ -5,6 +5,8 @@ import useApiRequest from '../../util/useApiRequest'
 import MapListGrid from './MapListGrid'
 import MapListTable from './MapListTable'
 
+let timer = 0
+
 const MapListView = () => {
   const [apiOptions] = useState({
     is_verified: true,
@@ -16,7 +18,6 @@ const MapListView = () => {
   const [filtered, setFiltered] = useState<Map[]>([])
 
   // Update filter 0.6secs after user has stopped typing
-  let timer = 0
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     clearTimeout(timer)
     const val = e.target.value

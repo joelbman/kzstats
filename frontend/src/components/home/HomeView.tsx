@@ -16,7 +16,7 @@ const HomeView = () => {
         }}
       >
         Log in with Steam to view your latest records.
-        <SteamButton />
+        <SteamButton className="mt-4" />
       </Panel>
     )
   }

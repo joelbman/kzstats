@@ -9,7 +9,6 @@ const NavModeSelect = () => {
     localStorage.setItem('kzMode', event.target.value)
     localStorage.setItem('tickrate', tick)
     modeDispatch(event.target.value, tick)
-    console.log(modeState.kzMode)
   }
 
   const changeTickrate = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -18,7 +17,7 @@ const NavModeSelect = () => {
   }
 
   return (
-    <div className="order-6">
+    <div className="order-6 inline-flex flex-wrap">
       <div className="inline-block" style={{ width: '10.5rem' }}>
         Mode:
         <select value={modeState.kzMode} onChange={changeMode}>

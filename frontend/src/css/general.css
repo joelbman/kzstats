@@ -37,7 +37,7 @@ main {
 }
 
 main a {
-  @apply font-semibold hover:font-bold text-blue-300 hover:text-blue-200;
+  @apply hover:font-bold text-blue-200 hover:text-blue-100;
 }
 
 footer {
@@ -77,11 +77,6 @@ footer {
 .lightmode h3,
 .lightmode main {
   @apply text-gray-verydark !important;
-}
-
-.lightmode main select,
-.lightmode main input {
-  @apply bg-gray-300 text-gray-verydark !important;
 }
 
 .lightmode main a {

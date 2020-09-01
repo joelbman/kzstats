@@ -3,6 +3,10 @@ main select {
   @apply bg-gray-900 text-gray-300 px-1 border border-gray-950 ml-2;
 }
 
+main input {
+  padding: 2px 4px 2px 4px;
+}
+
 input:focus {
   box-shadow: 0 0 0 1px rgba(66, 153, 225, 0.5);
   outline: 0;
@@ -59,4 +63,9 @@ input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
+}
+
+.lightmode main select,
+.lightmode main input {
+  @apply bg-gray-300 text-gray-verydark !important;
 }
