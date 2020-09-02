@@ -30,23 +30,30 @@ const ServerListView = () => {
   const [filtered, setFiltered] = useState<ServerObject[]>([])
   const [continent, setContinent] = useState('')
   const [filterStr, setFilterStr] = useState('')
-  const [done, setDone] = useState(false)
 
   useEffect(() => {
+    let mounted = true
+
     const requestList = () => {
+      if (!mounted) return
       io.emit('request-list')
-      setTimeout(requestList, 60000)
-      setDone(true)
+      setTimeout(requestList, 120000)
     }
 
-    if (!done) requestList()
+    requestList()
 
     io.on('serverlist', (servers: ServerObject[]) => {
-      setServers(servers)
-      filterServers(filterStr, continent, servers)
+      if (mounted) {
+        setServers(servers)
+        filterServers(filterStr, continent, servers)
+      }
     })
+
+    return () => {
+      mounted = false
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [filterStr, continent])
 
   const filterServers = (
     filter: string,
@@ -123,11 +130,13 @@ const ServerListView = () => {
         </div>
       </div>
       {filtered.length > 0 ? (
-        <TableSimple>
+        <TableSimple headers={['Server', 'Map', 'Players', 'IP', ' ']}>
           {filtered.map((server: ServerObject, i: number) => (
             <tr key={i}>
               <td>
-                <Link to={`/servers/${server.ip}`}>{server.name}</Link>
+                <Link to={`/servers/${server.ip}:${server.port}`}>
+                  {server.name}
+                </Link>
                 <FlagIcon code={server.countrycode} />
               </td>
               <td>

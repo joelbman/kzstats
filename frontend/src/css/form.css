@@ -67,5 +67,31 @@ input:checked + .slider:before {
 
 .lightmode main select,
 .lightmode main input {
-  @apply bg-gray-300 text-gray-verydark !important;
+  @apply bg-gray-300 text-gray-verydark border-gray-light !important;
+}
+
+::-webkit-input-placeholder {
+  @apply italic;
+}
+
+:-ms-input-placeholder {
+  @apply italic;
+}
+
+::placeholder {
+  @apply italic;
+}
+
+.lightmode ::-webkit-input-placeholder {
+  /* Edge */
+  @apply text-gray-500;
+}
+
+.lightmode :-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  @apply text-gray-500;
+}
+
+.lightmode ::placeholder {
+  @apply text-gray-500;
 }

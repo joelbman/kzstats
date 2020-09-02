@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import useApiRequest from '../../hooks/useApiRequest'
 import Map from '../../models/Map'
-import useApiRequest from '../util/useApiRequest'
 
 interface Props {
   searchStr: string

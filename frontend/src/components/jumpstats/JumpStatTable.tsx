@@ -1,6 +1,6 @@
 import Table from 'components/general/Table'
 import React, { useMemo, useState } from 'react'
-import useApiRequest from '../util/useApiRequest'
+import useApiRequest from '../../hooks/useApiRequest'
 
 interface Props {
   jumpType: string
@@ -30,12 +30,12 @@ const stringToId = (str: string) => {
 }
 
 const JumpStatTable = (props: Props) => {
-  let url, apiOpt, columns
+  let url, apiOpt, columns, details
 
   if (props.steamid) {
     url = '/jumpstats/'
     apiOpt = {
-      jump_type: stringToId(props.jumpType),
+      jumptype_list: stringToId(props.jumpType),
       is_crouch_bind: props.crouchBind,
       limit: 30,
       steam_id: props.steamid,
@@ -45,6 +45,7 @@ const JumpStatTable = (props: Props) => {
       { key: 'strafe_count', header: 'Strafes' },
       { key: 'updated_on', type: 'datetime', header: 'Date' },
     ]
+    details = false
   } else {
     url = `/jumpstats/${props.jumpType}/top`
     apiOpt = { is_crouch_bind: props.crouchBind, jump_type: null, limit: 60 }
@@ -54,15 +55,16 @@ const JumpStatTable = (props: Props) => {
       { key: 'strafe_count', header: 'Strafes' },
       { key: 'updated_on', type: 'datetime', header: 'Date' },
     ]
+    details = true
   }
 
   const [apiOptions, setApiOptions] = useState<any>(apiOpt)
-  const { error, loader, data } = useApiRequest(url, apiOptions, false, true)
+  const { error, loader, data } = useApiRequest(url, apiOptions, false, details)
 
   useMemo(() => {
     setApiOptions({
       ...apiOptions,
-      jump_type: stringToId(props.jumpType),
+      jumptype_list: stringToId(props.jumpType),
       is_crouch_bind: props.crouchBind,
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,6 +72,7 @@ const JumpStatTable = (props: Props) => {
 
   if (error) return error
   if (loader) return loader
+  if (data.length === 0) return <p className="mt-4">No data available.</p>
 
   return (
     <Table

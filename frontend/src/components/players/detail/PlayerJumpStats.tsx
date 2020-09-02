@@ -23,7 +23,7 @@ const PlayerJumpStats = (props: Props) => {
       <div className="inline-block mt-2">
         Jump type:
         <select value={jumpType} onChange={changeJumpType} className="ml-2">
-          <option value="lj">Longjump</option>
+          <option value="longjump">Longjump</option>
           <option value="bhop">Bunnyhop</option>
           <option value="dropbhop">Drop B-Hop</option>
           <option value="multibhop">Multi B-Hop</option>

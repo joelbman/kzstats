@@ -71,6 +71,7 @@ const Table = (props: Props) => {
     switch (column.type) {
       case 'datetime':
         return obj[column.key].replace('T', ' ')
+
       case 'player':
         let playerName = obj[column.key]
         if (!playerName || playerName.length === 0) playerName = '<unknown>'
@@ -81,16 +82,20 @@ const Table = (props: Props) => {
             </Link>
           )
         return <Link to={`/players/${obj.steamid64}`}>{playerName}</Link>
+
       case 'map':
         return <Link to={`/maps/${obj[column.key]}`}>{obj[column.key]}</Link>
+
       case 'runtime':
         if (obj.points === 1000)
           return (
             <b className="text-red-500">{runtimeFormat(obj[column.key])}</b>
           )
         return runtimeFormat(obj[column.key])
+
       case 'points':
         return obj.points === 1000 ? <TrophyIcon /> : obj.points
+
       case 'server':
         let serverName = obj[column.key]
         if (!serverName) serverName = '<unknown>'
@@ -99,6 +104,7 @@ const Table = (props: Props) => {
             {textLimiter(serverName)}
           </Link>
         )
+
       default:
         return obj[column.key]
     }

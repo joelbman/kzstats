@@ -9,12 +9,13 @@ body {
 }
 
 h1 {
-  @apply text-4xl text-gray-300;
+  @apply text-4xl text-gray-300 align-middle;
 }
 
 h1 small {
   font-size: 1.5rem;
   font-weight: normal;
+  vertical-align: middle;
 }
 
 h2 {

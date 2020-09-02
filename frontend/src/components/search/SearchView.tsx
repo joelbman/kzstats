@@ -2,7 +2,6 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import MapNameResults from './MapNameResults'
 import PlayerNameResults from './PlayerNameResults'
-import SteamIDResults from './SteamIDResults'
 
 interface Props {
   match: { params: { searchStr: string } }

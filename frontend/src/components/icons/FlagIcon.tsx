@@ -1,5 +1,5 @@
-import React from 'react'
-import { Img } from 'react-image'
+import ImageC from 'components/general/ImageC'
+import React, { Suspense } from 'react'
 
 interface Props {
   code: string
@@ -7,13 +7,15 @@ interface Props {
 
 const FlagIcon = (props: Props) => {
   return (
-    <Img
-      width="16"
-      height="11"
-      alt={props.code}
-      className="inline mr-1 ml-1"
-      src={[`/img/flag/${props.code?.toLowerCase()}.png`, '/img/noimage.png']}
-    />
+    <Suspense fallback={<span></span>}>
+      <ImageC
+        width="16"
+        height="11"
+        alt={props.code}
+        className="inline mr-1 ml-1"
+        src={`/img/flag/${props.code?.toLowerCase()}.png`}
+      />
+    </Suspense>
   )
 }
 

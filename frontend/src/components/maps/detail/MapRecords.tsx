@@ -1,20 +1,34 @@
 import Table from 'components/general/Table'
-import useApiRequest from 'components/util/useApiRequest'
 import { ModeContext } from 'context/ModeContext'
-import React, { useContext, useEffect, useState } from 'react'
+import useApiRequest from 'hooks/useApiRequest'
+import Record from 'models/Record'
+import React, { useContext, useMemo, useState } from 'react'
 
 interface Props {
   mapname: string
 }
 
 const MapRecords = (props: Props) => {
+  const [records, setRecords] = useState<Record[]>([])
+  const [proOnly, setProOnly] = useState(false)
   const { state: modeState } = useContext(ModeContext)
   const [apiOpt, setApiOpt] = useState({
     map_name: props.mapname,
-    limit: 400,
+    limit: 100,
     modes_list_string: modeState.kzMode,
     tickrate: modeState.tickrate,
+    has_teleports: false,
+    stage: 0,
   })
+  const [apiOptTp, setApiOptTp] = useState({
+    map_name: props.mapname,
+    limit: 100,
+    modes_list_string: modeState.kzMode,
+    tickrate: modeState.tickrate,
+    has_teleports: true,
+    stage: 0,
+  })
+
   const { error, loader, data } = useApiRequest(
     'records/top/',
     apiOpt,
@@ -22,14 +36,39 @@ const MapRecords = (props: Props) => {
     true
   )
 
-  useEffect(() => {
+  const { loader: tpLoader, data: tpData } = useApiRequest(
+    'records/top/',
+    apiOptTp,
+    false,
+    true
+  )
+
+  useMemo(() => {
+    if (!loader && !tpLoader) setRecords(data.concat(tpData))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, tpData])
+
+  useMemo(() => {
     setApiOpt({
       ...apiOpt,
       modes_list_string: modeState.kzMode,
       tickrate: modeState.tickrate,
     })
+    setApiOptTp({
+      ...apiOptTp,
+      modes_list_string: modeState.kzMode,
+      tickrate: modeState.tickrate,
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modeState.kzMode, modeState.tickrate])
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setRecords(data)
+    } else setRecords(data.concat(tpData))
+
+    setProOnly(e.target.checked)
+  }
 
   const columns = [
     { key: 'player_name', header: 'Player', type: 'player' },
@@ -41,18 +80,21 @@ const MapRecords = (props: Props) => {
   ]
 
   if (error) return error
-  if (loader) return loader
+  if (loader || tpLoader) return loader || tpLoader
 
   return (
     <div>
-      <h1>
-        Records <small>({data.length})</small>
-      </h1>
-      {data.length > 0 ? (
+      <h1>Records</h1>
+      <div className="my-4 ml-1">
+        Show only PRO times:
+        <input type="checkbox" checked={proOnly} onChange={handleInput} />
+      </div>
+      {records.length > 0 ? (
         <Table
-          data={data}
+          data={records}
           columns={columns}
           sort={{ key: 'time', desc: false }}
+          itemsPerPage={20}
         />
       ) : (
         <p>No records found</p>

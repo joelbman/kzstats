@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import useApiRequest from '../../../hooks/useApiRequest'
 import Map from '../../../models/Map'
-import useApiRequest from '../../util/useApiRequest'
 import MapListGrid from './MapListGrid'
 import MapListTable from './MapListTable'
 

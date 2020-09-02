@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import useApiRequest from '../util/useApiRequest'
+import useApiRequest from '../../hooks/useApiRequest'
 
 interface Props {
   searchStr: string

@@ -1,5 +1,5 @@
-import useApiRequest from 'components/util/useApiRequest'
 import { UserContext } from 'context/UserContext'
+import useApiRequest from 'hooks/useApiRequest'
 import User from 'models/User'
 import React, { useContext } from 'react'
 import { Redirect } from 'react-router-dom'

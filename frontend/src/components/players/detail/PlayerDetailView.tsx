@@ -17,7 +17,7 @@ import React, {
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
-import useApiRequest from '../../util/useApiRequest'
+import useApiRequest from '../../../hooks/useApiRequest'
 import PlayerJumpStats from './PlayerJumpStats'
 import PlayerProfileSettings from './PlayerProfileSettings'
 import PlayerRecords from './PlayerRecords'

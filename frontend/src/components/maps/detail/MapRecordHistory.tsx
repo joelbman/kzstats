@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
 import { ModeContext } from '../../../context/ModeContext'
+import useApiRequest from '../../../hooks/useApiRequest'
 import Record from '../../../models/Record'
-import useApiRequest from '../../util/useApiRequest'
 
 interface Props {
   mapname: string

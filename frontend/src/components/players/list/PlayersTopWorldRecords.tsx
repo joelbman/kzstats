@@ -1,8 +1,7 @@
-import Axios from 'axios'
 import Table from 'components/general/Table'
 import React, { useContext, useMemo, useState } from 'react'
 import { ModeContext } from '../../../context/ModeContext'
-import useApiRequest from '../../util/useApiRequest'
+import useApiRequest from '../../../hooks/useApiRequest'
 
 interface Props {
   pro?: boolean
@@ -29,7 +28,6 @@ const modeNameToId = (modeName: string) => {
 
 const PlayersTopWorldRecords = (props: Props) => {
   const { state: modeState } = useContext(ModeContext)
-  const [playerDetails, setPlayerDetails] = useState<any>({})
   const [apiOptions, setApiOptions] = useState({
     limit: 20,
     mode_ids: modeNameToId(modeState.kzMode),

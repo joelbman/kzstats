@@ -1,6 +1,6 @@
 import Panel from 'components/general/Panel'
-import useApiRequest from 'components/util/useApiRequest'
 import { ModeContext } from 'context/ModeContext'
+import useApiRequest from 'hooks/useApiRequest'
 import Record from 'models/Record'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import RecordBlock from './RecordBlock'

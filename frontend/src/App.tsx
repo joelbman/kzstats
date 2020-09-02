@@ -3,29 +3,64 @@ import './tailwind.output.css'
 import Footer from 'components/Footer'
 import MainContent from 'components/MainContent'
 import NavBar from 'components/navbar/NavBar'
-import useApiRequest from 'components/util/useApiRequest'
 import { ModeContext } from 'context/ModeContext'
 import { UserContext } from 'context/UserContext'
+import useApiRequest from 'hooks/useApiRequest'
+import useScript from 'hooks/useScript'
 import User from 'models/User'
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { BrowserRouter } from 'react-router-dom'
 
 const App = () => {
+  // Analytics
+  useScript('//gc.zgo.at/count.js', {
+    key: 'goatcounter',
+    value: 'https://kzstats.goatcounter.com/count',
+  })
+
   const [modeState, setModeState] = useState({
     kzMode: localStorage.getItem('kzMode') || 'kz_timer',
     tickrate: localStorage.getItem('tickrate') || '128',
   })
   const [userState, setUserState] = useState<User | null>(null)
-  const dispatchMode = (mode: string, tick: string) => {
-    setModeState({ kzMode: mode, tickrate: tick })
-  }
-  const dispatchUser = (user: User | null) => {
-    setUserState(user)
-  }
-
+  const [darkmode, setDarkmode] = useState(false)
   const { error, data } = useApiRequest('/auth/profile', null, true)
 
+  // Theme swap, passed down to footer
+  const switchTheme = (darkmode: boolean) => {
+    setDarkmode(!darkmode)
+
+    if (darkmode) {
+      document.documentElement.classList.remove('lightmode')
+      localStorage.setItem('kzTheme', 'dark')
+      return
+    }
+
+    document.documentElement.classList.add('lightmode')
+    localStorage.setItem('kzTheme', 'light')
+  }
+
+  // Theme related effect
+  useEffect(() => {
+    if (localStorage.getItem('kzTheme') === 'dark') {
+      setDarkmode(true)
+      document.documentElement.classList.remove('lightmode')
+    } else if (localStorage.getItem('kzTheme') === 'light') {
+      setDarkmode(false)
+      document.documentElement.classList.add('lightmode')
+    } else {
+      if (
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        localStorage.setItem('kzTheme', 'dark')
+        setDarkmode(true)
+      }
+    }
+  }, [])
+
+  // User related effect
   useEffect(() => {
     if (error) {
       dispatchUser(null)
@@ -43,6 +78,13 @@ const App = () => {
     })
   }, [data, error])
 
+  const dispatchMode = (mode: string, tick: string) => {
+    setModeState({ kzMode: mode, tickrate: tick })
+  }
+  const dispatchUser = (user: User | null) => {
+    setUserState(user)
+  }
+
   return (
     <BrowserRouter>
       <Helmet htmlAttributes={{ lang: 'en' }} />
@@ -58,7 +100,7 @@ const App = () => {
           <MainContent />
         </ModeContext.Provider>
       </UserContext.Provider>
-      <Footer />
+      <Footer switchTheme={switchTheme} darkmode={darkmode} />
     </BrowserRouter>
   )
 }
