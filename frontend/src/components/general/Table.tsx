@@ -17,7 +17,7 @@ interface Props {
   sort: { key: string; desc: boolean }
   noHead?: boolean
   className?: string
-  filters?: { key: string; value: string }
+  filters?: { key: string; value: string }[]
   itemsPerPage?: number
   index?: boolean
 }
@@ -40,11 +40,29 @@ const Table = (props: Props) => {
   useEffect(() => {
     let arr = props.data
 
-    if (filters?.value) {
-      arr = arr.filter((obj: any) => {
-        return obj[filters.key]
-          .toLowerCase()
-          .includes(filters.value.toLowerCase())
+    if (filters) {
+      filters.forEach((f) => {
+        if (!f.value || f.value === '') return
+        if (f.key === 'points') {
+          arr = arr.filter((obj: any) => {
+            switch (f.value) {
+              case 'gold':
+                return obj.points === 1000
+              case 'silver':
+                return obj.points < 1000 && obj.points > 899
+              case 'bronze':
+                return obj.points < 900 && obj.points > 749
+              case 'rest':
+                return obj.points < 750
+              default:
+                return true
+            }
+          })
+        } else {
+          arr = arr.filter((obj: any) => {
+            return obj[f.key].toLowerCase().includes(f.value.toLowerCase())
+          })
+        }
       })
     }
 

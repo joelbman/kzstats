@@ -2,6 +2,7 @@ import './tailwind.output.css'
 
 import Footer from 'components/Footer'
 import MainContent from 'components/MainContent'
+import ScrollToTop from 'components/general/ScrollToTop'
 import NavBar from 'components/navbar/NavBar'
 import { ModeContext } from 'context/ModeContext'
 import { UserContext } from 'context/UserContext'
@@ -83,6 +84,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Helmet htmlAttributes={{ lang: 'en' }} />
       <UserContext.Provider value={{ user: userState, dispatch: dispatchUser }}>
         <ModeContext.Provider

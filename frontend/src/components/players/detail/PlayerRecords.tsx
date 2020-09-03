@@ -12,6 +12,7 @@ let timer = 0
 const PlayerRecords = (props: Props) => {
   const { state: modeState } = useContext(ModeContext)
   const [nameFilter, setNameFilter] = useState('')
+  const [pointsFilter, setPointsFilter] = useState('')
   const [apiOptions, setApiOptions] = useState({
     steamid64: props.steamid64,
     modes_list_string: modeState.kzMode,
@@ -46,6 +47,10 @@ const PlayerRecords = (props: Props) => {
     }, 600)
   }
 
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPointsFilter(e.target.value)
+  }
+
   if (error) return error
   if (loader) return loader
 
@@ -58,14 +63,26 @@ const PlayerRecords = (props: Props) => {
 
       {data.length > 0 ? (
         <>
-          <div className="mt-2 mb-4">
-            Mapname:
-            <input
-              type="text"
-              onChange={handleInput}
-              maxLength={20}
-              className="w-40"
-            />
+          <div className="mt-2 mb-4 w-full">
+            <div className="inline-block mr-4">
+              Mapname
+              <input
+                type="text"
+                onChange={handleInput}
+                maxLength={20}
+                className="w-40"
+              />
+            </div>
+            <div className="inline-block">
+              Points{' '}
+              <select onChange={handleSelect}>
+                <option value="">All</option>
+                <option value="gold">WR (1000)</option>
+                <option value="silver">Silver (900-999)</option>
+                <option value="bronze">Bronze (750-899)</option>
+                <option value="rest">Rest (0-749)</option>
+              </select>
+            </div>
           </div>
 
           <Table
@@ -74,7 +91,10 @@ const PlayerRecords = (props: Props) => {
             sort={{ key: 'updated_on', desc: true }}
             itemsPerPage={40}
             className="w-full"
-            filters={{ key: 'map_name', value: nameFilter }}
+            filters={[
+              { key: 'map_name', value: nameFilter },
+              { key: 'points', value: pointsFilter },
+            ]}
           />
         </>
       ) : (
