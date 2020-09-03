@@ -2,6 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Route, Switch } from 'react-router-dom'
 import BanListView from './bans/BanListView'
+import ErrorHandler from './general/ErrorHandler'
 import HomeView from './home/HomeView'
 import JumpStatsView from './jumpstats/JumpStatsView'
 import MapDetailView from './maps/detail/MapDetailView'
@@ -31,13 +32,17 @@ const MainContent = () => {
           component={PlayerDetailView}
         />
 
-        <Route exact path="/jumpstats" component={JumpStatsView} />
+        <Route path="/jumpstats/:jumpType?" component={JumpStatsView} />
         <Route exact path="/bans" component={BanListView} />
 
         <Route exact path="/servers" component={ServerListView} />
         <Route exact path="/servers/:id" component={ServerDetailView} />
 
         <Route path="/search/:searchStr" component={SearchView} />
+
+        <Route>
+          <ErrorHandler type={404} />
+        </Route>
       </Switch>
     </main>
   )

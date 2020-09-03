@@ -1,6 +1,6 @@
 import { FlagIcon, TrophyIcon } from 'components/icons'
 import { runtimeFormat, textLimiter } from 'components/util/filters'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { Link } from 'react-router-dom'
 
@@ -17,7 +17,7 @@ interface Props {
   sort: { key: string; desc: boolean }
   noHead?: boolean
   className?: string
-  filters?: { key: string; value: string | number }
+  filters?: { key: string; value: string }
   itemsPerPage?: number
   index?: boolean
 }
@@ -25,6 +25,7 @@ interface Props {
 const Table = (props: Props) => {
   const [sortKey, setSortKey] = useState(props.sort.key)
   const [sortDesc, setSortDesc] = useState(props.sort.desc)
+  const [filters, setFilters] = useState(props.filters)
   const [data, setData] = useState<any>([])
   const [currentData, setCurrentData] = useState<any>([])
   const [pageCount, setPageCount] = useState(0)
@@ -37,24 +38,40 @@ const Table = (props: Props) => {
   }
 
   useEffect(() => {
-    const arr = props.data
-    const sorted = arr.sort((a: any, b: any) => {
+    let arr = props.data
+
+    if (filters?.value) {
+      arr = arr.filter((obj: any) => {
+        return obj[filters.key]
+          .toLowerCase()
+          .includes(filters.value.toLowerCase())
+      })
+    }
+
+    arr = arr.sort((a: any, b: any) => {
       if (sortKey === 'updated_on')
         return new Date(a[sortKey]).getTime() - new Date(b[sortKey]).getTime()
       if (typeof a[sortKey] === 'string')
         return a[sortKey].localeCompare(b[sortKey])
       return a[sortKey] - b[sortKey]
     })
-    if (sortDesc) sorted.reverse()
+    if (sortDesc) arr.reverse()
 
-    if (props.itemsPerPage && sorted.length > props.itemsPerPage) {
-      setPageCount(Math.ceil(sorted.length / props.itemsPerPage))
-      setCurrentData(sorted.slice(offset, offset + props.itemsPerPage))
-    } else setCurrentData(sorted.slice(0))
-    setData(sorted)
+    if (props.itemsPerPage && arr.length > props.itemsPerPage) {
+      setPageCount(Math.ceil(arr.length / props.itemsPerPage))
+      setCurrentData(arr.slice(offset, offset + props.itemsPerPage))
+    } else {
+      setCurrentData(arr.slice(0))
+      setPageCount(1)
+    }
+    setData(arr)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.data, sortKey, sortDesc])
+  }, [props.data, sortKey, sortDesc, filters])
+
+  useMemo(() => {
+    setFilters(props.filters)
+  }, [props.filters])
 
   const handlePageChange = (page: any) => {
     if (!props.itemsPerPage) return

@@ -1,16 +1,52 @@
-import React, { useState } from 'react'
+import ErrorHandler from 'components/general/ErrorHandler'
+import { History } from 'history'
+import React, { useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import JumpStatTable from './JumpStatTable'
 
-const JumpStatsView = () => {
-  const [jumpType, setJumpType] = useState('longjump')
-  const [crouchBind, setCrouchBind] = useState(false)
+interface Props {
+  history: History
+  location: Location
+  match: { params: { jumpType?: string } }
+}
+
+const JumpStatsView = (props: Props) => {
+  const searchParams = useRef(new URLSearchParams(props.location.search))
+  const params = useRef(props.match.params.jumpType)
+  const jumptypes = useRef([
+    { value: 'longjump', name: 'Longjump' },
+    { value: 'bhop', name: 'Bunnyhop' },
+    { value: 'multibhop', name: 'Multi B-Hop' },
+    { value: 'dropbhop', name: 'Drop B-Hop' },
+    { value: 'weirdjump', name: 'Weirdjump' },
+    { value: 'ladderjump', name: 'Ladderjump' },
+    { value: 'countjump', name: 'Countjump' },
+  ])
+  const [jumpType, setJumpType] = useState(
+    params.current ? params.current : 'longjump'
+  )
+  const [crouchBind, setCrouchBind] = useState(
+    searchParams.current.get('cj') === 'true'
+  )
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    setError(
+      !jumptypes.current.some((j) => {
+        return j.value === jumpType
+      })
+    )
+  }, [jumpType])
+
+  if (error) return <ErrorHandler type={404} />
 
   const toggleBind = () => {
+    props.history.push(`/jumpstats/${jumpType}/?cj=${!crouchBind}`)
     setCrouchBind(!crouchBind)
   }
 
   const changeJumpType = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    props.history.push(`/jumpstats/${event.target.value}/?cj=${crouchBind}`)
     setJumpType(event.target.value)
   }
 

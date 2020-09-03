@@ -7,9 +7,11 @@ interface Props {
   steamid64: string
 }
 
+let timer = 0
+
 const PlayerRecords = (props: Props) => {
   const { state: modeState } = useContext(ModeContext)
-
+  const [nameFilter, setNameFilter] = useState('')
   const [apiOptions, setApiOptions] = useState({
     steamid64: props.steamid64,
     modes_list_string: modeState.kzMode,
@@ -36,7 +38,13 @@ const PlayerRecords = (props: Props) => {
     { key: 'server_name', type: 'server', header: 'Server' },
   ]
 
-  const handleInput = () => {}
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearTimeout(timer)
+    const val = e.target.value
+    timer = window.setTimeout(() => {
+      setNameFilter(val)
+    }, 600)
+  }
 
   if (error) return error
   if (loader) return loader
@@ -64,8 +72,9 @@ const PlayerRecords = (props: Props) => {
             data={data}
             columns={columns}
             sort={{ key: 'updated_on', desc: true }}
-            itemsPerPage={20}
+            itemsPerPage={40}
             className="w-full"
+            filters={{ key: 'map_name', value: nameFilter }}
           />
         </>
       ) : (
