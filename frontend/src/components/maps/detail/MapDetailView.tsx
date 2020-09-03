@@ -4,14 +4,15 @@ import ChartIcon from 'components/icons/ChartIcon'
 import TrophyIcon from 'components/icons/TrophyIcon'
 import { difficultyToText } from 'components/util/filters'
 import useApiRequest from 'hooks/useApiRequest'
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { Link } from 'react-router-dom'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import MapRecordHistory from './MapRecordHistory'
 import MapRecords from './MapRecords'
 
 interface Props {
-  match: { params: { mapname: string } }
+  match: { params: { mapname: string; selectedTab?: string } }
 }
 
 const MapDetailView = (props: Props) => {
@@ -21,6 +22,17 @@ const MapDetailView = (props: Props) => {
   const { error, loader, data } = useApiRequest('/maps/', apiOptions)
   const [activeTab, setActiveTab] = useState(0)
 
+  useEffect(() => {
+    switch (props.match.params.selectedTab) {
+      case 'statistics':
+        setActiveTab(1)
+        break
+      default:
+        setActiveTab(0)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   if (loader) return loader
   if (error) return error
 
@@ -29,14 +41,18 @@ const MapDetailView = (props: Props) => {
   return (
     <div className="flex flex-col">
       <Helmet title={mapname} />
-      <div className="flex flex-row">
-        <div className="w-36 mr-4">
-          <Suspense fallback={<div></div>}>
+      <div className="flex flex-row flex-wrap">
+        <div className="mr-4 mb-4 md:mb-0">
+          <Suspense
+            fallback={
+              <div className="w-48 h-32 bg-gray-medium border-2 border-black"></div>
+            }
+          >
             <ImageC
               src={`/img/map/thumb/tn_${mapname}.jpg`}
               alt={mapname}
-              width="140"
-              height="140"
+              width="200"
+              height="160"
               className="border-black border-2"
             />
           </Suspense>
@@ -57,16 +73,20 @@ const MapDetailView = (props: Props) => {
         >
           <TabList>
             <Tab>
-              <button>
-                <TrophyIcon />
-                Records
-              </button>
+              <Link to={`/maps/${mapname}/`}>
+                <button>
+                  <TrophyIcon />
+                  Records
+                </button>
+              </Link>
             </Tab>
             <Tab>
-              <button>
-                <ChartIcon />
-                Statistics
-              </button>
+              <Link to={`/maps/${mapname}/statistics`}>
+                <button>
+                  <ChartIcon />
+                  Statistics
+                </button>
+              </Link>
             </Tab>
             <div className="tab-filler"></div>
           </TabList>

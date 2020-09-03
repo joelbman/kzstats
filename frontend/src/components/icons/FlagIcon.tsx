@@ -12,7 +12,7 @@ const FlagIcon = (props: Props) => {
         width="16"
         height="11"
         alt={props.code}
-        className="inline mr-1 ml-1"
+        className="inline mr-1 ml-1 border border-gray-dark"
         src={`/img/flag/${props.code?.toLowerCase()}.png`}
       />
     </Suspense>

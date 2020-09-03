@@ -80,6 +80,7 @@ const JumpStatTable = (props: Props) => {
       columns={columns}
       sort={{ key: 'distance', desc: true }}
       className="mt-4"
+      index={true}
     />
   )
 }

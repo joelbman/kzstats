@@ -57,18 +57,18 @@ const useApiRequest = (
               }
               return p
             })
+            setData(arr)
             setLoader(null)
             setError(null)
-            setData(arr)
           })
         } else {
+          setData(response.data)
           setLoader(null)
           setError(null)
-          setData(response.data)
         }
       })
       .catch((error: AxiosError) => {
-        setError(<ErrorHandler message={error.message} />)
+        setError(<ErrorHandler message={error.message} local={local} />)
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url, params, instance, details])

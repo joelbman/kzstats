@@ -26,7 +26,7 @@ const HomeView = () => {
       <h1>Latest</h1>
       <div className="flex flex-col lg:flex-row w-full">
         <Helmet title="Latest" />
-        <div className="xl:w-1/2 mb-4 md:mr-10 md:mb-0">
+        <div className="xl:w-1/2 mb-4 lg:mr-4 lg:mb-0">
           <LatestRecords />
         </div>
         <div className="xl:w-1/2">

@@ -19,6 +19,7 @@ interface Props {
   className?: string
   filters?: { key: string; value: string | number }
   itemsPerPage?: number
+  index?: boolean
 }
 
 const Table = (props: Props) => {
@@ -27,6 +28,7 @@ const Table = (props: Props) => {
   const [data, setData] = useState<any>([])
   const [currentData, setCurrentData] = useState<any>([])
   const [pageCount, setPageCount] = useState(0)
+  const [offset, setOffset] = useState(0)
 
   const sortByColumn = (e: React.MouseEvent) => {
     const targetKey = (e.target as HTMLTableHeaderCellElement).dataset.key
@@ -44,21 +46,22 @@ const Table = (props: Props) => {
       return a[sortKey] - b[sortKey]
     })
     if (sortDesc) sorted.reverse()
-    setData(sorted)
 
     if (props.itemsPerPage && sorted.length > props.itemsPerPage) {
       setPageCount(Math.ceil(sorted.length / props.itemsPerPage))
-      setCurrentData(sorted.slice(0, props.itemsPerPage))
-    } else setCurrentData(sorted)
+      setCurrentData(sorted.slice(offset, offset + props.itemsPerPage))
+    } else setCurrentData(sorted.slice(0))
+    setData(sorted)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.data, sortKey, sortDesc])
 
   const handlePageChange = (page: any) => {
     if (!props.itemsPerPage) return
-    let offset = Math.ceil(page.selected * props.itemsPerPage)
-    if (data.length < 21) offset = 0
-    setCurrentData(data.slice(offset, offset + props.itemsPerPage))
+    let off = Math.ceil(page.selected * props.itemsPerPage)
+    if (data.length < 21) off = 0
+    setCurrentData(data.slice(off, off + props.itemsPerPage))
+    setOffset(off)
   }
 
   const renderSortArrow = () => {

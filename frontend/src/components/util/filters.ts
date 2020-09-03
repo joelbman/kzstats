@@ -5,6 +5,7 @@ const textLimiter = (content: string, limit?: number) => {
 }
 
 const runtimeFormat = (time: number) => {
+  if (!time) return
   let timeStr = new Date(time * 1000)
     .toISOString()
     .split('T')[1]
@@ -36,7 +37,7 @@ const timeAgoFormat = (datetime: string) => {
       }
     }
   }
-  if (result > 1) unit += 's'
+  if (result > 1.49) unit += 's'
 
   return `${result.toFixed(0)} ${unit} ago`
 }

@@ -18,6 +18,7 @@ interface ServerObject {
   id?: number
   errorcount?: number
   players: Player[]
+  numplayers: number
 }
 
 const ServerListTask = (io: SocketIO.Server): void => {
@@ -44,7 +45,7 @@ const ServerListTask = (io: SocketIO.Server): void => {
     serverObj.name = state.name
     serverObj.map = mapName
     serverObj.maxplayers = state.maxplayers
-    serverObj.players = state.players
+    serverObj.numplayers = state.players.length + state.bots.length
     serverObj.countrycode = server.countrycode
     serverObj.continentcode = server.continentcode
 

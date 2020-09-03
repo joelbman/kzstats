@@ -15,18 +15,14 @@ const ErrorHandler = (props: Props) => {
     )
 
   return (
-    <div className="w-full block bg-red-900">
-      <div className="bg-red-700 border border-bottom border-black">
-        <h2>Error</h2>
-      </div>
-      <div className="p-4">
-        {props.local ? (
-          <p>This error occured on the KZStats backend.</p>
-        ) : (
-          <p>This error occured on the Global API.</p>
-        )}
-        <p>Message: {props.message}</p>
-      </div>
+    <div className="my-4">
+      <h2>Error</h2>
+      {props.local ? (
+        <p>This error occured on the KZStats backend.</p>
+      ) : (
+        <p>This error occured on the Global API.</p>
+      )}
+      <p>Message: {props.message}</p>
     </div>
   )
 }

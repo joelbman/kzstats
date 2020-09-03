@@ -4,6 +4,7 @@ import FlagIcon from './FlagIcon'
 import HomeIcon from './HomeIcon'
 import JumpIcon from './JumpIcon'
 import ListIcon from './ListIcon'
+import LockIcon from './LockIcon'
 import MapIcon from './MapIcon'
 import PersonIcon from './PersonIcon'
 import ServerIcon from './ServerIcon'
@@ -22,4 +23,5 @@ export {
   PersonIcon,
   MapIcon,
   BanIcon,
+  LockIcon,
 }

@@ -45,6 +45,14 @@ footer {
   @apply flex justify-center w-full border-t p-4 h-24 md:h-12 bg-gray-950 text-gray-300 border-black;
 }
 
+.joinbutton {
+  @apply px-2 border border-gray-medium rounded-lg bg-gray-950;
+}
+
+.lightmode .joinbutton {
+  @apply bg-gray-200;
+}
+
 .lightmode footer {
   @apply bg-gray-medium text-gray-200;
 }
@@ -81,5 +89,5 @@ footer {
 }
 
 .lightmode main a {
-  @apply text-orange-600 hover:text-orange-400;
+  @apply text-orange-700 hover:text-orange-600;
 }

@@ -6,25 +6,19 @@ import NavBar from 'components/navbar/NavBar'
 import { ModeContext } from 'context/ModeContext'
 import { UserContext } from 'context/UserContext'
 import useApiRequest from 'hooks/useApiRequest'
-import useScript from 'hooks/useScript'
 import User from 'models/User'
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { BrowserRouter } from 'react-router-dom'
 
 const App = () => {
-  // Analytics
-  useScript('//gc.zgo.at/count.js', {
-    key: 'goatcounter',
-    value: 'https://kzstats.goatcounter.com/count',
-  })
-
   const [modeState, setModeState] = useState({
     kzMode: localStorage.getItem('kzMode') || 'kz_timer',
     tickrate: localStorage.getItem('tickrate') || '128',
   })
   const [userState, setUserState] = useState<User | null>(null)
   const [darkmode, setDarkmode] = useState(false)
+  const [loaded, setLoaded] = useState(false)
   const { error, data } = useApiRequest('/auth/profile', null, true)
 
   // Theme swap, passed down to footer
@@ -58,6 +52,8 @@ const App = () => {
         setDarkmode(true)
       }
     }
+
+    setLoaded(true)
   }, [])
 
   // User related effect
@@ -88,7 +84,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <Helmet htmlAttributes={{ lang: 'en' }} />
-
       <UserContext.Provider value={{ user: userState, dispatch: dispatchUser }}>
         <ModeContext.Provider
           value={{
@@ -100,7 +95,7 @@ const App = () => {
           <MainContent />
         </ModeContext.Provider>
       </UserContext.Provider>
-      <Footer switchTheme={switchTheme} darkmode={darkmode} />
+      {loaded && <Footer switchTheme={switchTheme} darkmode={darkmode} />}
     </BrowserRouter>
   )
 }

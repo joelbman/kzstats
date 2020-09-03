@@ -20,7 +20,7 @@ const RecordBlock = ({ record }: Props) => {
               src={`img/map/thumb/tn_${record.map_name}.jpg`}
               height="90"
               width="150"
-              className="h-full border-gray-verydark border-2"
+              className="h-full border-black border-2"
             />
           </Link>
         </Suspense>

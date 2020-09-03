@@ -14,6 +14,7 @@ interface ServerObject {
   maxplayers: number
   countrycode: string
   continentcode?: string
+  numplayers: number
   players: Record<string, unknown>[]
 }
 
@@ -79,7 +80,7 @@ const ServerListView = () => {
     }
 
     arr.sort((a, b) => {
-      return b.players.length - a.players.length
+      return b.numplayers - a.numplayers
     })
 
     setFiltered(arr)
@@ -143,13 +144,15 @@ const ServerListView = () => {
                 <Link to={`/maps/${server.map}`}>{server.map}</Link>
               </td>
               <td>
-                {server.players.length}/{server.maxplayers}
+                {server.numplayers}/{server.maxplayers}
               </td>
               <td>
                 {server.ip}:{server.port}
               </td>
               <td>
-                <a href={`steam://connect/${server.ip}:${server.port}`}>Join</a>
+                <a href={`steam://connect/${server.ip}:${server.port}`}>
+                  <button className="joinbutton">Connect</button>
+                </a>
               </td>
             </tr>
           ))}

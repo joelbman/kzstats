@@ -1,3 +1,4 @@
+import { runtimeFormat } from 'components/util/filters'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
 import { ModeContext } from '../../../context/ModeContext'
@@ -33,54 +34,52 @@ const MapRecordHistory = ({ mapname }: Props) => {
       type: 'area',
       stacked: false,
       height: 350,
-      background: '#1a202c',
-      foreColor: '#fff',
       toolbar: { show: false },
+      zoom: { enabled: false },
+      foreColor:
+        localStorage.getItem('kzTheme') === 'dark' ? '#fff' : '#3d3d3d',
+      background:
+        localStorage.getItem('kzTheme') === 'dark' ? '#1a202c' : '#fff',
     },
     dataLabels: {
       enabled: false,
     },
     markers: {
-      size: 3,
+      size: 7,
     },
     title: {
       text: `WR history for ${mapname} (PRO)`,
       align: 'left',
     },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shadeIntensity: 1,
-        inverseColors: false,
-        opacityFrom: 1,
-        opacityTo: 0.8,
-        stops: [80, 90, 100],
-      },
-    },
+
     yaxis: {
       labels: {
         formatter: function (val: number) {
-          return new Date(val * 1000).toISOString().split('T')[1].split('.')[0]
+          return runtimeFormat(val)
         },
+        style: { cssClass: 'chart-text' },
       },
       title: {
         text: 'Runtime',
+        style: { cssClass: 'chart-text' },
       },
     },
     xaxis: {
       type: 'datetime',
+      labels: { style: { cssClass: 'chart-text' } },
     },
     tooltip: {
       theme: 'dark',
       shared: false,
       y: {
-        formatter: function (val: number) {
+        formatter: (val: number) => {
           return new Date(val * 1000)
             .toISOString()
             .split('T')[1]
             .replace('Z', '')
         },
       },
+
       z: {
         formatter: undefined,
         title: 'Player: ',

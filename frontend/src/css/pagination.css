@@ -26,8 +26,8 @@
   @apply text-blue-600 hover:text-blue-500;
 }
 
-.lightmode .lightmode .pagination-active {
-  @apply bg-blue-400;
+.lightmode .pagination-active {
+  @apply bg-blue-500;
 }
 
 .lightmode .pagination-active a {

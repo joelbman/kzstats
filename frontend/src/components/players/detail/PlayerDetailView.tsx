@@ -23,14 +23,6 @@ import PlayerProfileSettings from './PlayerProfileSettings'
 import PlayerRecords from './PlayerRecords'
 import PlayerStats from './PlayerStats'
 
-interface Player {
-  steamid64: string
-  steam_id: string
-  is_banned: boolean
-  total_records: number
-  name: string
-}
-
 interface SteamProfile {
   avatar: string
   avatarfull: string

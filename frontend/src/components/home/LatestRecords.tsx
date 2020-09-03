@@ -19,6 +19,7 @@ const LatestRecords = (props: Props) => {
         tickrate: modeState.tickrate,
         modes_list_string: modeState.kzMode,
         steamid64: props.steamid64,
+        stage: 0,
       }
     : {
         limit: 300,
@@ -26,6 +27,7 @@ const LatestRecords = (props: Props) => {
         has_teleports: false,
         tickrate: modeState.tickrate,
         modes_list_string: modeState.kzMode,
+        stage: 0,
       }
 
   const [apiOptions, setApiOptions] = useState(apiOpt)

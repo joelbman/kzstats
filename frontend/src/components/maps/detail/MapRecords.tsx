@@ -44,7 +44,7 @@ const MapRecords = (props: Props) => {
   )
 
   useMemo(() => {
-    if (!loader && !tpLoader) setRecords(data.concat(tpData))
+    if (tpData && data) setRecords(data.concat(tpData))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, tpData])
 
