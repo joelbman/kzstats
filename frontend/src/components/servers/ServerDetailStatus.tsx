@@ -15,6 +15,7 @@ const ServerDetailStatus = (props: Props) => {
   const [players, setPlayers] = useState<QueryPlayer[]>([])
 
   useEffect(() => {
+    if (!props.data) return
     const filtered = props.data.bots
       .filter((p: QueryPlayer) => {
         if (p.time && p.name) {
@@ -35,7 +36,7 @@ const ServerDetailStatus = (props: Props) => {
   if (!data)
     return (
       <div>
-        <h2>Status</h2> Server is offline.
+        <h1>Status</h1> Server is offline.
       </div>
     )
 
@@ -63,9 +64,9 @@ const ServerDetailStatus = (props: Props) => {
     <div>
       {data?.name && (
         <div>
-          <h2>
+          <h1>
             Players ({data.bots.length + data.players.length}/{data.maxplayers})
-          </h2>
+          </h1>
           {renderPlayers()}
         </div>
       )}

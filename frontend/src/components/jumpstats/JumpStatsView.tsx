@@ -26,7 +26,7 @@ const JumpStatsView = (props: Props) => {
     params.current ? params.current : 'longjump'
   )
   const [crouchBind, setCrouchBind] = useState(
-    searchParams.current.get('cj') === 'true'
+    searchParams.current.get('bind') === 'true'
   )
   const [error, setError] = useState(false)
 
@@ -41,12 +41,14 @@ const JumpStatsView = (props: Props) => {
   if (error) return <ErrorHandler type={404} />
 
   const toggleBind = () => {
-    props.history.push(`/jumpstats/${jumpType}/?cj=${!crouchBind}`)
+    props.history.push(`/jumpstats/${jumpType}/?bind=${!crouchBind}`)
     setCrouchBind(!crouchBind)
   }
 
   const changeJumpType = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    props.history.push(`/jumpstats/${event.target.value}/?cj=${crouchBind}`)
+    let url = `/jumpstats/${event.target.value}/`
+    if (event.target.value !== 'ladderjump') url = url + `?bind=${crouchBind}`
+    props.history.push(url)
     setJumpType(event.target.value)
   }
 
@@ -66,15 +68,17 @@ const JumpStatsView = (props: Props) => {
           <option value="countjump">Countjump</option>
         </select>
       </div>
-      <div className="inline-block mt-2 md:ml-4">
-        Crouch bind:
-        <input
-          type="checkbox"
-          onChange={toggleBind}
-          checked={crouchBind}
-          className="ml-4"
-        />
-      </div>
+      {jumpType !== 'ladderjump' && (
+        <div className="inline-block mt-2 md:ml-4">
+          Crouch bind:
+          <input
+            type="checkbox"
+            onChange={toggleBind}
+            checked={crouchBind}
+            className="ml-4"
+          />
+        </div>
+      )}
       <div className="xl:w-1/2">
         <JumpStatTable jumpType={jumpType} crouchBind={crouchBind} />
       </div>

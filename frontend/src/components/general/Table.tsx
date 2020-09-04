@@ -19,7 +19,6 @@ interface Props {
   className?: string
   filters?: { key: string; value: string }[]
   itemsPerPage?: number
-  index?: boolean
 }
 
 const Table = (props: Props) => {
@@ -67,8 +66,6 @@ const Table = (props: Props) => {
     }
 
     arr = arr.sort((a: any, b: any) => {
-      if (sortKey === 'updated_on')
-        return new Date(a[sortKey]).getTime() - new Date(b[sortKey]).getTime()
       if (typeof a[sortKey] === 'string')
         return a[sortKey].localeCompare(b[sortKey])
       return a[sortKey] - b[sortKey]
@@ -108,6 +105,7 @@ const Table = (props: Props) => {
   const renderCellContent = (obj: any, column: TableColumn) => {
     switch (column.type) {
       case 'datetime':
+        if (obj[column.key].slice(0, 4) === '9999') return 'Never'
         return obj[column.key].replace('T', ' ')
 
       case 'player':

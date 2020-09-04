@@ -33,7 +33,7 @@ const MainContent = () => {
         />
 
         <Route path="/jumpstats/:jumpType?" component={JumpStatsView} />
-        <Route exact path="/bans" component={BanListView} />
+        <Route path="/bans/:steamid?" component={BanListView} />
 
         <Route exact path="/servers" component={ServerListView} />
         <Route exact path="/servers/:id" component={ServerDetailView} />

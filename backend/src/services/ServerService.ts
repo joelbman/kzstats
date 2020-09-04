@@ -37,11 +37,11 @@ const ServerService = {
     }
 
     // Workaround for workshop map names
-    if (query.map)
+    if (query?.map)
       query.map = query.map.split('/')[query.map.split('/').length - 1]
 
     // Strip newlines off IPs because Global API seems to have them occasionally
-    if (server.ip) {
+    if (server?.ip) {
       server.ip = server.ip.replace(/(\r\n|\n|\r)/gm, '')
     }
 

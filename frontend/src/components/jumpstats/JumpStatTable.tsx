@@ -62,10 +62,11 @@ const JumpStatTable = (props: Props) => {
   const { error, loader, data } = useApiRequest(url, apiOptions, false, details)
 
   useMemo(() => {
+    const bind = props.jumpType !== 'ladderjump' ? props.crouchBind : false
     setApiOptions({
       ...apiOptions,
       jumptype_list: stringToId(props.jumpType),
-      is_crouch_bind: props.crouchBind,
+      is_crouch_bind: bind,
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.crouchBind, props.jumpType])
@@ -80,7 +81,6 @@ const JumpStatTable = (props: Props) => {
       columns={columns}
       sort={{ key: 'distance', desc: true }}
       className="mt-4"
-      index={true}
     />
   )
 }
