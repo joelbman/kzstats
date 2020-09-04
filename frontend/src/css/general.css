@@ -63,6 +63,7 @@ footer {
 
 .maplist-card {
   @apply bg-gray-850 border border-gray-verydark flex flex-col w-64;
+  box-shadow: 5px 5px 5px #000;
 }
 
 .lightmode .maplist-card {

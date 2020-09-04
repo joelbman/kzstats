@@ -18,7 +18,7 @@ const App = () => {
     tickrate: localStorage.getItem('tickrate') || '128',
   })
   const [userState, setUserState] = useState<User | null>(null)
-  const [darkmode, setDarkmode] = useState(false)
+  const [darkmode, setDarkmode] = useState(true)
   const [loaded, setLoaded] = useState(false)
   const { error, data } = useApiRequest('/auth/profile', null, true)
 
@@ -45,13 +45,8 @@ const App = () => {
       setDarkmode(false)
       document.documentElement.classList.add('lightmode')
     } else {
-      if (
-        window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-      ) {
-        localStorage.setItem('kzTheme', 'dark')
-        setDarkmode(true)
-      }
+      localStorage.setItem('kzTheme', 'dark')
+      setDarkmode(true)
     }
 
     setLoaded(true)

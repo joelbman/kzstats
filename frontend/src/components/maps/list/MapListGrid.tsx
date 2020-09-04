@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react'
-import MapListCard from './MapListCard'
-import Map from '../../../models/Map'
+import React, { useMemo, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import Map from '../../../models/Map'
+import MapListCard from './MapListCard'
 
 interface Props {
   maps: Map[]
@@ -29,7 +29,7 @@ const MapListGrid = (props: Props) => {
         scrollThreshold={0.9}
         className="inline-block"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4 w-full pr-2">
           {items.map((map: Map) => (
             <MapListCard map={map} key={map.id} />
           ))}
