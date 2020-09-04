@@ -1,5 +1,5 @@
+import SearchInput from 'components/general/SearchInput'
 import Table from 'components/general/Table'
-import { SearchIcon } from 'components/icons'
 import useApiRequest from 'hooks/useApiRequest'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -14,24 +14,11 @@ const BanListView = (props: Props) => {
     limit: 100,
     steam_id: props.match.params.steamid,
   })
-  const [search, setSearch] = useState('')
   const { error, loader, data } = useApiRequest('/bans', apiOptions)
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      e.stopPropagation()
-      submitSearch()
-    }
-  }
-
-  const submitSearch = () => {
-    setApiOptions({ limit: 100, steam_id: search })
-    history.push('/bans/' + search)
-  }
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value)
+  const submitSearch = (value: string) => {
+    setApiOptions({ limit: 100, steam_id: value })
+    history.push('/bans/' + value)
   }
 
   if (error) return error
@@ -47,28 +34,15 @@ const BanListView = (props: Props) => {
         For more information/appeals, visit{' '}
         <a href="https://forum.gokz.org/p/player-rules">GOKZ forums</a>.
       </div>
-      <div className="my-4">
-        <form className="flex flex-row w-full lg:w-1/3 items-center">
-          Steam ID:{' '}
-          <input
-            placeholder="e.g. STEAM_X:X:1111111111"
-            className="flex-grow border border-black rounded-l-lg py-1"
-            style={{ height: '34px' }}
-            onKeyDown={onKeyDown}
-            onChange={handleInput}
-            maxLength={40}
-            type="text"
-          />
-          <button
-            className="bg-green-700 text-gray-200 border-black border rounded-r-lg w-7 p-1 px-2"
-            style={{ height: '34px' }}
-            onClick={submitSearch}
-          >
-            <SearchIcon className="mr-0 w-5 h-5" />
-          </button>
-        </form>
+      <div className="my-4 flex flex-row w-full lg:w-1/3 items-center">
+        <SearchInput
+          placeholder="e.g. STEAM_X:X:123456789"
+          submit={submitSearch}
+          label="Steam ID:"
+          height="34px"
+        />
       </div>
-      <div>
+      <div className="xl:w-2/3">
         {data.length > 0 ? (
           <Table
             columns={[

@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from 'react'
+import { FlagIcon } from 'components/icons'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import useApiRequest from '../../hooks/useApiRequest'
 
 interface Props {
-  searchStr: string
+  data: Player[]
 }
 
 interface Player {
@@ -12,36 +12,36 @@ interface Player {
   steam_id: string
   is_banned: boolean
   total_records: number
+  countrycode?: string
 }
 
 const PlayerNameResults = (props: Props) => {
-  const [apiOptions, setApiOptions] = useState({
-    name: props.searchStr,
-    limit: 200,
-  })
-  const { error, loader, data } = useApiRequest('/players', apiOptions)
-
-  useMemo(() => {
-    setApiOptions({
-      name: props.searchStr,
-      limit: 200,
-    })
-  }, [props.searchStr])
-
-  if (error) return error
-  if (loader) return loader
+  const [data, setData] = useState<Player[]>([])
+  useEffect(() => {
+    // Prioritize players with existing userprofiles
+    setData(
+      props.data.sort((a, b) => {
+        if (a.countrycode && !b.countrycode) return -1
+        if (b.countrycode && !a.countrycode) return 1
+        return a.name.localeCompare(b.name)
+      })
+    )
+  }, [props.data])
 
   return (
-    <div className="flex-grow">
+    <div>
       <h2>
-        Players <small>({data.length})</small>
+        Players <small>({props.data.length})</small>
       </h2>
-      {data.length > 0 ? (
-        <div>
+      {props.data.length > 0 ? (
+        <div className="grid grid-cols-4 gap-2">
           {data.map((p: Player) => (
-            <Link className="block" to={`/players/${p.steamid64}`}>
-              {p.name}
-            </Link>
+            <div key={p.steamid64}>
+              <Link to={`/players/${p.steamid64}`}>
+                {p.name}
+                {p.countrycode && <FlagIcon code={p.countrycode} />}
+              </Link>
+            </div>
           ))}
         </div>
       ) : (

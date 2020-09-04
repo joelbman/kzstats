@@ -1,43 +1,17 @@
 import Table from 'components/general/Table'
-import { ModeContext } from 'context/ModeContext'
-import useApiRequest from 'hooks/useApiRequest'
-import React, { useContext, useMemo, useState } from 'react'
+import Record from 'models/Record'
+import React, { useState } from 'react'
 
 interface Props {
-  steamid64: string
+  data: Record[]
 }
 
 let timer = 0
 
 const PlayerRecords = (props: Props) => {
-  const { state: modeState } = useContext(ModeContext)
+  const data = props.data
   const [nameFilter, setNameFilter] = useState('')
   const [pointsFilter, setPointsFilter] = useState('')
-  const [apiOptions, setApiOptions] = useState({
-    steamid64: props.steamid64,
-    modes_list_string: modeState.kzMode,
-    tickrate: modeState.tickrate,
-    limit: 2000,
-  })
-  const { error, loader, data } = useApiRequest('records/top/', apiOptions)
-
-  useMemo(() => {
-    setApiOptions({
-      ...apiOptions,
-      modes_list_string: modeState.kzMode,
-      tickrate: modeState.tickrate,
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modeState.kzMode, modeState.tickrate])
-
-  const columns = [
-    { key: 'map_name', type: 'map', header: 'Map' },
-    { key: 'time', type: 'runtime' },
-    { key: 'points', type: 'points' },
-    { key: 'teleports', header: 'TPs' },
-    { key: 'updated_on', type: 'datetime', header: 'Date' },
-    { key: 'server_name', type: 'server', header: 'Server' },
-  ]
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     clearTimeout(timer)
@@ -50,9 +24,6 @@ const PlayerRecords = (props: Props) => {
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPointsFilter(e.target.value)
   }
-
-  if (error) return error
-  if (loader) return loader
 
   return (
     <div>
@@ -87,7 +58,14 @@ const PlayerRecords = (props: Props) => {
 
           <Table
             data={data}
-            columns={columns}
+            columns={[
+              { key: 'map_name', type: 'map', header: 'Map' },
+              { key: 'time', type: 'runtime' },
+              { key: 'points', type: 'points' },
+              { key: 'teleports', header: 'TPs' },
+              { key: 'updated_on', type: 'datetime', header: 'Date' },
+              { key: 'server_name', type: 'server', header: 'Server' },
+            ]}
             sort={{ key: 'updated_on', desc: true }}
             itemsPerPage={40}
             className="w-full"

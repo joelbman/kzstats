@@ -1,5 +1,6 @@
 .tab-main {
   @apply border border-gray-verydark xl:w-3/4;
+  box-shadow: 5px 5px 5px #000;
 }
 
 .tab-selected {

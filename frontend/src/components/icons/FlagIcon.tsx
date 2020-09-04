@@ -3,16 +3,17 @@ import React, { Suspense } from 'react'
 
 interface Props {
   code: string
+  className?: string
 }
 
 const FlagIcon = (props: Props) => {
   return (
     <Suspense fallback={<span></span>}>
       <ImageC
-        width="16"
-        height="11"
+        width="18"
+        height="12"
         alt={props.code}
-        className="inline mr-1 ml-1 border border-gray-dark"
+        className={`inline mx-1 border border-black ${props.className}`}
         src={`/img/flag/${props.code?.toLowerCase()}.png`}
       />
     </Suspense>

@@ -1,29 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import useApiRequest from '../../hooks/useApiRequest'
 import Map from '../../models/Map'
 
 interface Props {
-  searchStr: string
+  data: Map[]
 }
 
 const MapNameResults = (props: Props) => {
-  const [apiOptions] = useState({
-    name: props.searchStr,
-    limit: 200,
-  })
-  const { error, loader, data } = useApiRequest('/maps', apiOptions)
-
-  if (error) return error
-  if (loader) return loader
   return (
-    <div className="flex-grow">
+    <div>
       <h2>
-        Maps <small>({data.length})</small>
+        Maps <small>({props.data.length})</small>
       </h2>
-      {data.length > 0 ? (
+      {props.data.length > 0 ? (
         <div>
-          {data.map((m: Map) => (
+          {props.data.map((m: Map) => (
             <Link to={`/maps/${m.name}`}>{m.name}</Link>
           ))}
         </div>

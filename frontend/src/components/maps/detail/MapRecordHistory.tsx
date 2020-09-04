@@ -28,6 +28,8 @@ const MapRecordHistory = ({ mapname }: Props) => {
     apiOptions
   )
   const [series, setSeries] = useState<ChartObj[]>([])
+  const [bugged, setBugged] = useState(false)
+
   const graphOptions = {
     colors: ['#F44336'],
     chart: {
@@ -90,6 +92,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
   useEffect(() => {
     const chartData = data
       .map((r: Record) => {
+        if (r.map_name !== mapname) setBugged(true)
         return { x: r.updated_on, y: r.time, z: r.player_name }
       })
       .sort((a: any, b: any) => {
@@ -97,7 +100,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
       })
 
     setSeries([{ name: 'Runtime', data: chartData }])
-  }, [data])
+  }, [data, mapname])
 
   useMemo(() => {
     setApiOptions({
@@ -116,7 +119,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
   return (
     <div>
       <h2>Statistics</h2>
-      {data.length > 0 ? (
+      {data.length > 0 && !bugged ? (
         <ReactApexChart
           options={graphOptions}
           series={series}

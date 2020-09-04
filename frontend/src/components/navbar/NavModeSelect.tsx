@@ -17,7 +17,7 @@ const NavModeSelect = () => {
   }
 
   return (
-    <div className="order-6 inline-flex flex-wrap">
+    <div className="order-6 flex flex-wrap">
       <div className="inline-block" style={{ width: '10.5rem' }}>
         Mode:
         <select value={modeState.kzMode} onChange={changeMode}>

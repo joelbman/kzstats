@@ -6,7 +6,9 @@ import {
   SettingsIcon,
   TrophyIcon,
 } from 'components/icons/'
+import { ModeContext } from 'context/ModeContext'
 import { UserContext } from 'context/UserContext'
+import Record from 'models/Record'
 import React, {
   Suspense,
   useContext,
@@ -49,6 +51,7 @@ interface Props {
 
 const PlayerDetailView = (props: Props) => {
   const userCtx = useContext(UserContext)
+  const { state: modeState } = useContext(ModeContext)
   const user = userCtx?.user
   const steamid64 = props.match.params.steamid64
   const { error, loader, data } = useApiRequest(
@@ -58,10 +61,40 @@ const PlayerDetailView = (props: Props) => {
   )
   const [steamProfile, setSteamProfile] = useState<SteamProfile | null>(null)
   const [activeTab, setActiveTab] = useState(0)
+  const [points, setPoints] = useState(0)
+
+  const [apiOptions, setApiOptions] = useState({
+    steamid64: steamid64,
+    modes_list_string: modeState.kzMode,
+    tickrate: modeState.tickrate,
+    limit: 2000,
+  })
+  const {
+    error: recordErr,
+    loader: recordLoader,
+    data: recordData,
+  } = useApiRequest('records/top/', apiOptions)
+
+  useMemo(() => {
+    let pts = 0
+    recordData.forEach((r: Record) => {
+      pts += r.points
+    })
+    setPoints(pts)
+  }, [recordData])
 
   useMemo(() => {
     setSteamProfile(data)
   }, [data])
+
+  useMemo(() => {
+    setApiOptions({
+      ...apiOptions,
+      modes_list_string: modeState.kzMode,
+      tickrate: modeState.tickrate,
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modeState.kzMode, modeState.tickrate])
 
   useEffect(() => {
     switch (props.match.params.selectedTab) {
@@ -77,8 +110,8 @@ const PlayerDetailView = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (error) return error
-  if (loader) return loader
+  if (error || recordErr) return error || recordErr
+  if (loader || recordLoader) return loader || recordLoader
 
   if (!steamProfile)
     return (
@@ -92,7 +125,8 @@ const PlayerDetailView = (props: Props) => {
     if (!steamProfile.country) return <p>Country: N/A</p>
     return (
       <p>
-        <FlagIcon code={steamProfile.loccountrycode} /> {steamProfile.country}
+        <FlagIcon className="ml-0" code={steamProfile.loccountrycode} />{' '}
+        {steamProfile.country}
       </p>
     )
   }
@@ -122,7 +156,8 @@ const PlayerDetailView = (props: Props) => {
           </a>
         </div>
         <div className="flex-grow">
-          <p className="text-2xl font-bold">{steamProfile.personaname}</p>
+          <p className="text-3xl font-bold">{steamProfile.personaname}</p>
+          <p className="text-xl font-bold">{points} Points</p>
           {renderCountry()}
           <p>
             <a
@@ -177,7 +212,7 @@ const PlayerDetailView = (props: Props) => {
           </TabList>
 
           <TabPanel>
-            <PlayerRecords steamid64={steamid64} />
+            <PlayerRecords data={recordData} />
           </TabPanel>
           <TabPanel>
             <PlayerJumpStats steamid={steamProfile.steamid32} />

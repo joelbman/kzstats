@@ -17,6 +17,10 @@
   @apply md:order-2 md:mt-0 md:flex md:pb-0 md:items-center md:w-auto md:border-0;
 }
 
+nav input {
+  @apply bg-gray-750 text-gray-200 px-2;
+}
+
 nav select {
   @apply border-black border-2 mr-4 ml-2 bg-gray-750 rounded-lg text-gray-400 pl-2 pr-2;
 }
