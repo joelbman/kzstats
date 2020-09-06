@@ -65,6 +65,7 @@ const PlayerDetailView = (props: Props) => {
 
   const [apiOptions, setApiOptions] = useState({
     steamid64: steamid64,
+    stage: 0,
     modes_list_string: modeState.kzMode,
     tickrate: modeState.tickrate,
     limit: 2000,
