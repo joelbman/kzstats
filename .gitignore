@@ -1,5 +1,6 @@
 *.env
 **/node_modules
 /ssl
+/www
 **/*.crt
 **/*.key
