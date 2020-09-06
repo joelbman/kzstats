@@ -19,10 +19,9 @@ interface ServerObject {
   players: Record<string, unknown>[]
 }
 
-const wsUrl =
-  process.env.NODE_ENV === 'production'
-    ? 'http://lakka.kapsi.fi:62513/'
-    : 'https://localhost:3001/'
+const wsUrl = process.env.WS_HOST
+  ? process.env.WS_HOST
+  : 'https://localhost:3001/'
 
 let timer = 0
 

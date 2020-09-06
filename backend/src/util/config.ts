@@ -19,6 +19,7 @@ export const DB_CONFIG = {
   name: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
 }
 
 if (!SESSION_SECRET) {

@@ -7,6 +7,7 @@ export const config = {
     database: DB_CONFIG.name,
     user: DB_CONFIG.user,
     password: DB_CONFIG.password,
+    host: DB_CONFIG.host,
   },
   pool: {
     min: 2,
