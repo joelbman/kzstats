@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs'
+import * as http from 'http'
 import * as https from 'https'
 import path from 'path'
 import bodyParser from 'body-parser'
@@ -26,9 +27,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use('/', router)
 
-let server: https.Server
+let server: http.Server | https.Server
 if (production) {
-  server = https.createServer(app)
+  server = http.createServer(app)
 } else {
   server = https.createServer(
     {
