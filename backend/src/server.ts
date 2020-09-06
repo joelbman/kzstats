@@ -13,10 +13,13 @@ import { SESSION_SECRET } from './util/config'
 const app = express()
 app.set('port', process.env.PORT || 3001)
 
-const options = {
-  key: readFileSync(path.join(process.cwd() + '/../ssl/key.key')),
-  cert: readFileSync(path.join(process.cwd() + '/../ssl/cert.crt')),
-}
+const options =
+  process.env.NODE_ENV === 'production'
+    ? {
+        key: readFileSync(path.join(process.cwd() + '/../ssl/key.key')),
+        cert: readFileSync(path.join(process.cwd() + '/../ssl/cert.crt')),
+      }
+    : {}
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
