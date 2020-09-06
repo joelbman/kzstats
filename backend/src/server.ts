@@ -1,5 +1,4 @@
 import { readFileSync } from 'fs'
-import * as http from 'http'
 import * as https from 'https'
 import path from 'path'
 import bodyParser from 'body-parser'
@@ -27,18 +26,14 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use('/', router)
 
-let server: http.Server | https.Server
-if (production) {
-  server = https.createServer(app)
-} else {
-  server = https.createServer(
-    {
+const opt = production
+  ? {
       key: readFileSync(path.join(process.cwd() + '/../ssl/key.key')),
       cert: readFileSync(path.join(process.cwd() + '/../ssl/cert.crt')),
-    },
-    app
-  )
-}
+    }
+  : {}
+
+const server = https.createServer(opt, app)
 
 server.listen(app.get('port'), () => {
   console.log(`Server running on: ${app.get('port')}`)
