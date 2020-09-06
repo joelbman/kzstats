@@ -6,29 +6,30 @@ import React, { useContext, useEffect, useMemo, useState } from 'react'
 import RecordBlock from './RecordBlock'
 
 interface Props {
-  steamid64?: string
+  type?: string
 }
 
 const LatestRecords = (props: Props) => {
   const { state: modeState } = useContext(ModeContext)
 
-  let apiOpt = props.steamid64
-    ? {
-        limit: 300,
-        has_teleports: false,
-        tickrate: modeState.tickrate,
-        modes_list_string: modeState.kzMode,
-        steamid64: props.steamid64,
-        stage: 0,
-      }
-    : {
-        limit: 300,
-        place_top_at_least: 20,
-        has_teleports: false,
-        tickrate: modeState.tickrate,
-        modes_list_string: modeState.kzMode,
-        stage: 0,
-      }
+  let apiOpt =
+    props.type === 'tp'
+      ? {
+          limit: 300,
+          has_teleports: true,
+          place_top_at_least: 20,
+          tickrate: modeState.tickrate,
+          modes_list_string: modeState.kzMode,
+          stage: 0,
+        }
+      : {
+          limit: 300,
+          place_top_at_least: 20,
+          has_teleports: false,
+          tickrate: modeState.tickrate,
+          modes_list_string: modeState.kzMode,
+          stage: 0,
+        }
 
   const [apiOptions, setApiOptions] = useState(apiOpt)
 
@@ -90,7 +91,7 @@ const LatestRecords = (props: Props) => {
   const panelHeader = () => {
     return (
       <>
-        {props.steamid64 ? 'My records' : 'Global records'}
+        {props.type === 'tp' ? 'TP Times (Top 20)' : 'PRO Times (Top 20)'}
         <div className="float-right">
           <input type="checkbox" onChange={toggleWROnly} checked={wrOnly} /> WRs
           only

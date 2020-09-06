@@ -204,8 +204,10 @@ const PlayerDetailView = (props: Props) => {
             </Tab>
             {user?.steamid64 === steamid64 && (
               <Tab>
-                <SettingsIcon />
-                Settings
+                <button>
+                  <SettingsIcon />
+                  Settings
+                </button>
               </Tab>
             )}
             <div className="tab-filler"></div>

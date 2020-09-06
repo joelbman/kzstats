@@ -11,22 +11,24 @@ interface Props {
 const PlayerProfileSettings = (props: Props) => {
   const userCtx = useContext(UserContext)
   const user = userCtx?.user
-  const { error, loader, data } = useApiRequest('api/country/', null, true)
+  const { error, loader, data } = useApiRequest('/country/', null, true)
 
   if (!user) return <Redirect to="/" />
   if (error) return error
   if (loader) return loader
 
-  const handleSubmit = () => {}
+  const handleSubmit = () => {
+    alert('Not functional - Work in progress')
+  }
 
   return (
     <div>
-      <h2>Profile settings</h2>
+      <h2>Profile settings (WORK IN PROGRESS)</h2>
       <form>
         <div className="block">
           Name: <input type="text" value={user.alias} />
         </div>
-        <div className="block">
+        <div className="block mt-4 mb-4">
           Country:{' '}
           <select value={user.countryCode}>
             {Object.keys(data).map((c: string) => (
@@ -34,7 +36,9 @@ const PlayerProfileSettings = (props: Props) => {
             ))}
           </select>
         </div>
-        <button onClick={handleSubmit}>Submit</button>
+        <button className="bg-green-500 px-2 py-1" onClick={handleSubmit}>
+          Submit
+        </button>
       </form>
     </div>
   )
