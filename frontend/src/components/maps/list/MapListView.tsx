@@ -79,7 +79,8 @@ const MapListView = () => {
             <option value="3">Medium</option>
             <option value="4">Hard</option>
             <option value="5">Very hard</option>
-            <option value="6">Death</option>
+            <option value="6">Extreme</option>
+            <option value="7">Death</option>
           </select>
         </div>
         <div>

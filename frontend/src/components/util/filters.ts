@@ -55,6 +55,8 @@ const difficultyToText = (difficulty: number): string => {
     case 5:
       return 'Very hard'
     case 6:
+      return 'Extreme'
+    case 7:
       return 'Death'
     default:
       return 'Unknown'

@@ -1,10 +1,9 @@
-import ProgressBar from 'components/general/ProgressBar'
+import Loader from 'components/general/Loader'
 import { runtimeFormat } from 'components/util/filters'
 import useApiRequest from 'hooks/useApiRequest'
 import KZMap from 'models/KZMap'
 import KZRecord from 'models/KZRecord'
 import React, { useEffect, useMemo, useState } from 'react'
-import { TabPanel } from 'react-tabs'
 import PlayerStatsGrid from './PlayerStatsGrid'
 
 interface Props {
@@ -12,145 +11,118 @@ interface Props {
 }
 
 interface DifficultyStats {
-  tp_total: number
-  tp_wr: number
-  tp_time_sum: number
-  tp_teleports_used: number
-  pro_total: number
-  pro_wr: number
-  pro_time_sum: number
+  total: number
+  wr: number
+  time_sum: number
+  tp_sum: number
 }
 
 interface StatObject {
-  tp_total: number
-  tp_wr: number
-  tp_time_sum: number
-  tp_teleports_used: number
-  tp_points_sum: number
-  pro_total: number
-  pro_wr: number
-  pro_time_sum: number
-  pro_points_sum: number
+  total: number
+  wr: number
+  time_sum: number
+  tp_sum: number
+  points_sum: number
   [key: number]: DifficultyStats
 }
 
+interface MapCount {
+  [key: number]: number
+}
+
 const PlayerStats = (props: Props) => {
-  const { error, loader, data: maps } = useApiRequest(
+  const { error, loader, data: mapData } = useApiRequest(
     '/maps?is_verified=true',
     null
   )
-  const [stats, setStats] = useState<StatObject | null>(null)
+  const [proStats, setProStats] = useState<StatObject | null>(null)
+  const [tpStats, setTpStats] = useState<StatObject | null>(null)
+  const [mapCount, setMapCount] = useState<MapCount | null>(null)
 
   useMemo(() => {
-    if (maps.length < 1) return
-    const stats: StatObject = {
-      tp_total: 0,
-      tp_wr: 0,
-      tp_time_sum: 0,
-      tp_teleports_used: 0,
-      tp_points_sum: 0,
-      pro_total: 0,
-      pro_wr: 0,
-      pro_time_sum: 0,
-      pro_points_sum: 0,
+    if (mapData.length < 1) return
+
+    const mapCountObj: MapCount = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 }
+    mapData.forEach((m: KZMap) => {
+      mapCountObj[m.difficulty]++
+    })
+    setMapCount(mapCountObj)
+
+    const tpObj: StatObject = {
+      total: 0,
+      wr: 0,
+      time_sum: 0,
+      tp_sum: 0,
+      points_sum: 0,
       1: {
-        tp_time_sum: 0,
-        tp_total: 0,
-        tp_teleports_used: 0,
-        tp_wr: 0,
-        pro_total: 0,
-        pro_wr: 0,
-        pro_time_sum: 0,
+        time_sum: 0,
+        total: 0,
+        tp_sum: 0,
+        wr: 0,
       },
       2: {
-        tp_total: 0,
-        tp_wr: 0,
-        tp_time_sum: 0,
-        tp_teleports_used: 0,
-        pro_total: 0,
-        pro_wr: 0,
-        pro_time_sum: 0,
+        time_sum: 0,
+        total: 0,
+        tp_sum: 0,
+        wr: 0,
       },
       3: {
-        tp_total: 0,
-        tp_wr: 0,
-        tp_time_sum: 0,
-        tp_teleports_used: 0,
-        pro_total: 0,
-        pro_wr: 0,
-        pro_time_sum: 0,
+        time_sum: 0,
+        total: 0,
+        tp_sum: 0,
+        wr: 0,
       },
       4: {
-        tp_total: 0,
-        tp_wr: 0,
-        tp_time_sum: 0,
-        tp_teleports_used: 0,
-        pro_total: 0,
-        pro_wr: 0,
-        pro_time_sum: 0,
+        time_sum: 0,
+        total: 0,
+        tp_sum: 0,
+        wr: 0,
       },
       5: {
-        tp_total: 0,
-        tp_wr: 0,
-        tp_time_sum: 0,
-        tp_teleports_used: 0,
-        pro_total: 0,
-        pro_wr: 0,
-        pro_time_sum: 0,
+        time_sum: 0,
+        total: 0,
+        tp_sum: 0,
+        wr: 0,
       },
       6: {
-        tp_time_sum: 0,
-        tp_total: 0,
-        tp_wr: 0,
-        tp_teleports_used: 0,
-        pro_total: 0,
-        pro_wr: 0,
-        pro_time_sum: 0,
+        time_sum: 0,
+        total: 0,
+        tp_sum: 0,
+        wr: 0,
       },
       7: {
-        tp_time_sum: 0,
-        tp_total: 0,
-        tp_wr: 0,
-        tp_teleports_used: 0,
-        pro_total: 0,
-        pro_wr: 0,
-        pro_time_sum: 0,
+        time_sum: 0,
+        total: 0,
+        tp_sum: 0,
+        wr: 0,
       },
     }
+
+    const proObj = JSON.parse(JSON.stringify(tpObj))
+
     props.data.forEach((r: KZRecord) => {
-      const map: KZMap = maps.find((m: KZMap) => {
+      const map: KZMap = mapData.find((m: KZMap) => {
         return r.map_name === m.name
       })
       if (!map) return
-      if (r.teleports === 0) {
-        stats.pro_total++
-        stats.pro_time_sum += r.time
-        stats.pro_points_sum += r.points
-        stats[map.difficulty].pro_total++
-        stats[map.difficulty].pro_time_sum += r.time
-        if (r.points === 1000) {
-          stats.pro_wr++
-          stats[map.difficulty].pro_wr++
-        }
-      } else {
-        stats.tp_total++
-        stats.tp_time_sum += r.time
-        stats.tp_teleports_used += r.teleports
-        stats.tp_points_sum += r.points
-        stats[map.difficulty].tp_total++
-        stats[map.difficulty].tp_time_sum += r.time
-        stats[map.difficulty].tp_teleports_used += r.teleports
-        if (r.points === 1000) {
-          stats.tp_wr++
-          stats[map.difficulty].tp_wr++
-        }
+      const obj = r.teleports === 0 ? proObj : tpObj
+      obj.total++
+      obj.time_sum += r.time
+      obj.points_sum += r.points
+      obj.tp_sum += r.teleports
+      obj[map.difficulty].total++
+      obj[map.difficulty].time_sum += r.time
+      if (r.points === 1000) {
+        obj.wr++
+        obj[map.difficulty].wr++
       }
     })
-    setStats(stats)
-  }, [maps, props.data])
+    setProStats(proObj)
+    setTpStats(tpObj)
+  }, [mapData, props.data])
 
   if (error) return error
-  if (loader || !stats) return loader
+  if (loader || !proStats || !tpStats || !mapCount) return <Loader />
   if (props.data.length < 1)
     return (
       <div>
@@ -160,21 +132,32 @@ const PlayerStats = (props: Props) => {
 
   return (
     <div>
-      {stats.pro_total > 0 && (
+      {proStats.total > 0 && (
         <div>
-          <h2>PRO Records ({stats.pro_total})</h2>
-          <span className="text-lg font-bold">Average runtime:</span>{' '}
-          {runtimeFormat(stats.pro_time_sum / stats.pro_total)}
-          <br />
-          <span className="text-lg font-bold">Average points:</span>{' '}
-          {(stats.pro_points_sum / stats.pro_total).toFixed(0)}
-          <PlayerStatsGrid stats={stats} type="pro" />
+          <h2>PRO Records ({proStats.total})</h2>
+          <div>
+            <h3>Averages</h3>
+            <b>Runtime:</b> {runtimeFormat(proStats.time_sum / proStats.total)}
+            <br />
+            <b>Points:</b> {(proStats.points_sum / proStats.total).toFixed(0)}
+          </div>
+
+          <PlayerStatsGrid stats={proStats} mapCount={mapCount} />
         </div>
       )}
-      {stats.tp_total > 0 && (
-        <div className="mt-8">
-          <h2>TP Records ({stats.tp_total})</h2>
-          <PlayerStatsGrid stats={stats} type="tp" />
+      {tpStats.total > 0 && (
+        <div className="pt-8 mt-8 border-t border-black">
+          <h2>TP Records ({tpStats.total})</h2>
+          <div>
+            <h3>Averages</h3>
+            <b>Runtime:</b> {runtimeFormat(tpStats.time_sum / tpStats.total)}
+            <br />
+            <b>Points:</b> {(tpStats.points_sum / tpStats.total).toFixed(0)}
+            <br />
+            <b>Teleports:</b> {(tpStats.tp_sum / tpStats.total).toFixed(0)}
+          </div>
+
+          <PlayerStatsGrid stats={tpStats} mapCount={mapCount} />
         </div>
       )}
     </div>
