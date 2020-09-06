@@ -21,7 +21,7 @@ interface ServerObject {
   numplayers: number
 }
 
-const ServerListTask = (io: SocketIO.Server): void => {
+const ServerListTask = (): void => {
   const queryServer = async (server: ServerObject): Promise<string> => {
     let state: Gamedig.QueryResult
     try {
@@ -109,14 +109,7 @@ const ServerListTask = (io: SocketIO.Server): void => {
     if (disableCount > 0) console.log(`Disabled ${disableCount} servers`)
   }
 
-  // Socket listener
-  io.on('connection', (socket) => {
-    socket.on('request-list', () => {
-      socket.emit('serverlist', currentList)
-    })
-  })
-
   updateList().catch((e) => logger.error(e.message))
 }
 
-export default ServerListTask
+export { ServerListTask, currentList }

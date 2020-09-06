@@ -1,8 +1,13 @@
 import express from 'express'
 import ServerService from '../services/ServerService'
+import { currentList } from '../tasks/ServerListTask'
 import logger from '../util/logger'
 
 const router = express.Router()
+
+router.get('/', (req, res) => {
+  res.json(currentList)
+})
 
 router.get('/:serverip', (req, res) => {
   ServerService.getServerInfo(req.params.serverip)

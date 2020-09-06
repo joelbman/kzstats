@@ -7,6 +7,7 @@ import ListIcon from './ListIcon'
 import LockIcon from './LockIcon'
 import MapIcon from './MapIcon'
 import PersonIcon from './PersonIcon'
+import RefreshIcon from './RefreshIcon'
 import SearchIcon from './SearchIcon'
 import ServerIcon from './ServerIcon'
 import SettingsIcon from './SettingsIcon'
@@ -26,4 +27,5 @@ export {
   BanIcon,
   LockIcon,
   SearchIcon,
+  RefreshIcon,
 }

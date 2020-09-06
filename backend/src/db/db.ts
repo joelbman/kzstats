@@ -18,5 +18,5 @@ export const config = {
   },
 }
 
-const knex = Knex(config as Knex.Config)
+const knex: Knex = Knex(config as Knex.Config)
 export const db = knex

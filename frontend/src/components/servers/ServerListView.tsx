@@ -1,11 +1,10 @@
-import ErrorHandler from 'components/general/ErrorHandler'
 import Loader from 'components/general/Loader'
 import TableSimple from 'components/general/TableSimple'
 import { FlagIcon } from 'components/icons'
-import React, { useEffect, useRef, useState } from 'react'
+import useApiRequest from 'hooks/useApiRequest'
+import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
-import socketIOclient from 'socket.io-client'
 
 interface ServerObject {
   ip: string
@@ -19,55 +18,21 @@ interface ServerObject {
   players: Record<string, unknown>[]
 }
 
-const wsUrl =
-  process.env.NODE_ENV === 'production'
-    ? 'https://webapp1.kapsi.fi:40073/'
-    : 'https://localhost:3001/'
-
 let timer = 0
 
 const ServerListView = () => {
-  const io = useRef(socketIOclient(wsUrl, { reconnectionAttempts: 1 }))
-  const [servers, setServers] = useState<ServerObject[]>([])
   const [filtered, setFiltered] = useState<ServerObject[]>([])
-  const [error, setError] = useState(false)
   const [continent, setContinent] = useState('')
   const [filterStr, setFilterStr] = useState('')
 
-  useEffect(() => {
-    let mounted = true
-
-    const requestList = () => {
-      if (!mounted) return
-      io.current.emit('request-list')
-      setTimeout(requestList, 120000)
-    }
-
-    requestList()
-
-    io.current.on('serverlist', (servers: ServerObject[]) => {
-      if (mounted) {
-        setServers(servers)
-        filterServers(filterStr, continent, servers)
-      }
-    })
-
-    io.current.on('connect_error', () => {
-      setError(true)
-    })
-
-    return () => {
-      mounted = false
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterStr, continent])
+  const { error, loader, data } = useApiRequest('/server/', null, true)
 
   const filterServers = (
     filter: string,
     continent: string,
     serverlist?: ServerObject[]
   ) => {
-    const server_arr = serverlist ? serverlist : servers
+    const server_arr = serverlist ? serverlist : data
 
     let arr = []
     if (filter.length > 2) {
@@ -85,12 +50,17 @@ const ServerListView = () => {
       })
     }
 
-    arr.sort((a, b) => {
+    arr.sort((a: ServerObject, b: ServerObject) => {
       return b.numplayers - a.numplayers
     })
 
     setFiltered(arr)
   }
+
+  useEffect(() => {
+    filterServers(filterStr, continent, data)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterStr, continent, data])
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     clearTimeout(timer)
@@ -106,9 +76,8 @@ const ServerListView = () => {
     filterServers(filterStr, e.target.value)
   }
 
-  if (error)
-    return <ErrorHandler local={true} message="Websocket connection error" />
-  if (servers.length < 1) return <Loader />
+  if (error) return error
+  if (data.length < 1 || loader) return <Loader />
 
   return (
     <div>
