@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -46,9 +47,8 @@
     "watch:css": "postcss src/css/App.css -o src/tailwind.output.css -w",
     "start": "npm-run-all -p watch:css start:react",
     "start:react": "react-scripts start",
-    "prebuild": "run-s build:tailwind",
-    "build:js": "react-scripts build",
-    "build": "npm run all build:css build:js",
+    "build:js": "react-scripts build && mv build www",
+    "build": "npm-run-all build:css build:js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

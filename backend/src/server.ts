@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs'
+import * as http from 'http'
 import * as https from 'https'
 import path from 'path'
 import bodyParser from 'body-parser'
@@ -6,20 +7,11 @@ import express from 'express'
 import session from 'express-session'
 import passport from './passportInit'
 import router from './router'
-import LatestRecordsTask from './tasks/LatestRecordsTask'
 import ServerListTask from './tasks/ServerListTask'
-import { SESSION_SECRET } from './util/config'
+import { SESSION_SECRET, production } from './util/config'
 
 const app = express()
 app.set('port', process.env.PORT || 3001)
-
-const options =
-  process.env.NODE_ENV === 'production'
-    ? {
-        key: readFileSync(path.join(process.cwd() + '/../ssl/key.key')),
-        cert: readFileSync(path.join(process.cwd() + '/../ssl/cert.crt')),
-      }
-    : {}
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -33,9 +25,22 @@ app.use(
 
 app.use(passport.initialize())
 app.use(passport.session())
-app.use('/api', router)
+app.use('/', router)
 
-const server = https.createServer(options, app).listen(app.get('port'), () => {
+let server: http.Server | https.Server
+if (production) {
+  server = http.createServer(app)
+} else {
+  server = https.createServer(
+    {
+      key: readFileSync(path.join(process.cwd() + '/../ssl/key.key')),
+      cert: readFileSync(path.join(process.cwd() + '/../ssl/cert.crt')),
+    },
+    app
+  )
+}
+
+server.listen(app.get('port'), () => {
   console.log(`Server running on: ${app.get('port')}`)
 })
 
