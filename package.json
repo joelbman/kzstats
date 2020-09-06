@@ -1,6 +1,6 @@
 {
   "name": "kzstats",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "KZStats.com - Website for viewing CS:GO KZ Global records",
   "author": "Joel Bergman",
   "workspaces": [
@@ -9,7 +9,10 @@
   ],
   "scripts": {
     "backend": "yarn --cwd backend \"watch-debug\"",
-    "frontend": "yarn --cwd frontend start"
+    "frontend": "yarn --cwd frontend start",
+    "build:fe": "yarn --cwd frontend build",
+    "build:be": "yarn --cwd backend build",
+    "serve": "yarn --cwd backend serve"
   },
   "license": "MIT",
   "private": true
