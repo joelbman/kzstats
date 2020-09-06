@@ -26,14 +26,18 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use('/', router)
 
-const opt = production
-  ? {}
-  : {
+let server: https.Server
+if (production) {
+  server = https.createServer(app)
+} else {
+  server = https.createServer(
+    {
       key: readFileSync(path.join(process.cwd() + '/../ssl/key.key')),
       cert: readFileSync(path.join(process.cwd() + '/../ssl/cert.crt')),
-    }
-
-const server = https.createServer(opt, app)
+    },
+    app
+  )
+}
 
 server.listen(app.get('port'), () => {
   console.log(`Server running on: ${app.get('port')}`)
