@@ -29,7 +29,7 @@ app.use('/', router)
 
 let server: http.Server | https.Server
 if (production) {
-  server = http.createServer(app)
+  server = https.createServer(app)
 } else {
   server = https.createServer(
     {

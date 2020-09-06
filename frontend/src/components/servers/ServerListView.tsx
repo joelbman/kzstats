@@ -21,7 +21,7 @@ interface ServerObject {
 
 const wsUrl =
   process.env.NODE_ENV === 'production'
-    ? 'http://webapp1.kapsi.fi:40073/'
+    ? 'https://webapp1.kapsi.fi:40073/'
     : 'https://localhost:3001/'
 
 let timer = 0
