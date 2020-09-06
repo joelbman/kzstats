@@ -27,11 +27,11 @@ app.use(passport.session())
 app.use('/', router)
 
 const opt = production
-  ? {
+  ? {}
+  : {
       key: readFileSync(path.join(process.cwd() + '/../ssl/key.key')),
       cert: readFileSync(path.join(process.cwd() + '/../ssl/cert.crt')),
     }
-  : {}
 
 const server = https.createServer(opt, app)
 
