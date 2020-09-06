@@ -1,9 +1,9 @@
 import Table from 'components/general/Table'
-import Record from 'models/Record'
+import KZRecord from 'models/KZRecord'
 import React, { useState } from 'react'
 
 interface Props {
-  data: Record[]
+  data: KZRecord[]
 }
 
 let timer = 0

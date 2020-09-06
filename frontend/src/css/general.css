@@ -29,6 +29,10 @@ h2 small {
   vertical-align: middle;
 }
 
+h3 {
+  font-size: 1.2rem;
+}
+
 a:focus {
   outline: 0;
 }

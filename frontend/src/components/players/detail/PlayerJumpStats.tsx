@@ -32,15 +32,17 @@ const PlayerJumpStats = (props: Props) => {
           <option value="countjump">Countjump</option>
         </select>
       </div>
-      <div className="inline-block mt-2 md:ml-4">
-        Crouch bind:
-        <input
-          type="checkbox"
-          onChange={toggleBind}
-          checked={crouchBind}
-          className="ml-4"
-        />
-      </div>
+      {jumpType !== 'ladderjump' && (
+        <div className="inline-block mt-2 md:ml-4">
+          Crouch bind:
+          <input
+            type="checkbox"
+            onChange={toggleBind}
+            checked={crouchBind}
+            className="ml-4"
+          />
+        </div>
+      )}
       {props.steamid && (
         <JumpStatTable
           jumpType={jumpType}

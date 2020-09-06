@@ -1,12 +1,12 @@
 import ImageC from 'components/general/ImageC'
 import { FlagIcon } from 'components/icons'
 import { runtimeFormat, timeAgoFormat } from 'components/util/filters'
-import Record from 'models/Record'
+import KZRecord from 'models/KZRecord'
 import React, { Suspense } from 'react'
 import { Link } from 'react-router-dom'
 
 interface Props {
-  record: Record
+  record: KZRecord
 }
 
 const RecordBlock = ({ record }: Props) => {

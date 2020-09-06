@@ -8,7 +8,7 @@ import {
 } from 'components/icons/'
 import { ModeContext } from 'context/ModeContext'
 import { UserContext } from 'context/UserContext'
-import Record from 'models/Record'
+import KZRecord from 'models/KZRecord'
 import React, {
   Suspense,
   useContext,
@@ -77,7 +77,7 @@ const PlayerDetailView = (props: Props) => {
 
   useMemo(() => {
     let pts = 0
-    recordData.forEach((r: Record) => {
+    recordData.forEach((r: KZRecord) => {
       pts += r.points
     })
     setPoints(pts)
@@ -218,7 +218,7 @@ const PlayerDetailView = (props: Props) => {
             <PlayerJumpStats steamid={steamProfile.steamid32} />
           </TabPanel>
           <TabPanel>
-            <PlayerStats steamid64={steamid64} />
+            <PlayerStats data={recordData} />
           </TabPanel>
           {user?.steamid64 === steamid64 && (
             <TabPanel>

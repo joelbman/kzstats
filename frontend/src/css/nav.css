@@ -1,6 +1,6 @@
 .nav-main {
-  @apply flex justify-center items-center flex-wrap md:flex-no-wrap content-start bg-gray-950 w-full border-black border-b-2 p-2 md:pb-1 fixed;
-  @apply xl:px-16;
+  @apply flex justify-center items-center flex-wrap content-start bg-gray-950 w-full border-black border-b-2 p-2 fixed;
+  @apply md:flex-no-wrap md:pb-1 lg:px-4 xl:px-16;
 }
 
 .nav-main a {

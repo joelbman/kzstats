@@ -1,5 +1,6 @@
 .panel {
-  @apply w-full bg-gray-800 h-auto border border-black mr-4;
+  @apply w-full bg-gray-800 h-auto border border-black mr-4 z-0;
+  box-shadow: 5px 5px 5px #000;
 }
 
 .panel-header {

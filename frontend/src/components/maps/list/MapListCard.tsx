@@ -1,18 +1,20 @@
 import ImageC from 'components/general/ImageC'
 import { difficultyToText } from 'components/util/filters'
-import Map from 'models/Map'
+import KZMap from 'models/KZMap'
 import React, { Suspense } from 'react'
 import { Link } from 'react-router-dom'
 
 interface Props {
-  map: Map
+  map: KZMap
 }
 
 const MapListCard = ({ map }: Props) => {
   return (
     <div className="maplist-card">
       <div className="h-32 border-b bg-gray-dark border-black overflow-hidden">
-        <Suspense fallback={<div></div>}>
+        <Suspense
+          fallback={<div className="w-full h-full border-gray-verydark"></div>}
+        >
           <Link to={`maps/${map.name}`}>
             <ImageC
               src={`img/map/thumb/tn_${map.name}.jpg`}

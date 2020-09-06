@@ -6,6 +6,7 @@ import express from 'express'
 import session from 'express-session'
 import passport from './passportInit'
 import router from './router'
+import LatestRecordsTask from './tasks/LatestRecordsTask'
 import ServerListTask from './tasks/ServerListTask'
 import { SESSION_SECRET } from './util/config'
 

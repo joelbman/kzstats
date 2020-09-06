@@ -1,4 +1,4 @@
-export default interface Record {
+export default interface KZRecord {
   id: number
   steamid64: string
   player_name: string

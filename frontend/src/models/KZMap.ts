@@ -1,4 +1,4 @@
-export default interface Map {
+export default interface KZMap {
   id: number
   name: string
   filesize: number

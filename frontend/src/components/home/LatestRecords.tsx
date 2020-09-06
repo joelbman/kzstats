@@ -1,7 +1,7 @@
 import Panel from 'components/general/Panel'
 import { ModeContext } from 'context/ModeContext'
 import useApiRequest from 'hooks/useApiRequest'
-import Record from 'models/Record'
+import KZRecord from 'models/KZRecord'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import RecordBlock from './RecordBlock'
 
@@ -60,20 +60,20 @@ const LatestRecords = (props: Props) => {
       const filtered = data
         .slice()
         .filter(
-          (r: Record, i: number, a: []) =>
+          (r: KZRecord, i: number, a: []) =>
             a.findIndex(
-              (re: Record) =>
+              (re: KZRecord) =>
                 re.map_id === r.map_id && re.player_name === r.player_name
             ) === i
         )
         .reverse()
 
       return filtered
-        .filter((r: Record) => {
+        .filter((r: KZRecord) => {
           if (wrOnly) return r.place === 1
           else return true
         })
-        .sort((a: Record, b: Record) => {
+        .sort((a: KZRecord, b: KZRecord) => {
           return (
             new Date(a.updated_on).getTime() - new Date(b.updated_on).getTime()
           )
@@ -104,7 +104,7 @@ const LatestRecords = (props: Props) => {
       {loader ? (
         <>{loader}</>
       ) : items.length > 0 ? (
-        items.map((record: Record) => (
+        items.map((record: KZRecord) => (
           <RecordBlock record={record} key={record.id} />
         ))
       ) : (

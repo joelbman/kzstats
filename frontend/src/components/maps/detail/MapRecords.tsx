@@ -1,30 +1,31 @@
 import Table from 'components/general/Table'
 import { ModeContext } from 'context/ModeContext'
 import useApiRequest from 'hooks/useApiRequest'
-import Record from 'models/Record'
+import KZRecord from 'models/KZRecord'
 import React, { useContext, useMemo, useState } from 'react'
 
 interface Props {
   mapname: string
+  modeState: { kzMode: string; tickrate: string }
 }
 
 const MapRecords = (props: Props) => {
-  const [records, setRecords] = useState<Record[]>([])
+  const [records, setRecords] = useState<KZRecord[]>([])
   const [proOnly, setProOnly] = useState(false)
-  const { state: modeState } = useContext(ModeContext)
+
   const [apiOpt, setApiOpt] = useState({
     map_name: props.mapname,
     limit: 100,
-    modes_list_string: modeState.kzMode,
-    tickrate: modeState.tickrate,
+    modes_list_string: props.modeState.kzMode,
+    tickrate: props.modeState.tickrate,
     has_teleports: false,
     stage: 0,
   })
   const [apiOptTp, setApiOptTp] = useState({
     map_name: props.mapname,
     limit: 100,
-    modes_list_string: modeState.kzMode,
-    tickrate: modeState.tickrate,
+    modes_list_string: props.modeState.kzMode,
+    tickrate: props.modeState.tickrate,
     has_teleports: true,
     stage: 0,
   })
@@ -51,16 +52,16 @@ const MapRecords = (props: Props) => {
   useMemo(() => {
     setApiOpt({
       ...apiOpt,
-      modes_list_string: modeState.kzMode,
-      tickrate: modeState.tickrate,
+      modes_list_string: props.modeState.kzMode,
+      tickrate: props.modeState.tickrate,
     })
     setApiOptTp({
       ...apiOptTp,
-      modes_list_string: modeState.kzMode,
-      tickrate: modeState.tickrate,
+      modes_list_string: props.modeState.kzMode,
+      tickrate: props.modeState.tickrate,
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modeState.kzMode, modeState.tickrate])
+  }, [props.modeState.kzMode, props.modeState.tickrate])
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {

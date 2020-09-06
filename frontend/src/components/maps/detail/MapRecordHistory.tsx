@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useMemo, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
 import { ModeContext } from '../../../context/ModeContext'
 import useApiRequest from '../../../hooks/useApiRequest'
-import Record from '../../../models/Record'
+import KZRecord from '../../../models/KZRecord'
 
 interface Props {
   mapname: string
@@ -20,7 +20,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
     stage: 0,
     place_top_at_least: 1,
     modes_list_string: modeState.kzMode,
-    tickrates: modeState.tickrate,
+    tickrate: modeState.tickrate,
     has_teleports: false,
   })
   const { error, loader, data } = useApiRequest(
@@ -91,7 +91,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
 
   useEffect(() => {
     const chartData = data
-      .map((r: Record) => {
+      .map((r: KZRecord) => {
         if (r.map_name !== mapname) setBugged(true)
         return { x: r.updated_on, y: r.time, z: r.player_name }
       })
@@ -104,13 +104,12 @@ const MapRecordHistory = ({ mapname }: Props) => {
 
   useMemo(() => {
     setApiOptions({
+      ...apiOptions,
       map_name: mapname,
-      stage: 0,
-      place_top_at_least: 1,
       modes_list_string: modeState.kzMode,
-      tickrates: modeState.tickrate,
-      has_teleports: false,
+      tickrate: modeState.tickrate,
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modeState.tickrate, modeState.kzMode, mapname])
 
   if (error) return error

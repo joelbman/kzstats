@@ -1,14 +1,14 @@
 import React, { useMemo, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import Map from '../../../models/Map'
+import KZMap from '../../../models/KZMap'
 import MapListCard from './MapListCard'
 
 interface Props {
-  maps: Map[]
+  maps: KZMap[]
 }
 
 const MapListGrid = (props: Props) => {
-  const [items, setItems] = useState<Map[]>([])
+  const [items, setItems] = useState<KZMap[]>([])
 
   const fetchMore = () => {
     setItems(items.concat(props.maps.slice(items.length, items.length + 12)))
@@ -30,7 +30,7 @@ const MapListGrid = (props: Props) => {
         className="inline-block"
       >
         <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4 w-full pr-2">
-          {items.map((map: Map) => (
+          {items.map((map: KZMap) => (
             <MapListCard map={map} key={map.id} />
           ))}
         </div>

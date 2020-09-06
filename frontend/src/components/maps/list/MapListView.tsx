@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import useApiRequest from '../../../hooks/useApiRequest'
-import Map from '../../../models/Map'
+import KZMap from '../../../models/KZMap'
 import MapListGrid from './MapListGrid'
 import MapListTable from './MapListTable'
 
@@ -15,7 +15,7 @@ const MapListView = () => {
   const [nameFilter, setNameFilter] = useState('')
   const [difficultyFilter, setDifficultyFilter] = useState('0')
   const [isFancy, setIsFancy] = useState(true)
-  const [filtered, setFiltered] = useState<Map[]>([])
+  const [filtered, setFiltered] = useState<KZMap[]>([])
 
   // Update filter 0.6secs after user has stopped typing
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,12 +33,12 @@ const MapListView = () => {
   useMemo(() => {
     let temp = data
     if (nameFilter.length > 0) {
-      temp = temp.filter((m: Map) => {
+      temp = temp.filter((m: KZMap) => {
         return m.name.includes(nameFilter || '')
       })
     }
     if (difficultyFilter !== '0') {
-      temp = temp.filter((m: Map) => {
+      temp = temp.filter((m: KZMap) => {
         return (
           difficultyFilter === '0' ||
           m.difficulty === parseInt(difficultyFilter)
