@@ -47,7 +47,7 @@
     "watch:css": "postcss src/css/App.css -o src/tailwind.output.css -w",
     "start": "npm-run-all -p watch:css start:react",
     "start:react": "react-scripts start",
-    "build:js": "react-scripts build && mv build ../../www",
+    "build:js": "react-scripts build && mv build ../www",
     "build": "npm-run-all build:css build:js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
