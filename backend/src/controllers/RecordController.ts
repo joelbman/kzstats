@@ -5,7 +5,6 @@ import logger from '../util/logger'
 const router = express.Router()
 
 router.put('/:mapname', (req, res) => {
-  console.log(req.body)
   RecordService.updateMapRecords(
     req.params.mapname,
     req.body.params.mode,

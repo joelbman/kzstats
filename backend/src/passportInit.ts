@@ -5,9 +5,11 @@ import AuthService from './services/AuthService'
 import { STEAM_API_KEY, production } from './util/config'
 import logger from './util/logger'
 
-const realm = production ? 'https://kzstats.com/' : 'https://localhost:3001/'
+const realm = production
+  ? 'https://staging.kzstats.com/'
+  : 'https://localhost:3001/'
 const returnURL = production
-  ? 'https://kzstats.com/api/auth/return/'
+  ? 'https://staging.kzstats.com/api/auth/return/'
   : 'https://localhost:3001/api/auth/return/'
 
 passport.serializeUser((user, done) => {
