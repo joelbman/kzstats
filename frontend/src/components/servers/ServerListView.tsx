@@ -2,7 +2,7 @@ import Loader from 'components/general/Loader'
 import TableSimple from 'components/general/TableSimple'
 import { FlagIcon } from 'components/icons'
 import useApiRequest from 'hooks/useApiRequest'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 
@@ -18,9 +18,8 @@ interface ServerObject {
   players: Record<string, unknown>[]
 }
 
-let timer = 0
-
 const ServerListView = () => {
+  const timer = useRef(0)
   const [filtered, setFiltered] = useState<ServerObject[]>([])
   const [continent, setContinent] = useState('')
   const [filterStr, setFilterStr] = useState('')
@@ -63,9 +62,9 @@ const ServerListView = () => {
   }, [filterStr, continent, data])
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    clearTimeout(timer)
+    clearTimeout(timer.current)
     const val = e.target.value.toLowerCase()
-    timer = window.setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setFilterStr(val)
       filterServers(val, continent)
     }, 600)

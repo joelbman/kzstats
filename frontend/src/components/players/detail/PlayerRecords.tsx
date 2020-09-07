@@ -1,22 +1,21 @@
 import Table from 'components/general/Table'
 import KZRecord from 'models/KZRecord'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 interface Props {
   data: KZRecord[]
 }
 
-let timer = 0
-
 const PlayerRecords = (props: Props) => {
   const data = props.data
   const [nameFilter, setNameFilter] = useState('')
   const [pointsFilter, setPointsFilter] = useState('')
+  const timer = useRef(0)
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    clearTimeout(timer)
+    clearTimeout(timer.current)
     const val = e.target.value
-    timer = window.setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setNameFilter(val)
     }, 600)
   }

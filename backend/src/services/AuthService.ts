@@ -18,7 +18,7 @@ const AuthService = {
 
     let country = ''
 
-    const countryCode = profile._json.loccountrycode
+    const countryCode = profile._json?.loccountrycode
     if (countryCode) {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const countryCodes = require('./util/countrycodes.json')

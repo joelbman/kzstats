@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from 'express'
 import passport from 'passport'
 import { PassportSteamProfile } from 'types'
 import AuthService from '../services/AuthService'
+import { production } from '../util/config'
 import logger from '../util/logger'
 
 const router = express.Router()
@@ -18,8 +19,8 @@ router.get(
 
   passport.authenticate('steam', { failureRedirect: '/' }),
   (req, res) => {
-    if (!process.env.production) res.redirect('https://localhost:3000/')
-    res.redirect('/')
+    if (!production) res.redirect('https://localhost:3000/')
+    else res.redirect('/')
   }
 )
 
@@ -40,8 +41,8 @@ router.put('/profile', checkAuth, (req, res) => {
 
 router.get('/logout', checkAuth, (req, res) => {
   req.logout()
-  if (!process.env.production) res.redirect('https://localhost:3000/')
-  res.redirect('/')
+  if (!production) res.redirect('https://localhost:3000/')
+  else res.redirect('/')
 })
 
 router.get('/', passport.authenticate('steam'), () => {

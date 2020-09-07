@@ -12,7 +12,7 @@ const NavProfileBlock = () => {
     <div className="order-7 items-center flex justify-center align-middle md:ml-4 md:pl-4 md:pt-0 md:border-l-2 border-gray-850 md:flex md:flex-shrink-0 ">
       <div>
         {user ? (
-          <Link to={`players/${user?.steamid64}`}>
+          <Link to={`/players/${user?.steamid64}`}>
             <Img className="inline mr-2" src={user.avatarSmall} />
             {user.alias}
           </Link>

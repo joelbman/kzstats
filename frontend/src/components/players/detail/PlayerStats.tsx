@@ -3,7 +3,7 @@ import { runtimeFormat } from 'components/util/filters'
 import useApiRequest from 'hooks/useApiRequest'
 import KZMap from 'models/KZMap'
 import KZRecord from 'models/KZRecord'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import PlayerStatsGrid from './PlayerStatsGrid'
 
 interface Props {

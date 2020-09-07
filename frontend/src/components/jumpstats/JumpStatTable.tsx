@@ -63,16 +63,15 @@ const JumpStatTable = (props: Props) => {
 
   useMemo(() => {
     const bind = props.jumpType !== 'ladderjump' ? props.crouchBind : false
-    setApiOptions({
-      ...apiOptions,
-      jumptype_list: stringToId(props.jumpType),
-      is_crouch_bind: bind,
-    })
+    let apiOpt = { ...apiOptions, is_crouch_bind: bind }
+    if (props.steamid)
+      apiOpt = { ...apiOpt, jumptype_list: stringToId(props.jumpType) }
+    setApiOptions(apiOpt)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.crouchBind, props.jumpType])
 
-  if (error) return error
   if (loader) return loader
+  if (error) return error
   if (data.length === 0) return <p className="mt-4">No data available.</p>
 
   return (
