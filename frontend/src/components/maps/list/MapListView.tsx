@@ -10,6 +10,7 @@ let timer = 0
 const MapListView = () => {
   const [apiOptions] = useState({
     is_verified: true,
+    limit: 1000,
   })
   const { error, loader, data } = useApiRequest('/maps', apiOptions)
   const [nameFilter, setNameFilter] = useState('')

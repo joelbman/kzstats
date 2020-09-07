@@ -1,4 +1,3 @@
-import Axios from 'axios'
 import ErrorHandler from 'components/general/ErrorHandler'
 import ImageC from 'components/general/ImageC'
 import ChartIcon from 'components/icons/ChartIcon'
@@ -6,14 +5,7 @@ import TrophyIcon from 'components/icons/TrophyIcon'
 import { difficultyToText } from 'components/util/filters'
 import { ModeContext } from 'context/ModeContext'
 import useApiRequest from 'hooks/useApiRequest'
-import React, {
-  Suspense,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import React, { Suspense, useContext, useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
@@ -29,18 +21,7 @@ const MapDetailView = (props: Props) => {
   const apiOpt = useRef({ name: mapname })
   const { state: modeState } = useContext(ModeContext)
   const [activeTab, setActiveTab] = useState(0)
-  const [apiOptions, setApiOptions] = useState({
-    mode: modeState.kzMode,
-    tickrate: modeState.tickrate,
-  })
   const { error, loader, data } = useApiRequest('/maps/', apiOpt.current)
-  const { data: localData } = useApiRequest(
-    '/record/' + mapname,
-    apiOptions,
-    true,
-    false,
-    'put'
-  )
 
   useEffect(() => {
     switch (props.match.params.selectedTab) {

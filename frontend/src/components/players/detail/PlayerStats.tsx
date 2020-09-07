@@ -32,7 +32,7 @@ interface MapCount {
 
 const PlayerStats = (props: Props) => {
   const { error, loader, data: mapData } = useApiRequest(
-    '/maps?is_verified=true',
+    '/maps?is_verified=true&limit=1000',
     null
   )
   const [proStats, setProStats] = useState<StatObject | null>(null)
