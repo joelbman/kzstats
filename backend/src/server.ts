@@ -8,6 +8,7 @@ import session from 'express-session'
 import { config } from './db/db'
 import passport from './passportInit'
 import router from './router'
+import DiscordBotTask from './tasks/DiscordBotTask'
 import { ServerListTask } from './tasks/ServerListTask'
 import { SESSION_SECRET, production } from './util/config'
 
@@ -61,3 +62,4 @@ server.listen(app.get('port'), () => {
 })
 
 ServerListTask()
+DiscordBotTask()

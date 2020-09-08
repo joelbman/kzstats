@@ -12,20 +12,20 @@ interface Props {
 const RecordBlock = ({ record }: Props) => {
   return (
     <div className="record-block">
-      <div className="w-40 block md:inline-block">
-        <Suspense fallback={<div></div>}>
+      <div className="w-full block sm:inline-block sm:w-40">
+        <Suspense fallback={<span></span>}>
           <Link to={`maps/${record.map_name}`}>
             <ImageC
               alt={record.map_name}
               src={`img/map/thumb/tn_${record.map_name}.jpg`}
               height="90"
               width="150"
-              className="h-full border-black border-2"
+              className="h-full mx-auto sm:block border-black border-2"
             />
           </Link>
         </Suspense>
       </div>
-      <div className="ml-2 block md:inline-block">
+      <div className="ml-2 block sm:inline-block">
         <Link className="font-bold text-xl" to={`maps/${record.map_name}`}>
           {record.map_name}
         </Link>
@@ -41,6 +41,9 @@ const RecordBlock = ({ record }: Props) => {
             />
           ) : (
             <sup className="ml-2">#{record.place}</sup>
+          )}
+          {record.teleports > 0 && (
+            <span className="text-sm ml-2">({record.teleports} TPs)</span>
           )}
         </p>
         by{' '}

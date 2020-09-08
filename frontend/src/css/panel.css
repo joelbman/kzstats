@@ -1,10 +1,18 @@
 .panel {
-  @apply w-full bg-gray-800 h-auto border border-black mr-4 z-0;
+  @apply w-full bg-gray-800 h-auto border border-black;
   box-shadow: 3px 3px 3px #000;
 }
 
 .panel-header {
   @apply bg-gray-900 px-4 py-3 border-black border-b font-bold text-xl;
+}
+
+.news-block {
+  @apply mb-6 pb-6 border-b border-gray-900 last:border-0 last:m-0 last:p-0;
+}
+
+.panel-header select {
+  @apply py-0 ml-2 bg-gray-950 border-black text-gray-200;
 }
 
 .lightmode .panel {
@@ -14,4 +22,12 @@
 
 .lightmode .panel-header {
   @apply bg-gray-medium text-gray-100;
+}
+
+.lightmode .panel-header select {
+  @apply border-black text-gray-200 bg-gray-dark !important;
+}
+
+.lightmode .news-block {
+  @apply border-gray-400;
 }

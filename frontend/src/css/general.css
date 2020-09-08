@@ -33,6 +33,15 @@ h3 {
   font-size: 1.2rem;
 }
 
+code {
+  @apply border block bg-gray-850 border-gray-900 p-2 font-normal italic my-2;
+  font-family: 'Jaldi', serif;
+}
+
+.lightmode code {
+  @apply bg-gray-200 border-gray-light;
+}
+
 a:focus {
   outline: 0;
 }
@@ -75,7 +84,7 @@ footer {
 }
 
 .record-block {
-  @apply mt-4 pt-4 border-t border-gray-950 first:border-t-0 first:mt-0 first:pt-0;
+  @apply text-center sm:text-left mt-4 pt-4 border-t border-gray-950 first:border-t-0 first:mt-0 first:pt-0;
 }
 
 .lightmode .record-block {

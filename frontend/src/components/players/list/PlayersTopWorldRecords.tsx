@@ -7,12 +7,6 @@ interface Props {
   pro?: boolean
 }
 
-interface Player {
-  count: number
-  player_name: string
-  steamid64: string
-}
-
 const modeNameToId = (modeName: string) => {
   switch (modeName) {
     case 'kz_timer':
@@ -32,7 +26,7 @@ const PlayersTopWorldRecords = (props: Props) => {
     limit: 20,
     mode_ids: modeNameToId(modeState.kzMode),
     tickrates: modeState.tickrate || 128,
-    has_teleports: props.pro ? true : undefined,
+    has_teleports: props.pro ? false : undefined,
   })
   const { error, loader, data } = useApiRequest(
     '/records/top/world_records',
@@ -46,7 +40,7 @@ const PlayersTopWorldRecords = (props: Props) => {
       limit: 20,
       mode_ids: modeNameToId(modeState.kzMode),
       tickrates: modeState.tickrate || 128,
-      has_teleports: props.pro ? true : undefined,
+      has_teleports: props.pro ? false : undefined,
     })
   }, [modeState.kzMode, modeState.tickrate, props.pro])
 

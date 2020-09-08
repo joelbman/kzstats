@@ -15,6 +15,7 @@ if (denv.error) {
 export const production = process.env.NODE_ENV === 'production'
 export const STEAM_API_KEY = process.env['STEAM_API_KEY']
 export const SESSION_SECRET = process.env['SESSION_SECRET']
+export const DISCORD_KEY = process.env['DISCORD_KEY']
 export const DB_CONFIG = {
   name: process.env.DB_NAME,
   user: process.env.DB_USER,

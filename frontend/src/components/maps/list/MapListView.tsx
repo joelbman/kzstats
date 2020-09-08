@@ -1,13 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState, useRef } from 'react'
 import { Helmet } from 'react-helmet'
 import useApiRequest from '../../../hooks/useApiRequest'
 import KZMap from '../../../models/KZMap'
 import MapListGrid from './MapListGrid'
 import MapListTable from './MapListTable'
 
-let timer = 0
+
 
 const MapListView = () => {
+  const timer = useRef(0)
   const [apiOptions] = useState({
     is_verified: true,
     limit: 1000,
@@ -20,9 +21,9 @@ const MapListView = () => {
 
   // Update filter 0.6secs after user has stopped typing
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    clearTimeout(timer)
+    clearTimeout(timer.current)
     const val = e.target.value
-    timer = window.setTimeout(() => {
+    timer.current = window.setTimeout(() => {
       setNameFilter(val)
     }, 600)
   }

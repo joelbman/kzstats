@@ -1,59 +1,50 @@
 import Panel from 'components/general/Panel'
+import { TrophyIcon } from 'components/icons'
 import { ModeContext } from 'context/ModeContext'
 import useApiRequest from 'hooks/useApiRequest'
 import KZRecord from 'models/KZRecord'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import RecordBlock from './RecordBlock'
 
-interface Props {
-  type?: string
-}
-
-const LatestRecords = (props: Props) => {
+const LatestRecords = () => {
+  const [wrOnly, setWrOnly] = useState(
+    localStorage.getItem('frontPage_wrOnly') === 'top20' ? false : true
+  )
   const { state: modeState } = useContext(ModeContext)
-
-  let apiOpt =
-    props.type === 'tp'
-      ? {
-          limit: 300,
-          has_teleports: true,
-          place_top_at_least: 20,
-          tickrate: modeState.tickrate,
-          modes_list_string: modeState.kzMode,
-          stage: 0,
-        }
-      : {
-          limit: 300,
-          place_top_at_least: 20,
-          has_teleports: false,
-          tickrate: modeState.tickrate,
-          modes_list_string: modeState.kzMode,
-          stage: 0,
-        }
-
-  const [apiOptions, setApiOptions] = useState(apiOpt)
-
+  const [apiOptions, setApiOptions] = useState({
+    limit: 300,
+    place_top_at_least: 20,
+    has_teleports: false,
+    tickrate: modeState.tickrate,
+    modes_list_string: modeState.kzMode,
+    stage: 0,
+  })
   const { error, loader, data } = useApiRequest(
     '/records/top/recent',
     apiOptions,
     false,
     true
   )
-  const [items, setItems] = useState([])
-  const [wrOnly, setWrOnly] = useState(true)
 
-  const toggleWROnly = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setWrOnly(event.target.checked)
-  }
+  const [items, setItems] = useState([])
+  const [runType, setRunType] = useState('pro')
 
   useMemo(() => {
-    setApiOptions({
+    let apiOpt = {
       ...apiOptions,
       modes_list_string: modeState.kzMode,
       tickrate: modeState.tickrate,
-    })
+    }
+
+    if (runType === 'pro') {
+      apiOpt = { ...apiOpt, has_teleports: false }
+    } else if (runType === 'tp') {
+      apiOpt = { ...apiOpt, has_teleports: true }
+    } else delete apiOpt.has_teleports
+
+    setApiOptions(apiOpt)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modeState.kzMode, modeState.tickrate])
+  }, [modeState.kzMode, modeState.tickrate, runType])
 
   useEffect(() => {
     // remove duplicate map+player combos and keep the newest one
@@ -86,22 +77,41 @@ const LatestRecords = (props: Props) => {
     setItems(filterRecords)
   }, [data, wrOnly])
 
-  if (error) return error
+  const changeWrOnly = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    localStorage.setItem('frontPage_wrOnly', e.target.value)
+    setWrOnly(e.target.value === 'wr')
+    console.log(localStorage.getItem('frontPage_wrOnly'))
+  }
+
+  const changeRunType = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setRunType(e.target.value)
+  }
 
   const panelHeader = () => {
     return (
       <>
-        {props.type === 'tp' ? 'TP Times (Top 20)' : 'PRO Times (Top 20)'}
-        <div className="float-right">
-          <input type="checkbox" onChange={toggleWROnly} checked={wrOnly} /> WRs
-          only
+        Records
+        <div className="float-right text-base ">
+          Type:
+          <select onChange={changeRunType} className="mr-4">
+            <option value="pro">PRO</option>
+            <option value="tp">TP</option>
+            <option value="all">Overall</option>
+          </select>
+          Rank:
+          <select value={wrOnly ? 'wr' : 'top20'} onChange={changeWrOnly}>
+            <option value="wr">WR</option>
+            <option value="top20">Top 20</option>
+          </select>
         </div>
       </>
     )
   }
 
+  if (error) return error
+
   return (
-    <Panel header={panelHeader}>
+    <Panel header={panelHeader()}>
       {loader ? (
         <>{loader}</>
       ) : items.length > 0 ? (
