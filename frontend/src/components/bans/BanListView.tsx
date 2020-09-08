@@ -54,7 +54,7 @@ const BanListView = (props: Props) => {
             ]}
             data={data}
             sort={{ key: 'updated_on', desc: true }}
-            itemsPerPage={40}
+            itemsPerPage={25}
           />
         ) : (
           <p>No data available.</p>

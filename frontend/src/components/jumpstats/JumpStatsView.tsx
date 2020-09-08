@@ -56,6 +56,10 @@ const JumpStatsView = (props: Props) => {
     <div>
       <Helmet title="Jumpstats" />
       <h1>Jumpstats</h1>
+      <i className="block mb-4">
+        There is an API issue which makes some Jumpstat queries very slow, seems
+        to mostly affect longjumps with crouchbind enabled.
+      </i>
       <div className="inline-block mt-2">
         Jump type:
         <select value={jumpType} onChange={changeJumpType} className="ml-2">

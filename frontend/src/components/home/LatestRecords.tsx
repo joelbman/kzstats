@@ -90,15 +90,15 @@ const LatestRecords = () => {
   const panelHeader = () => {
     return (
       <>
-        Records
+        <span className="text-sm sm:text-lg m-0 p-0">Records</span>
         <div className="float-right text-base ">
-          Type:
-          <select onChange={changeRunType} className="mr-4">
+          <span className="hidden sm:inline">Type:</span>
+          <select onChange={changeRunType} className="mr-1 sm:mr-4">
             <option value="pro">PRO</option>
             <option value="tp">TP</option>
             <option value="all">Overall</option>
           </select>
-          Rank:
+          <span className="hidden sm:inline">Rank:</span>
           <select value={wrOnly ? 'wr' : 'top20'} onChange={changeWrOnly}>
             <option value="wr">WR</option>
             <option value="top20">Top 20</option>

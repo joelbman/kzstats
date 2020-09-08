@@ -48,7 +48,11 @@ const JumpStatTable = (props: Props) => {
     details = false
   } else {
     url = `/jumpstats/${props.jumpType}/top`
-    apiOpt = { is_crouch_bind: props.crouchBind, jump_type: null, limit: 60 }
+    apiOpt = {
+      is_crouch_bind: props.crouchBind,
+      limit: 20,
+      greater_than_distance: 200,
+    }
     columns = [
       { key: 'player_name', type: 'player', header: 'Player' },
       { key: 'distance' },

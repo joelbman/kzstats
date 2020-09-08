@@ -32,6 +32,8 @@ const MapListCard = ({ map }: Props) => {
           </div>
           <p className="text-base">
             Difficulty: {difficultyToText(map.difficulty)}
+            <br />
+            WR: Coming Soon™
           </p>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 const NavSearchBar = () => {
   const history = useHistory()
   const submitSearch = (value: string) => {
-    history.push('/search/' + value)
+    if (value.length > 1) history.push('/search/' + value)
   }
 
   return (

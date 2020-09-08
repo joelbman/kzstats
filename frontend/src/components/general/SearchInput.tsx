@@ -32,11 +32,12 @@ const SearchInput = (props: Props) => {
         style={{ height: props.height }}
         onKeyDown={onKeyDown}
         onChange={handleInput}
+        minLength={2}
         maxLength={40}
         type="text"
       />
       <button
-        className="bg-green-700 text-gray-200 border-black border rounded-r-lg w-7 p-1 px-2"
+        className="bg-green-700 text-gray-200 border-black border rounded-r-lg w-7 p-1 px-2 focus:outline-none"
         style={{ height: props.height }}
         onClick={(e) => {
           e.preventDefault()

@@ -18,6 +18,9 @@ function NavBar() {
   const toggleMenu = () => {
     setShowMenu(!showMenu)
   }
+  const closeMenu = () => {
+    setShowMenu(false)
+  }
 
   return (
     <nav className="nav-main">
@@ -39,27 +42,44 @@ function NavBar() {
       </div>
       <div id="navmenu" className={!showMenu ? 'hidden md:flex' : 'block'}>
         <div className="md:flex-grow md:pl-2">
-          <NavLink activeClassName="font-bold" to="/" className="nav-latest">
+          <NavLink
+            activeClassName="font-bold"
+            to="/"
+            onClick={closeMenu}
+            className="nav-latest"
+          >
             <HomeIcon />
             Latest
           </NavLink>
-          <NavLink activeClassName="font-bold" to="/maps">
+          <NavLink activeClassName="font-bold" onClick={closeMenu} to="/maps">
             <MapIcon />
             Maps
           </NavLink>
-          <NavLink activeClassName="font-bold" to="/players">
+          <NavLink
+            activeClassName="font-bold"
+            onClick={closeMenu}
+            to="/players"
+          >
             <PersonIcon />
             Players
           </NavLink>
-          <NavLink activeClassName="font-bold" to="/jumpstats">
+          <NavLink
+            activeClassName="font-bold"
+            onClick={closeMenu}
+            to="/jumpstats"
+          >
             <JumpIcon />
             Jumpstats
           </NavLink>
-          <NavLink activeClassName="font-bold" to="/servers">
+          <NavLink
+            activeClassName="font-bold"
+            onClick={closeMenu}
+            to="/servers"
+          >
             <ServerIcon />
             Servers
           </NavLink>
-          <NavLink activeClassName="font-bold" to="/bans">
+          <NavLink activeClassName="font-bold" onClick={closeMenu} to="/bans">
             <BanIcon />
             Bans
           </NavLink>
