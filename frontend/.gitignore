@@ -16,7 +16,8 @@
 .env.test.local
 .env.production.local
 /ssl
-/public/img/map
+
+public/img/map/
 
 npm-debug.log*
 yarn-debug.log*
