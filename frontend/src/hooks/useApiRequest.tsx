@@ -61,7 +61,7 @@ const useApiRequest = (
                 if (player) {
                   p.countrycode = player.countrycode
                   p.country = player.country
-                  p.player_name = player.alias
+                  if (player.alias) p.player_name = player.alias
                 }
                 return p
               })

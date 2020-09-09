@@ -5,6 +5,7 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import express from 'express'
 import session from 'express-session'
+import mysql from 'mysql'
 import { config } from './db/db'
 import passport from './passportInit'
 import router from './router'
@@ -19,11 +20,11 @@ const options = {
   host: config.connection.host,
   user: config.connection.user,
   password: config.connection.password,
-  database: config.connection.database,
-  schema: { tableName: 'kzstats_session' },
+  database: config.connection.database
 }
 
-const store = new MySQLStore(options)
+const connection = mysql.createPool(options)
+const store = new MySQLStore({ schema: { tableName: 'kzstats_session' }}, connection)
 
 const app = express()
 app.set('port', process.env.PORT || 3001)

@@ -130,4 +130,7 @@ module.exports = {
   experimental: {
     applyComplexClasses: true,
   },
+  future: {
+    removeDeprecatedGapUtilities: true,
+  },
 }

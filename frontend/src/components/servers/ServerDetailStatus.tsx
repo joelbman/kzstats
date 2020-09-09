@@ -41,11 +41,8 @@ const ServerDetailStatus = (props: Props) => {
     )
 
   const renderPlayers = () => {
-    if (
-      (data.players[0]?.time === undefined ||
-        data.bots[0]?.time === undefined) &&
-      data.players.length + data.bots.length > 0
-    )
+    // The +2 is a buffer for empty servers running inactive bots or invalid replay bots
+    if (data.players.length + data.bots.length > players.length + 2)
       return <p>Server does not provide player information.</p>
 
     if (players.length > 0) {
@@ -65,7 +62,7 @@ const ServerDetailStatus = (props: Props) => {
       {data?.name && (
         <div>
           <h1>
-            Players ({data.bots.length + data.players.length}/{data.maxplayers})
+            Players ({players.length}/{data.maxplayers})
           </h1>
           {renderPlayers()}
         </div>

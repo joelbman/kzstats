@@ -1,5 +1,5 @@
 .tab-main {
-  @apply border border-gray-verydark z-0 xl:w-3/4;
+  @apply border border-gray-verydark xl:w-3/4;
   box-shadow: 2px 2px 3px #000;
 }
 
