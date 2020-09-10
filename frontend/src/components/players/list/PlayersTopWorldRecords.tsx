@@ -26,6 +26,7 @@ const PlayersTopWorldRecords = (props: Props) => {
     limit: 20,
     mode_ids: modeNameToId(modeState.kzMode),
     tickrates: modeState.tickrate || 128,
+    stages: 0,
     has_teleports: props.pro ? false : undefined,
   })
   const { error, loader, data } = useApiRequest(
@@ -37,11 +38,12 @@ const PlayersTopWorldRecords = (props: Props) => {
 
   useMemo(() => {
     setApiOptions({
-      limit: 20,
+      ...apiOptions,
       mode_ids: modeNameToId(modeState.kzMode),
       tickrates: modeState.tickrate || 128,
       has_teleports: props.pro ? false : undefined,
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modeState.kzMode, modeState.tickrate, props.pro])
 
   if (error) return error

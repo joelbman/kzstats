@@ -17,6 +17,7 @@
 .env.production.local
 /ssl
 
+src/tailwind.output.css
 public/img/map/
 
 npm-debug.log*

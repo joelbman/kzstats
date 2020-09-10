@@ -1,9 +1,8 @@
 .pagination-container {
   @apply bg-gray-850 list-none mt-4 h-10 flex flex-row justify-center;
 }
-
 .pagination-container a {
-  @apply font-normal hover:font-bold;
+  @apply p-2 px-3 font-normal hover:font-bold;
 }
 
 .pagination-active {
@@ -15,7 +14,7 @@
 }
 
 .pagination-container li {
-  @apply inline p-2 pl-3 pr-3;
+  @apply inline pt-2;
 }
 
 .lightmode .pagination-container {

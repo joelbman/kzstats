@@ -39,37 +39,41 @@ const SearchView = (props: Props) => {
       </h1>
       <Helmet title="Search" />
       <div className="flex-grow mt-8">
-        <Tabs selectedTabClassName="tab-selected" className="tab-main">
-          <TabList>
+        {playerData.length + mapData.length > 0 ? (
+          <Tabs selectedTabClassName="tab-selected" className="tab-main">
+            <TabList>
+              {playerData.length > 0 && (
+                <Tab>
+                  <button>
+                    <PersonIcon />
+                    Players ({playerData.length})
+                  </button>
+                </Tab>
+              )}
+              {mapData.length > 0 && (
+                <Tab>
+                  <button>
+                    <MapIcon />
+                    Maps ({mapData.length})
+                  </button>
+                </Tab>
+              )}
+              <div className="tab-filler"></div>
+            </TabList>
             {playerData.length > 0 && (
-              <Tab>
-                <button>
-                  <PersonIcon />
-                  Players ({playerData.length})
-                </button>
-              </Tab>
+              <TabPanel>
+                <PlayerNameResults data={playerData} />
+              </TabPanel>
             )}
             {mapData.length > 0 && (
-              <Tab>
-                <button>
-                  <MapIcon />
-                  Maps ({mapData.length})
-                </button>
-              </Tab>
+              <TabPanel>
+                <MapNameResults data={mapData} />
+              </TabPanel>
             )}
-            <div className="tab-filler"></div>
-          </TabList>
-          {playerData.length > 0 && (
-            <TabPanel>
-              <PlayerNameResults data={playerData} />
-            </TabPanel>
-          )}
-          {mapData.length > 0 && (
-            <TabPanel>
-              <MapNameResults data={mapData} />
-            </TabPanel>
-          )}
-        </Tabs>
+          </Tabs>
+        ) : (
+          <p>No results found.</p>
+        )}
       </div>
     </div>
   )

@@ -14,6 +14,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 import { Helmet } from 'react-helmet'
@@ -54,7 +55,7 @@ const PlayerDetailView = (props: Props) => {
   const { state: modeState } = useContext(ModeContext)
   const user = userCtx?.user
   const steamid64 = props.match.params.steamid64
-  const { error, loader, data } = useApiRequest(
+  const { error, loader, data: profileData } = useApiRequest(
     `/player/${steamid64}/steam`,
     null,
     true
@@ -62,10 +63,11 @@ const PlayerDetailView = (props: Props) => {
   const [steamProfile, setSteamProfile] = useState<SteamProfile | null>(null)
   const [activeTab, setActiveTab] = useState(0)
   const [points, setPoints] = useState(0)
+  const [combinedRecords, setCombinedRecords] = useState([])
 
-  const [apiOptions, setApiOptions] = useState({
+  const apiOptions = useRef({
     steamid64: steamid64,
-    stage: 0,
+    has_teleports: true,
     modes_list_string: modeState.kzMode,
     tickrate: modeState.tickrate,
     limit: 2000,
@@ -74,26 +76,41 @@ const PlayerDetailView = (props: Props) => {
     error: recordErr,
     loader: recordLoader,
     data: recordData,
-  } = useApiRequest('records/top/', apiOptions)
+  } = useApiRequest('records/top/', apiOptions.current)
+
+  const tpopts = useRef({ ...apiOptions.current, has_teleports: false })
+  const { error: tperr, loader: tploader, data: tpdata } = useApiRequest(
+    'records/top/',
+    tpopts.current
+  )
 
   useMemo(() => {
     let pts = 0
     recordData.forEach((r: KZRecord) => {
       pts += r.points
     })
+    tpdata.forEach((r: KZRecord) => {
+      pts += r.points
+    })
     setPoints(pts)
-  }, [recordData])
+    setCombinedRecords(recordData.concat(tpdata))
+  }, [recordData, tpdata])
 
   useMemo(() => {
-    setSteamProfile(data)
-  }, [data])
+    setSteamProfile(profileData)
+  }, [profileData])
 
   useMemo(() => {
-    setApiOptions({
-      ...apiOptions,
+    apiOptions.current = {
+      ...apiOptions.current,
       modes_list_string: modeState.kzMode,
       tickrate: modeState.tickrate,
-    })
+    }
+    tpopts.current = {
+      ...tpopts.current,
+      modes_list_string: modeState.kzMode,
+      tickrate: modeState.tickrate,
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modeState.kzMode, modeState.tickrate])
 
@@ -111,8 +128,9 @@ const PlayerDetailView = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (error || recordErr) return error || recordErr
-  if (loader || recordLoader) return loader || recordLoader
+  if (error || recordErr || tperr) return error || recordErr || tperr
+  if (loader || recordLoader || tploader)
+    return loader || recordLoader || tploader
 
   if (!steamProfile)
     return (
@@ -215,13 +233,13 @@ const PlayerDetailView = (props: Props) => {
           </TabList>
 
           <TabPanel>
-            <PlayerRecords data={recordData} />
+            <PlayerRecords data={combinedRecords} />
           </TabPanel>
           <TabPanel>
             <PlayerJumpStats steamid={steamProfile.steamid32} />
           </TabPanel>
           <TabPanel>
-            <PlayerStats data={recordData} />
+            <PlayerStats data={combinedRecords} />
           </TabPanel>
           {user?.steamid64 === steamid64 && (
             <TabPanel>

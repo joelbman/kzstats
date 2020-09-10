@@ -130,7 +130,11 @@ const Table = (props: Props) => {
         return runtimeFormat(obj[column.key])
 
       case 'points':
-        return obj.points === 1000 ? <TrophyIcon /> : obj.points
+        return obj.points === 1000 ? (
+          <TrophyIcon width="25" height="25" />
+        ) : (
+          obj.points
+        )
 
       case 'server':
         let serverName = obj[column.key]
@@ -147,7 +151,7 @@ const Table = (props: Props) => {
   }
 
   return (
-    <div className={`overflow-x-auto w-full`}>
+    <div className={`overflow-x-auto overflow-y-hidden w-full`}>
       <table className={`w-full ${props.className}`}>
         {!props.noHead && (
           <thead>

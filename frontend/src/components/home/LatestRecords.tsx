@@ -1,5 +1,4 @@
 import Panel from 'components/general/Panel'
-import { TrophyIcon } from 'components/icons'
 import { ModeContext } from 'context/ModeContext'
 import useApiRequest from 'hooks/useApiRequest'
 import KZRecord from 'models/KZRecord'

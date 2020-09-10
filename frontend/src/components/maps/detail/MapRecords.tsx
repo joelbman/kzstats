@@ -1,12 +1,12 @@
 import Table from 'components/general/Table'
-import { ModeContext } from 'context/ModeContext'
 import useApiRequest from 'hooks/useApiRequest'
 import KZRecord from 'models/KZRecord'
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 interface Props {
   mapname: string
   modeState: { kzMode: string; tickrate: string }
+  setWrCallBack(proWR: KZRecord | null, tpWR: KZRecord | null): void
 }
 
 const MapRecords = (props: Props) => {
@@ -45,7 +45,16 @@ const MapRecords = (props: Props) => {
   )
 
   useMemo(() => {
-    if (tpData && data) setRecords(data.concat(tpData))
+    if (tpData && data) {
+      setRecords(data.concat(tpData))
+      const proWR = data.find((r: KZRecord) => {
+        return r.points === 1000
+      })
+      const tpWR = tpData.find((r: KZRecord) => {
+        return r.points === 1000
+      })
+      props.setWrCallBack(proWR, tpWR)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, tpData])
 

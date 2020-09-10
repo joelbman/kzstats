@@ -1,11 +1,9 @@
-import React, { useEffect, useMemo, useState, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import useApiRequest from '../../../hooks/useApiRequest'
 import KZMap from '../../../models/KZMap'
 import MapListGrid from './MapListGrid'
 import MapListTable from './MapListTable'
-
-
 
 const MapListView = () => {
   const timer = useRef(0)
@@ -58,7 +56,7 @@ const MapListView = () => {
   if (loader) return loader
 
   return (
-    <>
+    <div>
       <Helmet title="Maps" />
       <h1>
         Maps <small> - Total: {data.length}</small>
@@ -102,7 +100,7 @@ const MapListView = () => {
       ) : (
         <MapListTable maps={filtered || data} />
       )}
-    </>
+    </div>
   )
 }
 
