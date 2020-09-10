@@ -36,6 +36,16 @@ export interface QueryState {
   players: Player[]
 }
 
+export interface KZMap {
+  id: 0,
+  name: string
+  validated: boolean
+  difficulty: number
+  updated_on: string
+  workshop_url: string
+  download_url: string
+}
+
 export interface DoneFunction {
   (e: Error, profile: PassportSteamProfile): void
 }

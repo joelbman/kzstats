@@ -1,5 +1,5 @@
 import { FlagIcon } from 'components/icons'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 interface Props {
@@ -13,20 +13,20 @@ interface Player {
   is_banned: boolean
   total_records: number
   countrycode?: string
+  alias?: string
 }
 
 const PlayerNameResults = (props: Props) => {
-  const [data, setData] = useState<Player[]>([])
-  useEffect(() => {
-    // Prioritize players with existing userprofiles
-    setData(
-      props.data.sort((a, b) => {
-        if (a.countrycode && !b.countrycode) return -1
-        if (b.countrycode && !a.countrycode) return 1
-        return a.name.localeCompare(b.name)
-      })
-    )
-  }, [props.data])
+  // useEffect(() => {
+  //   // Prioritize players with existing userprofiles
+  //   setData(
+  //     props.data.sort((a, b) => {
+  //       if (a.countrycode && !b.countrycode) return -1
+  //       if (b.countrycode && !a.countrycode) return 1
+  //       return a.name.localeCompare(b.name)
+  //     })
+  //   )
+  // }, [props.data])
 
   return (
     <div>
@@ -35,10 +35,10 @@ const PlayerNameResults = (props: Props) => {
       </h2>
       {props.data.length > 0 ? (
         <div className="grid grid-cols-4 gap-2">
-          {data.map((p: Player) => (
+          {props.data.map((p: Player) => (
             <div key={p.steamid64}>
               <Link to={`/players/${p.steamid64}`}>
-                {p.name}
+                {p.alias}
                 {p.countrycode && <FlagIcon code={p.countrycode} />}
               </Link>
             </div>

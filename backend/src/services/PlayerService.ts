@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Integer from 'integer'
 import { db } from '../db/db'
+import { UserObject } from '../types'
 import { STEAM_API_KEY } from '../util/config'
 
 // Convert 64-bit to 32-bit ID or vice versa
@@ -51,7 +52,7 @@ const PlayerService = {
     return profile
   },
 
-  getDetails: async (steamIdList: string[]): Promise<any> => {
+  getDetails: async (steamIdList: string[]): Promise<Record<string, unknown>> => {
     const data = await db('kzstats_user')
       .select('country', 'countrycode', 'steamid64', 'alias')
       .whereIn('steamid64', steamIdList)
@@ -65,6 +66,11 @@ const PlayerService = {
     })
     return players
   },
+
+  searchByName: async(name: string): Promise<UserObject[]> => {
+    const data = await db('kzstats_user').where('alias', 'like', `%${name}%`).orderBy('alias')
+    return data
+  }
 }
 
 export { convertSteamId }

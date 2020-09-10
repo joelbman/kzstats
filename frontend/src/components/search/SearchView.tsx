@@ -1,7 +1,10 @@
+import Axios from 'axios'
 import { MapIcon, PersonIcon } from 'components/icons'
 import useApiRequest from 'hooks/useApiRequest'
-import React, { useMemo, useState } from 'react'
+import KZMap from 'models/KZMap'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { useHistory } from 'react-router-dom'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import MapNameResults from './MapNameResults'
 import PlayerNameResults from './PlayerNameResults'
@@ -11,26 +14,44 @@ interface Props {
 }
 
 const SearchView = (props: Props) => {
-  const [apiOptions, setApiOptions] = useState({
-    name: props.match.params.searchStr,
-    limit: 200,
-  })
-  const { error, loader, data: mapData } = useApiRequest('/maps', apiOptions)
+  const searchStr = props.match.params.searchStr
+  const history = useHistory()
+  const [maps, setMaps] = useState<KZMap[]>([])
+  const { error: mapError, loader: mapLoader, data: mapData } = useApiRequest(
+    '/maps?is_validated=true&limit=2000',
+    null
+  )
   const {
     error: playerError,
     loader: playerLoader,
     data: playerData,
-  } = useApiRequest('/players', apiOptions, false, true)
+  } = useApiRequest(`/player/search/${searchStr}`, null, true)
+
+  useEffect(() => {
+    if (searchStr.substr(0, 6) === 'STEAM_') {
+      Axios.get(
+        `https://kztimerglobal.com/api/v2.0/players?steam_id=${searchStr}`
+      ).then((res) => {
+        console.log(res)
+        if (res.data.length > 0) {
+          history.push(`/players/${res.data[0].steamid64}`)
+        }
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchStr])
 
   useMemo(() => {
-    setApiOptions({
-      name: props.match.params.searchStr,
-      limit: 200,
-    })
-  }, [props.match.params.searchStr])
+    setMaps(
+      mapData.filter((m: KZMap) => {
+        return m.name.includes(searchStr)
+      })
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapData, searchStr])
 
-  if (loader || playerLoader) return loader || playerLoader
-  if (error || playerError) return error || playerError
+  if (mapLoader || playerLoader) return mapLoader || playerLoader
+  if (mapError || playerError) return mapError || playerError
 
   return (
     <div>
@@ -54,7 +75,7 @@ const SearchView = (props: Props) => {
                 <Tab>
                   <button>
                     <MapIcon />
-                    Maps ({mapData.length})
+                    Maps ({maps.length})
                   </button>
                 </Tab>
               )}
@@ -67,7 +88,7 @@ const SearchView = (props: Props) => {
             )}
             {mapData.length > 0 && (
               <TabPanel>
-                <MapNameResults data={mapData} />
+                <MapNameResults data={maps} />
               </TabPanel>
             )}
           </Tabs>
