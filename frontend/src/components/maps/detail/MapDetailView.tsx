@@ -70,15 +70,15 @@ const MapDetailView = (props: Props) => {
         </div>
         <div className="flex-grow">
           <p className="text-3xl font-bold">{mapname}</p>
+          <p className="text-xl font-bold">
+            Tier: {difficultyToText(data[0]?.difficulty)}
+          </p>
           {wr.pro && (
-            <p className="mb-1">
-              <div
-                className="bg-red-800 text-white p-1 py-0 rounded border text-sm border-black mr-2 inline-block"
-                style={{ lineHeight: '1.5rem', width: '3.29rem' }}
-              >
+            <p>
+              <span className="text-sm mr-3">
                 <TrophyIcon width="15" height="15" />
                 PRO
-              </div>
+              </span>
               <span className="text-lg">
                 {runtimeFormat(wr.pro.time)}
               </span> by{' '}
@@ -90,16 +90,10 @@ const MapDetailView = (props: Props) => {
           )}
           {wr.tp && (
             <p>
-              <div
-                className="bg-blue-700 text-white p-1 py-0 rounded border text-sm border-black mr-2 inline-block"
-                style={{
-                  lineHeight: '1.5rem',
-                  width: '3.29rem',
-                }}
-              >
+              <span className="text-sm" style={{ marginRight: '1.36rem' }}>
                 <TrophyIcon width="15" height="15" />
                 TP
-              </div>
+              </span>
               <span className="text-lg">
                 {runtimeFormat(wr.tp.time)}
               </span> by{' '}
@@ -109,7 +103,6 @@ const MapDetailView = (props: Props) => {
               </Link>
             </p>
           )}
-          <p>Difficulty: {difficultyToText(data[0]?.difficulty)}</p>
         </div>
       </div>
       <div className="flex-grow mt-8">

@@ -3,6 +3,7 @@
 .pnp.js
 /dist
 /ssl
+/www
 
 .DS_Store
 .env

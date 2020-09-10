@@ -4,3 +4,4 @@
 /www
 **/*.crt
 **/*.key
+/log
