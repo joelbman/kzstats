@@ -10,6 +10,7 @@ const PlayerRecords = (props: Props) => {
   const data = props.data
   const [nameFilter, setNameFilter] = useState('')
   const [pointsFilter, setPointsFilter] = useState('')
+  const [runtypeFilter, setRuntypeFilter] = useState('all')
   const timer = useRef(0)
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +44,18 @@ const PlayerRecords = (props: Props) => {
                 className="w-40"
               />
             </div>
+            <div className="inline-block mr-4">
+              Runtype{' '}
+              <select
+                onChange={(e) => {
+                  setRuntypeFilter(e.target.value)
+                }}
+              >
+                <option value="all">Overall</option>
+                <option value="pro">Pro</option>
+                <option value="tp">TP</option>
+              </select>
+            </div>
             <div className="inline-block">
               Points{' '}
               <select onChange={handleSelect}>
@@ -71,6 +84,7 @@ const PlayerRecords = (props: Props) => {
             filters={[
               { key: 'map_name', value: nameFilter },
               { key: 'points', value: pointsFilter },
+              { key: 'teleports', value: runtypeFilter },
             ]}
           />
         </>

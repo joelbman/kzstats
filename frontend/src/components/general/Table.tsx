@@ -42,6 +42,8 @@ const Table = (props: Props) => {
     if (filters) {
       filters.forEach((f) => {
         if (!f.value || f.value === '') return
+
+        //points filter
         if (f.key === 'points') {
           arr = arr.filter((obj: any) => {
             switch (f.value) {
@@ -57,8 +59,15 @@ const Table = (props: Props) => {
                 return true
             }
           })
+        } else if (f.key === 'teleports') {
+          arr = arr.filter((obj: any) => {
+            if (f.value === 'pro') return obj.teleports === 0
+            if (f.value === 'tp') return obj.teleports > 0
+            else return true
+          })
         } else {
           arr = arr.filter((obj: any) => {
+            if (!obj[f.key]) return false
             return obj[f.key].toLowerCase().includes(f.value.toLowerCase())
           })
         }
@@ -177,6 +186,11 @@ const Table = (props: Props) => {
               ))}
             </tr>
           ))}
+          {currentData.length === 0 && (
+            <tr>
+              <td>No data available.</td>
+            </tr>
+          )}
         </tbody>
       </table>
 

@@ -11,14 +11,14 @@ const TrophyIcon = (props: Props) => {
 
   useEffect(() => {
     if (props.className) className.current += props.className
-  }, [props.className, props.height, props.width])
+  }, [props.className])
 
   return (
     <img
       src="/img/icon/trophy.svg"
       alt="Trophy"
-      width={props.width || 25}
-      height={props.height || 25}
+      width={props.width || '25'}
+      height={props.height || '25'}
       className={className.current}
     />
   )
