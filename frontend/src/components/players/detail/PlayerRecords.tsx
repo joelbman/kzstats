@@ -10,7 +10,9 @@ const PlayerRecords = (props: Props) => {
   const data = props.data
   const [nameFilter, setNameFilter] = useState('')
   const [pointsFilter, setPointsFilter] = useState('')
-  const [runtypeFilter, setRuntypeFilter] = useState('all')
+  const [runtypeFilter, setRuntypeFilter] = useState(
+    localStorage.getItem('kzRuntype') || 'pro'
+  )
   const timer = useRef(0)
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,10 +21,6 @@ const PlayerRecords = (props: Props) => {
     timer.current = window.setTimeout(() => {
       setNameFilter(val)
     }, 600)
-  }
-
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setPointsFilter(e.target.value)
   }
 
   return (
@@ -47,18 +45,24 @@ const PlayerRecords = (props: Props) => {
             <div className="inline-block mr-4">
               Runtype{' '}
               <select
+                value={runtypeFilter}
                 onChange={(e) => {
+                  localStorage.setItem('kzRuntype', e.target.value)
                   setRuntypeFilter(e.target.value)
                 }}
               >
-                <option value="all">Overall</option>
-                <option value="pro">Pro</option>
+                <option value="pro">PRO</option>
                 <option value="tp">TP</option>
+                <option value="all">Overall</option>
               </select>
             </div>
             <div className="inline-block">
               Points{' '}
-              <select onChange={handleSelect}>
+              <select
+                onChange={(e) => {
+                  setPointsFilter(e.target.value)
+                }}
+              >
                 <option value="">All</option>
                 <option value="gold">WR (1000)</option>
                 <option value="silver">Silver (900-999)</option>

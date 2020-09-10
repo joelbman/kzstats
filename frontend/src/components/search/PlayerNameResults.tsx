@@ -1,5 +1,5 @@
 import { FlagIcon } from 'components/icons'
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 interface Props {

@@ -74,7 +74,7 @@ const PlayerStatsProgressBlock = ({ mapCount, stats, difficulty }: Props) => {
         <>
           {difficultyToText(difficulty)} ({stats.total}/{mapCount}){' '}
           <span className="float-right">
-            <TrophyIcon className="h-4 w-4" />
+            <TrophyIcon className="h-4 w-4 mr-1" />
             {stats.wr}
           </span>
         </>

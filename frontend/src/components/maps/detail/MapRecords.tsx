@@ -12,6 +12,9 @@ interface Props {
 const MapRecords = (props: Props) => {
   const [records, setRecords] = useState<KZRecord[]>([])
   const [proOnly, setProOnly] = useState(false)
+  const [runtypeFilter, setRuntypeFilter] = useState(
+    localStorage.getItem('kzRuntype') || 'pro'
+  )
 
   const [apiOpt, setApiOpt] = useState({
     map_name: props.mapname,
@@ -96,8 +99,18 @@ const MapRecords = (props: Props) => {
     <div>
       <h1>Records</h1>
       <div className="my-4 ml-1">
-        Show only PRO times:
-        <input type="checkbox" checked={proOnly} onChange={handleInput} />
+        Runtype{' '}
+        <select
+          value={runtypeFilter}
+          onChange={(e) => {
+            localStorage.setItem('kzRuntype', e.target.value)
+            setRuntypeFilter(e.target.value)
+          }}
+        >
+          <option value="pro">PRO</option>
+          <option value="tp">TP</option>
+          <option value="all">Overall</option>
+        </select>
       </div>
       {records.length > 0 ? (
         <Table
@@ -105,6 +118,7 @@ const MapRecords = (props: Props) => {
           columns={columns}
           sort={{ key: 'time', desc: false }}
           itemsPerPage={20}
+          filters={[{ key: 'teleports', value: runtypeFilter }]}
         />
       ) : (
         <p>No records found</p>

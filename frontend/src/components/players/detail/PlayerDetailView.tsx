@@ -149,6 +149,7 @@ const PlayerDetailView = (props: Props) => {
       </p>
     )
   }
+
   const handleTabSelect = (index: number) => {
     setActiveTab(index)
   }

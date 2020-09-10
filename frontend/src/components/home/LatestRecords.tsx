@@ -26,7 +26,9 @@ const LatestRecords = () => {
   )
 
   const [items, setItems] = useState([])
-  const [runType, setRunType] = useState('pro')
+  const [runType, setRunType] = useState(
+    localStorage.getItem('kzRuntype') || 'pro'
+  )
 
   useMemo(() => {
     let apiOpt = {
@@ -79,10 +81,10 @@ const LatestRecords = () => {
   const changeWrOnly = (e: React.ChangeEvent<HTMLSelectElement>) => {
     localStorage.setItem('frontPage_wrOnly', e.target.value)
     setWrOnly(e.target.value === 'wr')
-    console.log(localStorage.getItem('frontPage_wrOnly'))
   }
 
   const changeRunType = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    localStorage.setItem('kzRuntype', e.target.value)
     setRunType(e.target.value)
   }
 
@@ -92,7 +94,11 @@ const LatestRecords = () => {
         <span className="text-sm sm:text-lg m-0 p-0">Records</span>
         <div className="float-right text-base ">
           <span className="hidden sm:inline">Type:</span>
-          <select onChange={changeRunType} className="mr-1 sm:mr-4">
+          <select
+            value={runType}
+            onChange={changeRunType}
+            className="mr-1 sm:mr-4"
+          >
             <option value="pro">PRO</option>
             <option value="tp">TP</option>
             <option value="all">Overall</option>
