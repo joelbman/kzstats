@@ -9,7 +9,7 @@ const convertSteamId = (steamid: string): string => {
   const STEAM_BASELINE = Integer('76561197960265728')
   
   //32->64
-  if (steamid.substr(0, 6) === "STEAM_") {
+  if (steamid.includes(':')) {
     const split = steamid.split(':')
     const product = Integer(split[2].replace(/\D/g,'')).multiply(2)
     const sum = Integer(product).add(STEAM_BASELINE)
@@ -67,9 +67,14 @@ const PlayerService = {
     return players
   },
 
-  searchByName: async(name: string): Promise<UserObject[]> => {
+  searchByName: async (name: string): Promise<UserObject[]> => {
     const data = await db('kzstats_user').where('alias', 'like', `%${name}%`).orderBy('alias')
     return data
+  },
+
+  getSteamid64: async (steamid: string): Promise<string> => {
+    const id = `${steamid.substr(0,1)}:${steamid.substr(1,1)}:${steamid.substr(2)}`
+    return convertSteamId(id)
   }
 }
 

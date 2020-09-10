@@ -31,4 +31,14 @@ router.get('/search/:name', (req, res) => {
   })
 })
 
+// handle old KZStats style links
+router.get('/old/:steamid', (req, res) => {
+  PlayerService.getSteamid64(req.params.steamid)
+  .then((data) => res.redirect(`/players/${data}`))
+  .catch((e) => {
+    logger.error(e.message)
+    res.sendStatus(400)
+  })
+})
+
 export default router

@@ -18,7 +18,7 @@ import React, {
   useState,
 } from 'react'
 import { Helmet } from 'react-helmet'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import useApiRequest from '../../../hooks/useApiRequest'
 import PlayerJumpStats from './PlayerJumpStats'
@@ -51,10 +51,16 @@ interface Props {
 }
 
 const PlayerDetailView = (props: Props) => {
+  const history = useHistory()
+  const steamid64 = props.match.params.steamid64
+
+  // handle old kzstats links
+  if (steamid64.substr(0, 2) === '11' || steamid64.substr(0, 2) === '10')
+    window.location.href = `/api/player/old/${steamid64}`
+
   const userCtx = useContext(UserContext)
   const { state: modeState } = useContext(ModeContext)
   const user = userCtx?.user
-  const steamid64 = props.match.params.steamid64
   const { error, loader, data: profileData } = useApiRequest(
     `/player/${steamid64}/steam`,
     null,
