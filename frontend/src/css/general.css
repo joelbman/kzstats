@@ -50,6 +50,10 @@ main {
   @apply text-gray-300;
 }
 
+.apexcharts-menu-item {
+  @apply bg-gray-750 text-gray-200 hover:bg-gray-600 hover:text-black;
+}
+
 main a {
   @apply hover:font-bold text-blue-200 hover:text-blue-100;
 }

@@ -1,3 +1,4 @@
+import Table from 'components/general/Table'
 import { runtimeFormat } from 'components/util/filters'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
@@ -15,6 +16,7 @@ interface ChartObj {
 
 const MapRecordHistory = ({ mapname }: Props) => {
   const { state: modeState } = useContext(ModeContext)
+  const [runtype, setRuntype] = useState('PRO')
   const [apiOptions, setApiOptions] = useState({
     map_name: mapname,
     stage: 0,
@@ -25,7 +27,9 @@ const MapRecordHistory = ({ mapname }: Props) => {
   })
   const { error, loader, data } = useApiRequest(
     '/records/top/recent',
-    apiOptions
+    apiOptions,
+    false,
+    true
   )
   const [series, setSeries] = useState<ChartObj[]>([])
   const [bugged, setBugged] = useState(false)
@@ -36,8 +40,8 @@ const MapRecordHistory = ({ mapname }: Props) => {
       type: 'area',
       stacked: false,
       height: 350,
-      toolbar: { show: false },
-      zoom: { enabled: false },
+      toolbar: { show: true },
+      zoom: { enabled: true },
       foreColor:
         localStorage.getItem('kzTheme') === 'dark' ? '#fff' : '#3d3d3d',
       background:
@@ -47,10 +51,15 @@ const MapRecordHistory = ({ mapname }: Props) => {
       enabled: false,
     },
     markers: {
-      size: 7,
+      size: 3,
+      offsetY: 0,
+      offsetX: 0,
+      hover: {
+        sizeOffset: 2,
+      },
     },
     title: {
-      text: `WR history for ${mapname} (PRO)`,
+      text: `WR history for ${mapname} (${runtype})`,
       align: 'left',
     },
 
@@ -59,16 +68,13 @@ const MapRecordHistory = ({ mapname }: Props) => {
         formatter: function (val: number) {
           return runtimeFormat(val)
         },
-        style: { cssClass: 'chart-text' },
       },
       title: {
         text: 'Runtime',
-        style: { cssClass: 'chart-text' },
       },
     },
     xaxis: {
       type: 'datetime',
-      labels: { style: { cssClass: 'chart-text' } },
     },
     tooltip: {
       theme: 'dark',
@@ -112,19 +118,44 @@ const MapRecordHistory = ({ mapname }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modeState.tickrate, modeState.kzMode, mapname])
 
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setRuntype(e.target.value)
+    setApiOptions({ ...apiOptions, has_teleports: e.target.value === 'TP' })
+  }
+
   if (error) return error
   if (loader) return loader
 
   return (
     <div>
-      <h2>Statistics</h2>
+      <h2 className="mb-4">Record history</h2>
+      Runtype
+      <select onChange={handleSelect} className="ml-2">
+        <option value="PRO">PRO</option>
+        <option value="TP">TP</option>
+      </select>
       {data.length > 0 && !bugged ? (
-        <ReactApexChart
-          options={graphOptions}
-          series={series}
-          type="line"
-          height={350}
-        />
+        <div className="mt-4">
+          <ReactApexChart
+            options={graphOptions}
+            series={series}
+            type="line"
+            height={350}
+          />
+
+          <Table
+            className="mt-8"
+            data={data}
+            columns={[
+              { key: 'player_name', type: 'player', header: 'Player' },
+              { key: 'time', type: 'runtime' },
+              { key: 'teleports', header: 'TPs' },
+              { key: 'updated_on', type: 'datetime', header: 'Date' },
+              { key: 'server_name', type: 'server', header: 'Server' },
+            ]}
+            sort={{ key: 'time', desc: false }}
+          />
+        </div>
       ) : (
         <div>No data available</div>
       )}

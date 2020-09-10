@@ -11,7 +11,6 @@ interface Props {
 
 const MapRecords = (props: Props) => {
   const [records, setRecords] = useState<KZRecord[]>([])
-  const [proOnly, setProOnly] = useState(false)
   const [runtypeFilter, setRuntypeFilter] = useState(
     localStorage.getItem('kzRuntype') || 'pro'
   )
@@ -75,14 +74,6 @@ const MapRecords = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.modeState.kzMode, props.modeState.tickrate])
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setRecords(data)
-    } else setRecords(data.concat(tpData))
-
-    setProOnly(e.target.checked)
-  }
-
   const columns = [
     { key: 'player_name', header: 'Player', type: 'player' },
     { key: 'time', type: 'runtime' },
@@ -97,7 +88,7 @@ const MapRecords = (props: Props) => {
 
   return (
     <div>
-      <h1>Records</h1>
+      <h2>Records</h2>
       <div className="my-4 ml-1">
         Runtype{' '}
         <select
