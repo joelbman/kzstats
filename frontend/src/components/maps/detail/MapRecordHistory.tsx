@@ -128,7 +128,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
 
   return (
     <div>
-      <h2 className="mb-4">Record history</h2>
+      <h2 className="mb-2">Record history</h2>
       Runtype
       <select onChange={handleSelect} className="ml-2">
         <option value="PRO">PRO</option>

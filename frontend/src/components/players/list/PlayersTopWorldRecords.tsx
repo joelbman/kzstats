@@ -1,33 +1,21 @@
 import Table from 'components/general/Table'
-import React, { useContext, useMemo, useState } from 'react'
-import { ModeContext } from '../../../context/ModeContext'
-import useApiRequest from '../../../hooks/useApiRequest'
+import useApiRequest from 'hooks/useApiRequest'
+import React, { useMemo, useState } from 'react'
 
 interface Props {
-  pro?: boolean
-}
-
-const modeNameToId = (modeName: string) => {
-  switch (modeName) {
-    case 'kz_timer':
-      return 200
-    case 'kz_simple':
-      return 201
-    case 'kz_vanilla':
-      return 202
-    default:
-      return 200
-  }
+  has_teleports?: boolean
+  mode: number
+  tickrate: string
 }
 
 const PlayersTopWorldRecords = (props: Props) => {
-  const { state: modeState } = useContext(ModeContext)
   const [apiOptions, setApiOptions] = useState({
-    limit: 20,
-    mode_ids: modeNameToId(modeState.kzMode),
-    tickrates: modeState.tickrate || 128,
     stages: 0,
-    has_teleports: props.pro ? false : undefined,
+    limit: 30,
+    mode_ids: props.mode,
+    mapTag: 'overall',
+    tickrates: props.tickrate,
+    has_teleports: props.has_teleports,
   })
   const { error, loader, data } = useApiRequest(
     '/records/top/world_records',
@@ -39,12 +27,12 @@ const PlayersTopWorldRecords = (props: Props) => {
   useMemo(() => {
     setApiOptions({
       ...apiOptions,
-      mode_ids: modeNameToId(modeState.kzMode),
-      tickrates: modeState.tickrate || 128,
-      has_teleports: props.pro ? false : undefined,
+      mode_ids: props.mode,
+      tickrates: props.tickrate,
+      has_teleports: props.has_teleports,
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modeState.kzMode, modeState.tickrate, props.pro])
+  }, [props.mode, props.tickrate, props.has_teleports])
 
   if (error) return error
   if (loader) return loader
@@ -56,9 +44,7 @@ const PlayersTopWorldRecords = (props: Props) => {
 
   return (
     <div className="mb-8 lg:mr-4 mr-2 flex-grow" style={{ maxWidth: '400px' }}>
-      <h3 className="text-lg block">
-        Top 15 - {props.pro ? 'Pro' : 'Overall'}
-      </h3>
+      <h3>Top 30 - World records</h3>
       <Table
         data={data}
         columns={columns}

@@ -112,6 +112,7 @@ const PlayerStats = (props: Props) => {
       obj.tp_sum += r.teleports
       obj[map.difficulty].total++
       obj[map.difficulty].time_sum += r.time
+      if (map.difficulty === 7) console.log(r)
       if (r.points === 1000) {
         obj.wr++
         obj[map.difficulty].wr++

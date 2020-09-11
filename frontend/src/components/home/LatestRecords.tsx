@@ -5,15 +5,24 @@ import KZRecord from 'models/KZRecord'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import RecordBlock from './RecordBlock'
 
+interface ApiOpt {
+  limit: number
+  place_top_at_least: number
+  has_teleports?: boolean
+  tickrate: string
+  modes_list_string: string
+  stage: number
+}
+
 const LatestRecords = () => {
   const [wrOnly, setWrOnly] = useState(
     localStorage.getItem('frontPage_wrOnly') === 'top20' ? false : true
   )
   const { state: modeState } = useContext(ModeContext)
-  const [apiOptions, setApiOptions] = useState({
+  const [apiOptions, setApiOptions] = useState<ApiOpt>({
     limit: 300,
     place_top_at_least: 20,
-    has_teleports: false,
+    has_teleports: false || true || undefined,
     tickrate: modeState.tickrate,
     modes_list_string: modeState.kzMode,
     stage: 0,

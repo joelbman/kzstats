@@ -7,7 +7,7 @@ interface Props {
 }
 
 const TrophyIcon = (props: Props) => {
-  const className = useRef('inline mr-1')
+  const className = useRef('inline mr-2')
 
   useEffect(() => {
     if (props.className) className.current += props.className

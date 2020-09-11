@@ -1,8 +1,9 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
-
+import RuntypeSelect from 'components/general/RuntypeSelect'
 import Table from 'components/general/Table'
 import KZRecord from 'models/KZRecord'
 import React, { useRef, useState } from 'react'
+
+/* eslint-disable jsx-a11y/accessible-emoji */
 
 interface Props {
   data: KZRecord[]
@@ -34,8 +35,8 @@ const PlayerRecords = (props: Props) => {
 
       {data.length > 0 ? (
         <>
-          <div className="mt-2 mb-4 w-full">
-            <div className="inline-block mr-4">
+          <div className="mt-2 w-full flex flex-wrap">
+            <div className="inline-block mr-4 mb-4 order-1">
               Mapname
               <input
                 type="text"
@@ -44,21 +45,11 @@ const PlayerRecords = (props: Props) => {
                 className="w-40"
               />
             </div>
-            <div className="inline-block mr-4">
+            <div className="inline-block mr-4 mb-4 order-4 sm:order-2">
               Runtype{' '}
-              <select
-                value={runtypeFilter}
-                onChange={(e) => {
-                  localStorage.setItem('kzRuntype', e.target.value)
-                  setRuntypeFilter(e.target.value)
-                }}
-              >
-                <option value="pro">PRO</option>
-                <option value="tp">TP</option>
-                <option value="all">Overall</option>
-              </select>
+              <RuntypeSelect callback={(val) => setRuntypeFilter(val)} />
             </div>
-            <div className="inline-block">
+            <div className="inline-block mb-4 mr-4 order-3">
               Points{' '}
               <select
                 onChange={(e) => {

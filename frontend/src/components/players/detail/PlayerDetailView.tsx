@@ -18,7 +18,7 @@ import React, {
   useState,
 } from 'react'
 import { Helmet } from 'react-helmet'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import useApiRequest from '../../../hooks/useApiRequest'
 import PlayerJumpStats from './PlayerJumpStats'
@@ -51,7 +51,6 @@ interface Props {
 }
 
 const PlayerDetailView = (props: Props) => {
-  const history = useHistory()
   const steamid64 = props.match.params.steamid64
 
   // handle old kzstats links
@@ -77,6 +76,7 @@ const PlayerDetailView = (props: Props) => {
     modes_list_string: modeState.kzMode,
     tickrate: modeState.tickrate,
     limit: 2000,
+    stage: 0,
   })
   const {
     error: recordErr,

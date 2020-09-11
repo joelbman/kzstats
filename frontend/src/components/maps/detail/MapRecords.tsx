@@ -1,3 +1,4 @@
+import RuntypeSelect from 'components/general/RuntypeSelect'
 import Table from 'components/general/Table'
 import useApiRequest from 'hooks/useApiRequest'
 import KZRecord from 'models/KZRecord'
@@ -90,18 +91,7 @@ const MapRecords = (props: Props) => {
     <div>
       <h2>Records</h2>
       <div className="my-4 ml-1">
-        Runtype{' '}
-        <select
-          value={runtypeFilter}
-          onChange={(e) => {
-            localStorage.setItem('kzRuntype', e.target.value)
-            setRuntypeFilter(e.target.value)
-          }}
-        >
-          <option value="pro">PRO</option>
-          <option value="tp">TP</option>
-          <option value="all">Overall</option>
-        </select>
+        Runtype <RuntypeSelect callback={(val) => setRuntypeFilter(val)} />
       </div>
       {records.length > 0 ? (
         <Table
