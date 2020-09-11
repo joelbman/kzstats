@@ -5,7 +5,7 @@ import NewsPanel from './NewsPanel'
 
 const HomeView = () => {
   return (
-    <div>
+    <div className="mb-4">
       <h1>Latest</h1>
       <Helmet title="Latest" />
       <div className="flex flex-col lg:flex-row jusitfy-center w-full">
