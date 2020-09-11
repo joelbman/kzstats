@@ -1,6 +1,6 @@
 import Table from 'components/general/Table'
 import useApiRequest from 'hooks/useApiRequest'
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo, useState } from 'react'
 
 interface Props {
   has_teleports?: boolean
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PlayersTopRanks = (props: Props) => {
-  const apiParams = useRef({
+  const [apiParams, setApiParams] = useState({
     finishes_greater_than: 0,
     stages: 0,
     mode_ids: props.mode,
@@ -20,25 +20,26 @@ const PlayersTopRanks = (props: Props) => {
   })
   const { error, loader, data } = useApiRequest(
     '/player_ranks',
-    apiParams.current,
+    apiParams,
     false,
     true
   )
 
   useMemo(() => {
-    apiParams.current = {
-      ...apiParams.current,
+    setApiParams({
+      ...apiParams,
       mode_ids: props.mode,
       tickrates: props.tickrate,
       has_teleports: props.has_teleports,
-    }
-  }, [props])
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.mode, props.tickrate, props.has_teleports])
 
   if (loader) return loader
   if (error) return error
 
   return (
-    <div className="flex-grow" style={{ maxWidth: '450px' }}>
+    <div className="flex-grow" style={{ maxWidth: '490px' }}>
       <h3>Top 30 - Points</h3>
       <Table
         data={data}
