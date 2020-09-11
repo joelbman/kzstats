@@ -1,4 +1,4 @@
-import { FlagIcon, TrophyIcon } from 'components/icons'
+import { BronzeIcon, FlagIcon, SilverIcon, TrophyIcon } from 'components/icons'
 import { runtimeFormat, textLimiter } from 'components/util/filters'
 import React, { useEffect, useMemo, useState } from 'react'
 import ReactPaginate from 'react-paginate'
@@ -142,7 +142,11 @@ const Table = (props: Props) => {
         return obj.points === 1000 ? (
           <TrophyIcon width="25" height="25" />
         ) : (
-          obj.points
+          <>
+            {obj.points}
+            {obj.points > 899 && <SilverIcon />}
+            {obj.points > 749 && obj.points < 900 && <BronzeIcon />}
+          </>
         )
 
       case 'server':

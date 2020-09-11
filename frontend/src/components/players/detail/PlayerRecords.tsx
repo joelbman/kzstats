@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
+
 import Table from 'components/general/Table'
 import KZRecord from 'models/KZRecord'
 import React, { useRef, useState } from 'react'
@@ -63,11 +65,13 @@ const PlayerRecords = (props: Props) => {
                   setPointsFilter(e.target.value)
                 }}
               >
-                <option value="">All</option>
-                <option value="gold">WR (1000)</option>
-                <option value="silver">Silver (900-999)</option>
-                <option value="bronze">Bronze (750-899)</option>
-                <option value="rest">Rest (0-749)</option>
+                <option value="">
+                  {'<'}All{'>'}
+                </option>
+                <option value="gold">🏆 WR (1000)</option>
+                <option value="silver">🥈 Silver (900-999)</option>
+                <option value="bronze">🥉 Bronze (750-899)</option>
+                <option value="rest"> ♻ Rest (0-749)</option>
               </select>
             </div>
           </div>
