@@ -55,7 +55,7 @@ const PlayersTopWorldRecords = (props: Props) => {
   ]
 
   return (
-    <div className="mb-8 lg:mr-4 mr-2 flex-grow">
+    <div className="mb-8 lg:mr-4 mr-2 flex-grow" style={{ maxWidth: '400px' }}>
       <h3 className="text-lg block">
         Top 15 - {props.pro ? 'Pro' : 'Overall'}
       </h3>

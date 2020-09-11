@@ -91,7 +91,7 @@ const LatestRecords = () => {
   const panelHeader = () => {
     return (
       <>
-        <span className="text-sm sm:text-lg m-0 p-0">Records</span>
+        <span className="text-sm sm:text-xl m-0 p-0">Records</span>
         <div className="float-right text-base ">
           <span className="hidden sm:inline">Type:</span>
           <select

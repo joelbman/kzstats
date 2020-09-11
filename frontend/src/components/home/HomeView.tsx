@@ -9,10 +9,13 @@ const HomeView = () => {
       <h1>Latest</h1>
       <Helmet title="Latest" />
       <div className="flex flex-col lg:flex-row jusitfy-center w-full">
-        <div className="w-full lg:w-1/2 mb-4 lg:mr-4 lg:mb-0">
+        <div
+          className="w-full lg:w-1/2 mb-4 lg:mr-8 lg:mb-0"
+          style={{ maxWidth: '520px' }}
+        >
           <LatestRecords />
         </div>
-        <div className="w-full lg:w-1/2">
+        <div className="w-full lg:w-1/2" style={{ maxWidth: '600px' }}>
           <NewsPanel />
         </div>
       </div>
