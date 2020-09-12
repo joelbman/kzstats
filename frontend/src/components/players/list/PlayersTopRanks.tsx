@@ -35,22 +35,25 @@ const PlayersTopRanks = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.mode, props.tickrate, props.has_teleports])
 
-  if (loader) return loader
-  if (error) return error
-
   return (
     <div className="flex-grow" style={{ maxWidth: '490px' }}>
-      <h3>Top 30 - Points</h3>
-      <Table
-        data={data}
-        columns={[
-          { key: 'player_name', type: 'player', header: 'Player' },
-          { key: 'points' },
-          { key: 'finishes' },
-          { key: 'average' },
-        ]}
-        sort={{ key: 'points', desc: true }}
-      />
+      {error && error}
+      {loader && loader}
+      {data.length > 0 && (
+        <div>
+          <h3>Top 30 - Points</h3>
+          <Table
+            data={data}
+            columns={[
+              { key: 'player_name', type: 'player', header: 'Player' },
+              { key: 'points' },
+              { key: 'finishes' },
+              { key: 'average' },
+            ]}
+            sort={{ key: 'points', desc: true }}
+          />
+        </div>
+      )}
     </div>
   )
 }

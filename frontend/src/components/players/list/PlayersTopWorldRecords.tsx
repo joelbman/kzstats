@@ -34,9 +34,6 @@ const PlayersTopWorldRecords = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.mode, props.tickrate, props.has_teleports])
 
-  if (error) return error
-  if (loader) return loader
-
   const columns = [
     { key: 'player_name', type: 'player', header: 'Player' },
     { key: 'count' },
@@ -44,13 +41,19 @@ const PlayersTopWorldRecords = (props: Props) => {
 
   return (
     <div className="mb-8 lg:mr-4 mr-2 flex-grow" style={{ maxWidth: '400px' }}>
-      <h3>Top 30 - World records</h3>
-      <Table
-        data={data}
-        columns={columns}
-        sort={{ key: 'count', desc: true }}
-        className="w-full"
-      />
+      {error && error}
+      {loader && loader}
+      {data.length > 0 && (
+        <div>
+          <h3>Top 30 - World records</h3>
+          <Table
+            data={data}
+            columns={columns}
+            sort={{ key: 'count', desc: true }}
+            className="w-full"
+          />
+        </div>
+      )}
     </div>
   )
 }
