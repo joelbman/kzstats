@@ -14,8 +14,10 @@ const MapNameResults = (props: Props) => {
       </h2>
       {props.data.length > 0 ? (
         <div>
-          {props.data.map((m: KZMap) => (
-            <Link to={`/maps/${m.name}`}>{m.name}</Link>
+          {props.data.map((m: KZMap, i: number) => (
+            <Link to={`/maps/${m.name}`} key={i}>
+              {m.name}
+            </Link>
           ))}
         </div>
       ) : (

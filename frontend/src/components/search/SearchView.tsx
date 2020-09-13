@@ -3,7 +3,7 @@ import { MapIcon, PersonIcon } from 'components/icons'
 import useApiRequest from 'hooks/useApiRequest'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { useHistory } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import { KZMap } from 'types'
 import MapNameResults from './MapNameResults'
@@ -17,21 +17,12 @@ const SearchView = (props: Props) => {
   const searchStr = props.match.params.searchStr
   const history = useHistory()
   const [maps, setMaps] = useState<KZMap[]>([])
-  const { error: mapError, loader: mapLoader, data: mapData } = useApiRequest(
-    '/maps?is_validated=true&limit=2000',
-    null
-  )
-  const {
-    error: playerError,
-    loader: playerLoader,
-    data: playerData,
-  } = useApiRequest(`/player/search/${searchStr}`, null, true)
+  const { error: mapError, loader: mapLoader, data: mapData } = useApiRequest('/maps?is_validated=true&limit=2000', null)
+  const { error: playerError, loader: playerLoader, data: playerData } = useApiRequest(`/player/search/${searchStr}`, null, true)
 
   useEffect(() => {
     if (searchStr.substr(0, 6) === 'STEAM_') {
-      Axios.get(
-        `https://kztimerglobal.com/api/v2.0/players?steam_id=${searchStr}`
-      ).then((res) => {
+      Axios.get(`https://kztimerglobal.com/api/v2.0/players?steam_id=${searchStr}`).then((res) => {
         console.log(res)
         if (res.data.length > 0) {
           history.push(`/players/${res.data[0].steamid64}`)
@@ -52,6 +43,9 @@ const SearchView = (props: Props) => {
 
   if (mapLoader || playerLoader) return mapLoader || playerLoader
   if (mapError || playerError) return mapError || playerError
+
+  if (playerData.length === 0 && maps.length === 1) return <Redirect to={`/maps/${maps[0].name}`} />
+  if (playerData.length === 1 && maps.length === 0) return <Redirect to={`/players/${playerData[0].steamid64}`} />
 
   return (
     <div>
