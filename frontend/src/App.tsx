@@ -7,20 +7,22 @@ import NavBar from 'components/navbar/NavBar'
 import { ModeContext } from 'context/ModeContext'
 import { UserContext } from 'context/UserContext'
 import useApiRequest from 'hooks/useApiRequest'
+import useModeResolver from 'hooks/useModeResolver'
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { BrowserRouter } from 'react-router-dom'
 import { User } from 'types'
 
 const App = () => {
-  const [modeState, setModeState] = useState({
-    kzMode: localStorage.getItem('kzMode') || 'kz_timer',
-    tickrate: localStorage.getItem('tickrate') || '128',
-  })
   const [userState, setUserState] = useState<User | null>(null)
   const [darkmode, setDarkmode] = useState(true)
   const [loaded, setLoaded] = useState(false)
   const { error, data } = useApiRequest('/auth/profile', null, true)
+  const { mode, tick } = useModeResolver()
+  const [modeState, setModeState] = useState({
+    kzMode: mode,
+    tickrate: tick,
+  })
 
   // Theme swap, passed down to footer
   const switchTheme = (darkmode: boolean) => {
@@ -35,6 +37,13 @@ const App = () => {
     document.documentElement.classList.add('lightmode')
     localStorage.setItem('kzTheme', 'light')
   }
+
+  useEffect(() => {
+    setModeState({
+      kzMode: mode,
+      tickrate: tick,
+    })
+  }, [mode, tick])
 
   // Theme related effect
   useEffect(() => {

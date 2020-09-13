@@ -22,6 +22,7 @@ const MapService = {
       if (!files[i].path) continue
 
       const options = { responseType: 'buffer', percentage: 25 }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const buffer = await imageThumbnail(files[i].path, options as any)
 
       fs.writeFileSync(path.dirname(files[i].path).concat('/thumb/tn_' + files[i].filename), buffer)

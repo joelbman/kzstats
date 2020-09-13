@@ -91,6 +91,10 @@ footer {
   @apply text-center sm:text-left mt-4 pt-4 border-t border-gray-950 first:border-t-0 first:mt-0 first:pt-0;
 }
 
+.news-post p {
+  @apply my-4 last:mb-0;
+}
+
 .lightmode .record-block {
   @apply border-gray-300 !important;
 }

@@ -22,12 +22,8 @@ const JumpStatsView = (props: Props) => {
     { value: 'ladderjump', name: 'Ladderjump' },
     { value: 'countjump', name: 'Countjump' },
   ])
-  const [jumpType, setJumpType] = useState(
-    params.current ? params.current : 'longjump'
-  )
-  const [crouchBind, setCrouchBind] = useState(
-    searchParams.current.get('bind') === 'true'
-  )
+  const [jumpType, setJumpType] = useState(params.current ? params.current : 'longjump')
+  const [crouchBind, setCrouchBind] = useState(searchParams.current.get('bind') === 'true')
   const [error, setError] = useState(false)
 
   useEffect(() => {
@@ -56,11 +52,8 @@ const JumpStatsView = (props: Props) => {
     <div>
       <Helmet title="Jumpstats" />
       <h1>Jumpstats</h1>
-      <i className="block mb-4">
-        There is an API issue which makes some Jumpstat queries very slow, seems
-        to mostly affect longjumps with crouchbind enabled.
-      </i>
-      <div className="inline-block mt-2">
+      <i className="block mb-4">There is an API issue which makes some Jumpstat queries very slow, seems to mostly affect longjumps with crouchbind enabled.</i>
+      <div className="inline-block mt-2 mr-4">
         Jump type:
         <select value={jumpType} onChange={changeJumpType} className="ml-2">
           <option value="longjump">Longjump</option>
@@ -73,17 +66,12 @@ const JumpStatsView = (props: Props) => {
         </select>
       </div>
       {jumpType !== 'ladderjump' && (
-        <div className="inline-block mt-2 md:ml-4">
+        <div className="inline-block mt-2">
           Crouch bind:
-          <input
-            type="checkbox"
-            onChange={toggleBind}
-            checked={crouchBind}
-            className="ml-4"
-          />
+          <input type="checkbox" onChange={toggleBind} checked={crouchBind} className="ml-4" />
         </div>
       )}
-      <div className="xl:w-1/2">
+      <div className="lg:w-3/4 xl:w-1/2">
         <JumpStatTable jumpType={jumpType} crouchBind={crouchBind} />
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { BronzeIcon, FlagIcon, SilverIcon, TrophyIcon } from 'components/icons'
-import { runtimeFormat, textLimiter } from 'components/util/filters'
+import { runtimeFormat } from 'components/util/filters'
 import React, { useEffect, useMemo, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { Link } from 'react-router-dom'

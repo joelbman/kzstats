@@ -20,7 +20,7 @@ const getNewsList = (client: Discord.Client): void => {
           if (m.embeds.length === 0 || m.embeds[0].description.includes('[](__kzstats_ignore__)')) return
           newsList.push({
             message: md.render(m.embeds[0].description.replace(/```/g, '\r\n```\r\n')),
-            footer: m.embeds[0].footer.text
+            footer: m.embeds[0].footer.text,
           })
         })
         console.log('Updated news list')
