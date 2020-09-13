@@ -1,7 +1,7 @@
 import RuntypeSelect from 'components/forms/RuntypeSelect'
 import Table from 'components/general/Table'
 import useApiRequest from 'hooks/useApiRequest'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { KZRecord } from 'types'
 
 interface Props {
@@ -12,9 +12,7 @@ interface Props {
 
 const MapRecords = (props: Props) => {
   const [records, setRecords] = useState<KZRecord[]>([])
-  const [runtypeFilter, setRuntypeFilter] = useState(
-    localStorage.getItem('kzRuntype') || 'pro'
-  )
+  const [runtypeFilter, setRuntypeFilter] = useState(localStorage.getItem('kzRuntype') || 'pro')
 
   const [apiOpt, setApiOpt] = useState({
     map_name: props.mapname,
@@ -33,21 +31,11 @@ const MapRecords = (props: Props) => {
     stage: 0,
   })
 
-  const { error, loader, data } = useApiRequest(
-    'records/top/',
-    apiOpt,
-    false,
-    true
-  )
+  const { error, loader, data } = useApiRequest('records/top/', apiOpt, false, true)
 
-  const { loader: tpLoader, data: tpData } = useApiRequest(
-    'records/top/',
-    apiOptTp,
-    false,
-    true
-  )
+  const { loader: tpLoader, data: tpData } = useApiRequest('records/top/', apiOptTp, false, true)
 
-  useMemo(() => {
+  useEffect(() => {
     if (tpData && data) {
       setRecords(data.concat(tpData))
       const proWR = data.find((r: KZRecord) => {
@@ -56,7 +44,8 @@ const MapRecords = (props: Props) => {
       const tpWR = tpData.find((r: KZRecord) => {
         return r.points === 1000
       })
-      props.setWrCallBack(proWR, tpWR)
+
+      return props.setWrCallBack(proWR, tpWR)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, tpData])
@@ -94,13 +83,7 @@ const MapRecords = (props: Props) => {
         Runtype <RuntypeSelect callback={(val) => setRuntypeFilter(val)} />
       </div>
       {records.length > 0 ? (
-        <Table
-          data={records}
-          columns={columns}
-          sort={{ key: 'time', desc: false }}
-          itemsPerPage={20}
-          filters={[{ key: 'teleports', value: runtypeFilter }]}
-        />
+        <Table data={records} columns={columns} sort={{ key: 'time', desc: false }} itemsPerPage={20} filters={[{ key: 'teleports', value: runtypeFilter }]} />
       ) : (
         <p>No records found</p>
       )}

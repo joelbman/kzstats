@@ -7,6 +7,7 @@ import logger from 'util/Logger'
 
 const router = express.Router()
 
+// Upload log for admin view
 router.get('/image/log', checkAdmin, (req, res) => {
   MapService.getUploadLog()
     .then((data) => {
