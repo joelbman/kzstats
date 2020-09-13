@@ -1,52 +1,36 @@
-import fs from 'fs'
-import path from 'path'
 import express from 'express'
-import imageThumbnail from 'image-thumbnail'
 import { checkAdmin } from 'middleware/AuthMiddleware'
 import upload from 'middleware/UploadMiddleware'
+import MapService from 'services/MapService'
+import { PassportSteamProfile } from 'types'
 import logger from 'util/Logger'
 
-// import MapService from 'services/MapService'
 const router = express.Router()
 
-router.post('/:mapname/image', checkAdmin, upload.single('map_image'), (req, res, next) => {
-  const file = req.file
-  if (!file) {
-    logger.error('No file')
-    res.sendStatus(400)
-  }
-  res.send(file)
+router.get('/image/log', checkAdmin, (req, res) => {
+  MapService.getUploadLog()
+    .then((data) => {
+      res.json(data)
+    })
+    .catch((e) => {
+      logger.error(e.message)
+      res.sendStatus(400)
+    })
 })
 
-// [Node] {
-//   [Node]   fieldname: 'map_images',
-//   [Node]   originalname: 'WoWScrnShot_100819_190949.jpg',
-//   [Node]   encoding: '7bit',
-//   [Node]   mimetype: 'image/jpeg',
-//   [Node]   destination: '../www/img/map/',
-//   [Node]   filename: 'WoWScrnShot_100819_190949.jpg',
-//   [Node]   path: '..\\www\\img\\map\\WoWScrnShot_100819_190949.jpg',
-//   [Node]   size: 469545
-//   [Node] }
-
-//Uploading multiple files
-router.post('/image', checkAdmin, upload.array('map_images', 16), (req, res, next) => {
+// Uploading multiple files
+router.post('/image', checkAdmin, upload.array('map_images', 16), (req, res) => {
   if (!req.files) {
-    logger.error('Img upload failed')
+    logger.error('No images')
     res.sendStatus(400)
   }
 
-  for (let i = 0; i < req.files.length; i++) {
-    if (!req.files[i].path) continue
-
-    const options = { responseType: 'buffer', percentage: 25 }
-    imageThumbnail(req.files[i].path, options as any).then((buffer) => {
-      fs.writeFileSync(path.dirname(req.files[i].path).concat('/thumb/tn_'+req.files[i].filename), buffer)
-    }).catch((e) => res.sendStatus(400))    
-  }
-
-  res.sendStatus(200) 
+  MapService.uploadImages(req.files, req.user as PassportSteamProfile)
+    .then(() => res.sendStatus(200))
+    .catch((e) => {
+      logger.error(e.message)
+      res.sendStatus(400)
+    })
 })
-
 
 export default router

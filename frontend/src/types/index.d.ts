@@ -1,4 +1,3 @@
-// prettier-ignore
 export interface JumpStat {
   id: number
   server_id: number
@@ -20,7 +19,6 @@ export interface JumpStat {
   updated_on: string
 }
 
-// prettier-ignore
 export interface KZMap {
   id: number
   name: string
@@ -35,7 +33,6 @@ export interface KZMap {
   replay_id: number
 }
 
-// prettier-ignore
 export interface KZRecord {
   id: number
   steamid64: string
@@ -62,7 +59,6 @@ export interface KZRecord {
   countrycode?: string
 }
 
-// prettier-ignore
 export interface User {
   steamid64: string
   avatarSmall: string

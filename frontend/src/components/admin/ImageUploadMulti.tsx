@@ -24,28 +24,32 @@ const ImageUploadMulti = () => {
       .catch((e) => setError(e))
   }
 
-  // if (error)
-  //   return (
-  //     <p>
-  //       <b>Error:</b>
-  //       Something went wrong :( If this happens again contact so0le
-  //     </p>
-  //   )
+  if (error)
+    return (
+      <p className="text-red-500">
+        <h3 className="text-2xl font-bold">Error:</h3>
+        Something went wrong :(
+        <br />
+        If this happens again contact so0le
+      </p>
+    )
 
-  // if (done)
-  //   return (
-  //     <p>
-  //       Upload complete{' '}
-  //       <span role="img" aria-label="ok_hand">
-  //         👌
-  //       </span>
-  //     </p>
-  //   )
+  if (done)
+    return (
+      <p className="text-green-500">
+        Upload complete{' '}
+        <span role="img" aria-label="ok_hand">
+          👌
+        </span>
+      </p>
+    )
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
-      <input type="file" multiple onChange={handleChange} />
-      <button onClick={uploadFiles}>Go</button>
+      <input className="w-full border-2 p-4 border-black mb-4 ml-0" type="file" multiple onChange={handleChange} />
+      <button className="bg-green-600 rounded-lg py-1 px-2 block" onClick={uploadFiles}>
+        Upload
+      </button>
     </form>
   )
 }

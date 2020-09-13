@@ -18,9 +18,12 @@ const Footer = (props: Props) => {
 
   return (
     <footer className="flex justify-center items-center">
-      <div className="mr-8 hidden sm:inline-block">
-        &copy; Joel Bergman 2020 - Powered by Steam
-      </div>
+      {userCtx?.user?.admin && (
+        <div className="px-4">
+          <Link to="/admin">Admin</Link>
+        </div>
+      )}
+      <div className="mr-8 hidden sm:inline-block">&copy; Joel Bergman 2020 - Powered by Steam</div>
       <div className="flex items-center justify-center">
         Theme:
         <label className="switch ml-2">
@@ -28,11 +31,6 @@ const Footer = (props: Props) => {
           <span className="slider round" />
         </label>
       </div>
-      {userCtx?.user?.admin && (
-        <div>
-          <Link to="/admin">Admin</Link>
-        </div>
-      )}
     </footer>
   )
 }

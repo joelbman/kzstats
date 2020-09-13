@@ -3,18 +3,32 @@
     "node": true,
     "es2020": true
   },
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "rules": {
     "camelcase": 0,
-    "semi": [1, "never"],
-    "quotes": [1, "single"],
-    "indent": ["warning", 2],
+    "semi": [
+      1,
+      "never"
+    ],
+    "quotes": [
+      1,
+      "single"
+    ],
+    "indent": [
+      1,
+      2
+    ],
     "@typescript-eslint/explicit-module-boundary-types": "off"
   }
 }

@@ -91,8 +91,8 @@ const App = () => {
           <NavBar />
           <MainContent />
         </ModeContext.Provider>
+        {loaded && <Footer switchTheme={switchTheme} darkmode={darkmode} />}
       </UserContext.Provider>
-      {loaded && <Footer switchTheme={switchTheme} darkmode={darkmode} />}
     </BrowserRouter>
   )
 }

@@ -1,22 +1,22 @@
 import express from 'express'
-import { checkAuth } from 'middleware/AuthMiddleware'
+import { checkAdmin, checkAuth } from 'middleware/AuthMiddleware'
 import passport from 'passport'
 import AuthService from 'services/AuthService'
 import { PassportSteamProfile } from 'types'
-import { BASEURL, production } from 'util/Config'
+import { BASEURL } from 'util/Config'
 import logger from 'util/Logger'
 
 const router = express.Router()
 
-router.get(
-  '/return',
-  passport.authenticate('steam', { failureRedirect: '/' }),
-  (req, res) => {
-    res.redirect(BASEURL)
-  }
-)
+router.get('/return', passport.authenticate('steam', { failureRedirect: '/' }), (req, res) => {
+  res.redirect(BASEURL)
+})
 
 router.get('/profile', checkAuth, (req, res) => {
+  res.json(req.user)
+})
+
+router.get('/profile/admin', checkAdmin, (req, res) => {
   res.json(req.user)
 })
 
