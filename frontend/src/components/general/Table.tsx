@@ -75,8 +75,7 @@ const Table = (props: Props) => {
     }
 
     arr = arr.sort((a: any, b: any) => {
-      if (typeof a[sortKey] === 'string')
-        return a[sortKey].localeCompare(b[sortKey])
+      if (typeof a[sortKey] === 'string') return a[sortKey].localeCompare(b[sortKey])
       return a[sortKey] - b[sortKey]
     })
     if (sortDesc) arr.reverse()
@@ -106,9 +105,7 @@ const Table = (props: Props) => {
   }
 
   const renderSortArrow = () => {
-    return (
-      <> {sortDesc ? String.fromCharCode(9660) : String.fromCharCode(9650)}</>
-    )
+    return <> {sortDesc ? String.fromCharCode(9660) : String.fromCharCode(9650)}</>
   }
 
   const renderCellContent = (obj: any, column: TableColumn) => {
@@ -129,13 +126,12 @@ const Table = (props: Props) => {
         return <Link to={`/players/${obj.steamid64}`}>{playerName}</Link>
 
       case 'map':
-        return <Link to={`/maps/${obj[column.key]}`}>{obj[column.key]}</Link>
+        let mapName = obj[column.key]
+        if (!mapName) mapName = '<unknown>'
+        return <Link to={`/maps/${obj[column.key]}`}>{mapName}</Link>
 
       case 'runtime':
-        if (obj.points === 1000)
-          return (
-            <b className="text-red-500">{runtimeFormat(obj[column.key])}</b>
-          )
+        if (obj.points === 1000) return <b className="text-red-500">{runtimeFormat(obj[column.key])}</b>
         return runtimeFormat(obj[column.key])
 
       case 'points':
@@ -152,11 +148,7 @@ const Table = (props: Props) => {
       case 'server':
         let serverName = obj[column.key]
         if (!serverName) serverName = '<unknown>'
-        return (
-          <Link to={`/servers/${obj.server_id}`}>
-            {textLimiter(serverName)}
-          </Link>
-        )
+        return <Link to={`/servers/${obj.server_id}`}>{serverName}</Link>
 
       default:
         return obj[column.key]
@@ -171,9 +163,7 @@ const Table = (props: Props) => {
             <tr>
               {props.columns.map((c: TableColumn, i: number) => (
                 <th key={i} data-key={c.key} onClick={sortByColumn}>
-                  {c.header
-                    ? c.header
-                    : c.key.charAt(0).toUpperCase() + c.key.slice(1)}
+                  {c.header ? c.header : c.key.charAt(0).toUpperCase() + c.key.slice(1)}
 
                   {sortKey === c.key && renderSortArrow()}
                 </th>

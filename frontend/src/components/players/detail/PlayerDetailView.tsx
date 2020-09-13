@@ -1,22 +1,9 @@
 import ImageC from 'components/general/ImageC'
-import {
-  ChartIcon,
-  FlagIcon,
-  JumpIcon,
-  SettingsIcon,
-  TrophyIcon,
-} from 'components/icons/'
+import { ChartIcon, FlagIcon, JumpIcon, SettingsIcon, TrophyIcon } from 'components/icons/'
 import { ModeContext } from 'context/ModeContext'
 import { UserContext } from 'context/UserContext'
 import useApiRequest from 'hooks/useApiRequest'
-import React, {
-  Suspense,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import React, { Suspense, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
@@ -54,17 +41,12 @@ const PlayerDetailView = (props: Props) => {
   const steamid64 = props.match.params.steamid64
 
   // handle old kzstats links
-  if (steamid64.substr(0, 2) === '11' || steamid64.substr(0, 2) === '10')
-    window.location.href = `/api/player/old/${steamid64}`
+  if (steamid64.substr(0, 2) === '11' || steamid64.substr(0, 2) === '10') window.location.href = `/api/player/old/${steamid64}`
 
   const userCtx = useContext(UserContext)
   const { state: modeState } = useContext(ModeContext)
   const user = userCtx?.user
-  const { error, loader, data: profileData } = useApiRequest(
-    `/player/${steamid64}/steam`,
-    null,
-    true
-  )
+  const { error, loader, data: profileData } = useApiRequest(`/player/${steamid64}/steam`, null, true)
   const [steamProfile, setSteamProfile] = useState<SteamProfile | null>(null)
   const [activeTab, setActiveTab] = useState(0)
   const [points, setPoints] = useState(0)
@@ -78,29 +60,22 @@ const PlayerDetailView = (props: Props) => {
     limit: 2000,
     stage: 0,
   })
-  const {
-    error: recordErr,
-    loader: recordLoader,
-    data: recordData,
-  } = useApiRequest('records/top/', apiOptions.current)
+  const { error: recordErr, loader: recordLoader, data: recordData } = useApiRequest('records/top/', apiOptions.current)
 
-  const tpopts = useRef({ ...apiOptions.current, has_teleports: false })
-  const { error: tperr, loader: tploader, data: tpdata } = useApiRequest(
-    'records/top/',
-    tpopts.current
-  )
+  const tpApiOpts = useRef({ ...apiOptions.current, has_teleports: false })
+  const { error: tperr, loader: tpLoader, data: tpData } = useApiRequest('records/top/', tpApiOpts.current)
 
   useMemo(() => {
     let pts = 0
     recordData.forEach((r: KZRecord) => {
       pts += r.points
     })
-    tpdata.forEach((r: KZRecord) => {
+    tpData.forEach((r: KZRecord) => {
       pts += r.points
     })
     setPoints(pts)
-    setCombinedRecords(recordData.concat(tpdata))
-  }, [recordData, tpdata])
+    setCombinedRecords(recordData.concat(tpData))
+  }, [recordData, tpData])
 
   useMemo(() => {
     setSteamProfile(profileData)
@@ -109,16 +84,18 @@ const PlayerDetailView = (props: Props) => {
   useMemo(() => {
     apiOptions.current = {
       ...apiOptions.current,
+      steamid64: steamid64,
       modes_list_string: modeState.kzMode,
       tickrate: modeState.tickrate,
     }
-    tpopts.current = {
-      ...tpopts.current,
+    tpApiOpts.current = {
+      ...tpApiOpts.current,
+      steamid64: steamid64,
       modes_list_string: modeState.kzMode,
       tickrate: modeState.tickrate,
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modeState.kzMode, modeState.tickrate])
+  }, [modeState.kzMode, modeState.tickrate, steamid64])
 
   useEffect(() => {
     switch (props.match.params.selectedTab) {
@@ -139,8 +116,7 @@ const PlayerDetailView = (props: Props) => {
   }, [])
 
   if (error || recordErr || tperr) return error || recordErr || tperr
-  if (loader || recordLoader || tploader)
-    return loader || recordLoader || tploader
+  if (loader || recordLoader || tpLoader) return loader || recordLoader || tpLoader
 
   if (!steamProfile)
     return (
@@ -154,8 +130,7 @@ const PlayerDetailView = (props: Props) => {
     if (!steamProfile.country) return <p>Country: N/A</p>
     return (
       <p>
-        <FlagIcon className="ml-0" code={steamProfile.loccountrycode} />{' '}
-        {steamProfile.country}
+        <FlagIcon className="ml-0" code={steamProfile.loccountrycode} /> {steamProfile.country}
       </p>
     )
   }
@@ -167,46 +142,29 @@ const PlayerDetailView = (props: Props) => {
   return (
     <div className="flex flex-col">
       <Helmet title={steamProfile.personaname} />
-      <div className="flex flex-row">
+      <div className="flex flex-row flex-wrap sm:flex-no-wrap">
         <div className="w-36 mr-4">
-          <a
-            href={steamProfile.profileurl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={steamProfile.profileurl} target="_blank" rel="noopener noreferrer">
             <Suspense fallback={<div></div>}>
-              <ImageC
-                src={steamProfile.avatarfull}
-                alt="Steam"
-                width="140"
-                height="140"
-                className="border-black border-2"
-              />
+              <ImageC src={steamProfile.avatarfull} alt="Steam" width="140" height="140" className="border-black border-2" />
             </Suspense>
           </a>
         </div>
         <div className="flex-grow">
-          <p className="text-3xl font-bold">{steamProfile.personaname}</p>
+          <h2 className="text-3xl font-bold">
+            {steamProfile.personaname} <small>({steamProfile.steamid32})</small>
+          </h2>
           <p className="text-xl font-bold">{points} Points</p>
           {renderCountry()}
           <p>
-            <a
-              href={steamProfile.profileurl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={steamProfile.profileurl} target="_blank" rel="noopener noreferrer">
               Steam profile
             </a>
           </p>
         </div>
       </div>
       <div className="flex-grow mt-8">
-        <Tabs
-          selectedIndex={activeTab}
-          onSelect={handleTabSelect}
-          selectedTabClassName="tab-selected"
-          className="tab-main"
-        >
+        <Tabs selectedIndex={activeTab} onSelect={handleTabSelect} selectedTabClassName="tab-selected" className="tab-main">
           <TabList>
             <Tab>
               <Link to={`/players/${steamid64}/`}>
