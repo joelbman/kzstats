@@ -1,8 +1,8 @@
 import ImageC from 'components/general/ImageC'
 import { difficultyToText } from 'components/util/filters'
-import KZMap from 'models/KZMap'
 import React, { Suspense } from 'react'
 import { Link } from 'react-router-dom'
+import { KZMap } from 'types'
 
 interface Props {
   map: KZMap

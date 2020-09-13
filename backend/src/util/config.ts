@@ -1,6 +1,6 @@
 import path from 'path'
 import dotenv from 'dotenv'
-import logger from './logger'
+import logger from './Logger'
 
 let denv = dotenv.config({ path: path.join(process.cwd(), '.env') })
 if (denv.error) {
@@ -20,8 +20,9 @@ export const DB_CONFIG = {
   name: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  host: process.env.DB_HOST,
+  host: process.env.DB_HOST
 }
+export const BASEURL = process.env['BASEURL']
 
 if (!SESSION_SECRET) {
   logger.error('No client secret')

@@ -24,11 +24,9 @@ function NavBar() {
 
   return (
     <nav className="nav-main">
-      <div className="hidden lg:flex items-center flex-shrink-0 text-white mr-4">
+      <div className="hidden xl:flex items-center flex-shrink-0 text-white mr-4">
         <NavLink to="/">
-          <span className="font-semibold text-2xl tracking-tight text-">
-            KZStats
-          </span>
+          <span className="font-semibold text-2xl tracking-tight">KZStats</span>
         </NavLink>
       </div>
       <NavSearchBar />

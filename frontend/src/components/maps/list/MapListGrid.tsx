@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import KZMap from '../../../models/KZMap'
+import { KZMap } from 'types'
 import MapListCard from './MapListCard'
 
 interface Props {

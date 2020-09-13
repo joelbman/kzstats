@@ -1,6 +1,6 @@
 import express from 'express'
 import PlayerService from '../services/PlayerService'
-import logger from '../util/logger'
+import logger from '../util/Logger'
 
 const router = express.Router()
 

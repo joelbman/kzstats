@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { KZMap } from 'types'
 import useApiRequest from '../../../hooks/useApiRequest'
-import KZMap from '../../../models/KZMap'
 import MapListGrid from './MapListGrid'
 import MapListTable from './MapListTable'
 

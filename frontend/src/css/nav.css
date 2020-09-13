@@ -7,6 +7,18 @@
   @apply text-gray-200;
 }
 
+.profile-dropdown {
+  @apply absolute z-10 bg-gray-950 text-white w-24;
+}
+
+.profile-dropdown button {
+  @apply block p-2 w-full text-center hover:bg-gray-850 focus:outline-none;
+}
+
+.lightmode .profile-dropdown {
+  @apply bg-gray-verydark text-white;
+}
+
 #navmenu a {
   @apply block mr-4 mt-4 text-gray-200 md:inline-block md:mt-0;
   @apply hover:text-white hover:font-bold;

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Discord from 'discord.js'
-import { DISCORD_KEY } from '../util/config'
+import { DISCORD_KEY } from '../util/Config'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const md = require('markdown-it')('commonmark')

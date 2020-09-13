@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Route, Switch } from 'react-router-dom'
+import AdminView from './admin/AdminView'
 import BanListView from './bans/BanListView'
 import ErrorHandler from './general/ErrorHandler'
 import HomeView from './home/HomeView'
@@ -39,6 +40,8 @@ const MainContent = () => {
         <Route exact path="/servers/:id" component={ServerDetailView} />
 
         <Route path="/search/:searchStr" component={SearchView} />
+
+        <Route exact path="/admin" component={AdminView} />
 
         <Route>
           <ErrorHandler type={404} />

@@ -1,16 +1,9 @@
 import passport from 'passport'
 import { Strategy } from 'passport-steam'
+import AuthService from 'services/AuthService'
 import { DoneFunction, PassportSteamProfile, UserObject } from 'types'
-import AuthService from './services/AuthService'
-import { STEAM_API_KEY, production } from './util/config'
-import logger from './util/logger'
-
-const realm = production
-  ? 'https://staging.kzstats.com/'
-  : 'https://localhost:3001/'
-const returnURL = production
-  ? 'https://staging.kzstats.com/api/auth/return/'
-  : 'https://localhost:3001/api/auth/return/'
+import { BASEURL, STEAM_API_KEY } from './Config'
+import logger from './Logger'
 
 passport.serializeUser((user, done) => {
   done(null, user)
@@ -23,8 +16,8 @@ passport.deserializeUser((obj, done) => {
 passport.use(
   new Strategy(
     {
-      returnURL: returnURL,
-      realm: realm,
+      returnURL: BASEURL + 'api/auth/return/',
+      realm: BASEURL,
       apiKey: STEAM_API_KEY,
     },
     (identifier: string, profile: PassportSteamProfile, done: DoneFunction) => {

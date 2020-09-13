@@ -2,7 +2,7 @@ import axios from 'axios'
 import Integer from 'integer'
 import { db } from '../db/db'
 import { UserObject } from '../types'
-import { STEAM_API_KEY } from '../util/config'
+import { STEAM_API_KEY } from '../util/Config'
 
 // Convert 64-bit to 32-bit ID or vice versa
 const convertSteamId = (steamid: string): string => {
@@ -31,7 +31,7 @@ const PlayerService = {
     const user = users[0]
 
     if (users.length > 0) {
-      if (!users[0].alias || users[0].alias.includes("?????")) { await db('kzstats_user').where('steamid64', '=', steamid64).update({ alias: profile.personaname }) }
+      if (!users[0].alias || users[0].alias.includes('????')) { await db('kzstats_user').where('steamid64', '=', steamid64).update({ alias: profile.personaname }) }
       else profile.personaname = user.alias
       profile.loccountrycode = user.countrycode
       profile.country = user.country

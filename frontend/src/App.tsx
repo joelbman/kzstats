@@ -7,10 +7,10 @@ import NavBar from 'components/navbar/NavBar'
 import { ModeContext } from 'context/ModeContext'
 import { UserContext } from 'context/UserContext'
 import useApiRequest from 'hooks/useApiRequest'
-import User from 'models/User'
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { BrowserRouter } from 'react-router-dom'
+import { User } from 'types'
 
 const App = () => {
   const [modeState, setModeState] = useState({
@@ -60,13 +60,13 @@ const App = () => {
     }
     if (!data.id) return
     dispatchUser({
-      steamid32: data.userObj.steamid32,
       steamid64: data.id,
-      country: data.userObj.country,
-      countryCode: data.userObj.countrycode,
-      alias: data.userObj.alias,
       avatarSmall: data.photos[0].value,
       avatarMedium: data.photos[1].value,
+      alias: data.userObj.alias,
+      country: data.userObj.country,
+      countrycode: data.userObj.countrycode,
+      admin: data.userObj.admin,
     })
   }, [data, error])
 

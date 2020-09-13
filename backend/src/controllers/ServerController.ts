@@ -1,7 +1,7 @@
 import express from 'express'
-import ServerService from '../services/ServerService'
-import { currentList } from '../tasks/ServerListTask'
-import logger from '../util/logger'
+import ServerService from 'services/ServerService'
+import { currentList } from 'tasks/ServerListTask'
+import logger from 'util/Logger'
 
 const router = express.Router()
 

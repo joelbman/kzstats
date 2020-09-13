@@ -1,5 +1,5 @@
 import React from 'react'
-import KZMap from '../../../models/KZMap'
+import { KZMap } from 'types'
 
 interface Props {
   maps: KZMap[]

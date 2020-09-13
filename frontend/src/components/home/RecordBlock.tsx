@@ -1,9 +1,9 @@
 import ImageC from 'components/general/ImageC'
 import { FlagIcon } from 'components/icons'
 import { runtimeFormat, timeAgoFormat } from 'components/util/filters'
-import KZRecord from 'models/KZRecord'
 import React, { Suspense } from 'react'
 import { Link } from 'react-router-dom'
+import { KZRecord } from 'types'
 
 interface Props {
   record: KZRecord

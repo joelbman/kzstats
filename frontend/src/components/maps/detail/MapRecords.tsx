@@ -1,8 +1,8 @@
-import RuntypeSelect from 'components/general/RuntypeSelect'
+import RuntypeSelect from 'components/forms/RuntypeSelect'
 import Table from 'components/general/Table'
 import useApiRequest from 'hooks/useApiRequest'
-import KZRecord from 'models/KZRecord'
 import React, { useMemo, useState } from 'react'
+import { KZRecord } from 'types'
 
 interface Props {
   mapname: string

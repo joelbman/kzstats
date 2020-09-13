@@ -8,7 +8,7 @@ import {
 } from 'components/icons/'
 import { ModeContext } from 'context/ModeContext'
 import { UserContext } from 'context/UserContext'
-import KZRecord from 'models/KZRecord'
+import useApiRequest from 'hooks/useApiRequest'
 import React, {
   Suspense,
   useContext,
@@ -20,7 +20,7 @@ import React, {
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
-import useApiRequest from '../../../hooks/useApiRequest'
+import { KZRecord } from 'types'
 import PlayerJumpStats from './PlayerJumpStats'
 import PlayerProfileSettings from './PlayerProfileSettings'
 import PlayerRecords from './PlayerRecords'
@@ -128,8 +128,12 @@ const PlayerDetailView = (props: Props) => {
       case 'statistics':
         setActiveTab(2)
         break
+      case 'settings':
+        setActiveTab(3)
+        break
       default:
         setActiveTab(0)
+        break
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -230,10 +234,12 @@ const PlayerDetailView = (props: Props) => {
             </Tab>
             {user?.steamid64 === steamid64 && (
               <Tab>
-                <button>
-                  <SettingsIcon />
-                  Settings
-                </button>
+                <Link to={`/players/${steamid64}/settings`}>
+                  <button>
+                    <SettingsIcon />
+                    Settings
+                  </button>
+                </Link>
               </Tab>
             )}
             <div className="tab-filler"></div>

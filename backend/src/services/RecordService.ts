@@ -1,5 +1,5 @@
-import { db } from '../db/db'
-import { globalAPI } from '../util/API'
+import { db } from 'db/db'
+import { globalAPI } from 'util/API'
 
 interface WorldRecord {
   id: number

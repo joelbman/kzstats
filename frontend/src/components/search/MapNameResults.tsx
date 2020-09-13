@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import KZMap from '../../models/KZMap'
+import { KZMap } from 'types'
 
 interface Props {
   data: KZMap[]

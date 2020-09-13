@@ -1,4 +1,4 @@
-import SearchInput from 'components/general/SearchInput'
+import SearchInput from 'components/forms/SearchInput'
 import Table from 'components/general/Table'
 import useApiRequest from 'hooks/useApiRequest'
 import React, { useState } from 'react'

@@ -1,3 +1,6 @@
+const moduleAlias = require('module-alias')
+moduleAlias.addPath(__dirname)
+
 import { readFileSync } from 'fs'
 import * as http from 'http'
 import * as https from 'https'
@@ -6,12 +9,12 @@ import bodyParser from 'body-parser'
 import express from 'express'
 import session from 'express-session'
 import mysql from 'mysql'
+import passport from 'util/PassportConfig'
+import router from './Router'
 import { config } from './db/db'
-import passport from './passportInit'
-import router from './router'
 import DiscordBotTask from './tasks/DiscordBotTask'
 import { ServerListTask } from './tasks/ServerListTask'
-import { SESSION_SECRET, production } from './util/config'
+import { SESSION_SECRET, production } from './util/Config'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const MySQLStore = require('express-mysql-session')(session)

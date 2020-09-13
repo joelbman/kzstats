@@ -1,4 +1,4 @@
-import RuntypeSelect from 'components/general/RuntypeSelect'
+import RuntypeSelect from 'components/forms/RuntypeSelect'
 import { ModeContext } from 'context/ModeContext'
 import React, { useContext, useState } from 'react'
 import { Helmet } from 'react-helmet'

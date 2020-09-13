@@ -9,7 +9,7 @@ const SteamButton = (props: Props) => {
   return (
     <a href="/api/auth/">
       <button
-        className={`bg-green-700 text-white rounded p-1 pl-2 pr-2 block ${props.className}`}
+        className={`bg-green-700 text-white rounded p-1 pl-2 pr-2 block focus:outline-none ${props.className}`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

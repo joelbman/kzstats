@@ -1,8 +1,8 @@
 import { UserContext } from 'context/UserContext'
 import useApiRequest from 'hooks/useApiRequest'
-import User from 'models/User'
 import React, { useContext } from 'react'
 import { Redirect } from 'react-router-dom'
+import { User } from 'types'
 
 interface Props {
   user: User
@@ -24,13 +24,13 @@ const PlayerProfileSettings = (props: Props) => {
   return (
     <div>
       <h2>Profile settings (WORK IN PROGRESS)</h2>
-      <form>
+      <form className="mb-10">
         <div className="block">
           Name: <input type="text" value={user.alias} />
         </div>
         <div className="block mt-4 mb-4">
           Country:{' '}
-          <select value={user.countryCode}>
+          <select value={user.countrycode as string}>
             {Object.keys(data).map((c: string) => (
               <option value={c}>{data[c]}</option>
             ))}

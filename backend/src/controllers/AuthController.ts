@@ -1,26 +1,18 @@
-import express, { NextFunction, Request, Response } from 'express'
+import express from 'express'
+import { checkAuth } from 'middleware/AuthMiddleware'
 import passport from 'passport'
+import AuthService from 'services/AuthService'
 import { PassportSteamProfile } from 'types'
-import AuthService from '../services/AuthService'
-import { production } from '../util/config'
-import logger from '../util/logger'
+import { BASEURL, production } from 'util/Config'
+import logger from 'util/Logger'
 
 const router = express.Router()
 
-const checkAuth = (req: Request, res: Response, next: NextFunction) => {
-  if (!req.isAuthenticated()) {
-    return res.sendStatus(403)
-  }
-  return next()
-}
-
 router.get(
   '/return',
-
   passport.authenticate('steam', { failureRedirect: '/' }),
   (req, res) => {
-    if (!production) res.redirect('https://localhost:3000/')
-    else res.redirect('/')
+    res.redirect(BASEURL)
   }
 )
 
@@ -28,7 +20,7 @@ router.get('/profile', checkAuth, (req, res) => {
   res.json(req.user)
 })
 
-router.put('/profile', checkAuth, (req, res) => {
+router.patch('/profile', checkAuth, (req, res) => {
   AuthService.editProfile(req.user as PassportSteamProfile, req.body)
     .then((data) => {
       res.json(data)
@@ -41,8 +33,7 @@ router.put('/profile', checkAuth, (req, res) => {
 
 router.get('/logout', checkAuth, (req, res) => {
   req.logout()
-  if (!production) res.redirect('https://localhost:3000/')
-  else res.redirect('/')
+  res.json({ status: 'ok' })
 })
 
 router.get('/', passport.authenticate('steam'), () => {

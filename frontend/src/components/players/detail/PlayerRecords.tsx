@@ -1,7 +1,7 @@
-import RuntypeSelect from 'components/general/RuntypeSelect'
+import RuntypeSelect from 'components/forms/RuntypeSelect'
 import Table from 'components/general/Table'
-import KZRecord from 'models/KZRecord'
 import React, { useRef, useState } from 'react'
+import { KZRecord } from 'types'
 
 /* eslint-disable jsx-a11y/accessible-emoji */
 

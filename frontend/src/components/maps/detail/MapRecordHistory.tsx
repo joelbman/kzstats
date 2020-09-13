@@ -1,10 +1,10 @@
 import Table from 'components/general/Table'
 import { runtimeFormat } from 'components/util/filters'
+import { ModeContext } from 'context/ModeContext'
+import useApiRequest from 'hooks/useApiRequest'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
-import { ModeContext } from '../../../context/ModeContext'
-import useApiRequest from '../../../hooks/useApiRequest'
-import KZRecord from '../../../models/KZRecord'
+import { KZRecord } from 'types'
 
 interface Props {
   mapname: string

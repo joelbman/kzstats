@@ -1,11 +1,11 @@
 import Axios from 'axios'
 import { MapIcon, PersonIcon } from 'components/icons'
 import useApiRequest from 'hooks/useApiRequest'
-import KZMap from 'models/KZMap'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useHistory } from 'react-router-dom'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
+import { KZMap } from 'types'
 import MapNameResults from './MapNameResults'
 import PlayerNameResults from './PlayerNameResults'
 

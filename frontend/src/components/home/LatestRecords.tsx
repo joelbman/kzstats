@@ -1,8 +1,8 @@
 import Panel from 'components/general/Panel'
 import { ModeContext } from 'context/ModeContext'
 import useApiRequest from 'hooks/useApiRequest'
-import KZRecord from 'models/KZRecord'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { KZRecord } from 'types'
 import RecordBlock from './RecordBlock'
 
 interface ApiOpt {

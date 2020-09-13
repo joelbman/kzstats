@@ -1,7 +1,7 @@
 import Gamedig, { Player } from 'gamedig'
-import { db } from '../db/db'
-import logger from '../util/logger'
-import * as continentCodes from '../util/continentcodes.json'
+import { db } from 'db/db'
+import logger from 'util/Logger'
+import * as continentCodes from 'data/continentcodes.json'
 
 let currentList = [],
   errorList = [],

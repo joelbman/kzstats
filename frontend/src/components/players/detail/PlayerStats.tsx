@@ -1,9 +1,8 @@
 import Loader from 'components/general/Loader'
 import { runtimeFormat } from 'components/util/filters'
 import useApiRequest from 'hooks/useApiRequest'
-import KZMap from 'models/KZMap'
-import KZRecord from 'models/KZRecord'
 import React, { useMemo, useState } from 'react'
+import { KZMap, KZRecord } from 'types'
 import PlayerStatsGrid from './PlayerStatsGrid'
 
 interface Props {
