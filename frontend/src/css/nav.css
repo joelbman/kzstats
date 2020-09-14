@@ -20,7 +20,7 @@
 }
 
 #navmenu a {
-  @apply block mt-4 text-gray-200 md:inline-block md:mt-0;
+  @apply block mt-4 mr-1 text-gray-200 sm:block md:inline-block md:mt-0;
   @apply hover:text-white hover:font-bold;
 }
 

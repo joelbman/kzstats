@@ -28,7 +28,7 @@ function NavBar() {
         </button>
       </div>
       <div id="navmenu" className={!showMenu ? 'hidden md:flex' : 'block'}>
-        <div className="flex md:flex-grow md:pl-2">
+        <div className="flex flex-col md:flex-row md:flex-grow md:pl-2">
           <NavLink to="/" onClick={closeMenu} className="nav-latest">
             <HomeIcon />
             Latest
