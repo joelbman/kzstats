@@ -23,8 +23,8 @@ const PlayerList = () => {
   const [runtype, setRuntype] = useState(localStorage.getItem('kzRuntype') || 'pro')
 
   const convertRunType = (runtype: string): boolean | undefined => {
-    if (runtype === 'pro') return true
-    if (runtype === 'tp') return false
+    if (runtype === 'pro') return false
+    if (runtype === 'tp') return true
     return undefined
   }
 
