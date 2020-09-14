@@ -67,7 +67,7 @@ const App = () => {
       dispatchUser(null)
       return
     }
-    if (!data.id) return
+    if (!data.id || !data.userObj) return
     dispatchUser({
       steamid64: data.id,
       avatarSmall: data.photos[0].value,
