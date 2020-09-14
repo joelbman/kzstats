@@ -28,7 +28,7 @@ const SearchInput = (props: Props) => {
       {props.label}
       <input
         placeholder={props.placeholder}
-        className="flex-grow border border-black rounded-l-lg py-1"
+        className="flex-grow border border-black py-1"
         style={{ height: props.height }}
         onKeyDown={onKeyDown}
         onChange={handleInput}
@@ -37,7 +37,7 @@ const SearchInput = (props: Props) => {
         type="text"
       />
       <button
-        className="bg-green-700 text-gray-200 border-black border rounded-r-lg w-7 p-1 px-2 focus:outline-none"
+        className="bg-green-700 text-gray-200 border-black border w-7 p-1 px-2 focus:outline-none"
         style={{ height: props.height }}
         onClick={(e) => {
           e.preventDefault()

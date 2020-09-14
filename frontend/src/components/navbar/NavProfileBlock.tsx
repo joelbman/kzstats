@@ -30,9 +30,9 @@ const NavProfileBlock = () => {
           <div>
             <Link to={`/players/${user?.steamid64}`}>
               <Img className="inline mr-2" src={user.avatarSmall} />
-              {user.alias}
+              <span className="profile-alias">{user.alias}</span>
             </Link>
-            <span className="text-xs hidden sm:inline ml-1 cursor-pointer" onClick={() => setShowMenu(!showMenu)}>
+            <span className="text-xs inline ml-1 cursor-pointer" onClick={() => setShowMenu(!showMenu)}>
               {String.fromCharCode(9660)}
             </span>
           </div>

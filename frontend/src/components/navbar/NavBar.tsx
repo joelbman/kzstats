@@ -16,7 +16,7 @@ function NavBar() {
 
   return (
     <nav className="nav-main">
-      <div className="hidden lg:flex items-center flex-shrink-0 text-white mr-4">
+      <div className="hidden items-center flex-shrink-0 text-white mr-2 nav-logo">
         <NavLink to="/">
           <span className="font-semibold text-2xl tracking-tight text-">KZStats</span>
         </NavLink>
@@ -28,8 +28,8 @@ function NavBar() {
         </button>
       </div>
       <div id="navmenu" className={!showMenu ? 'hidden md:flex' : 'block'}>
-        <div className="md:flex-grow md:pl-2">
-          <NavLink activeClassName="font-bold" to="/" onClick={closeMenu} className="nav-latest">
+        <div className="flex md:flex-grow md:pl-2">
+          <NavLink to="/" onClick={closeMenu} className="nav-latest">
             <HomeIcon />
             Latest
           </NavLink>

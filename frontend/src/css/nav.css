@@ -1,6 +1,6 @@
 .nav-main {
   @apply flex justify-center items-center flex-wrap content-start bg-gray-950 w-full border-black border-b-2 p-2 z-50 fixed;
-  @apply md:flex-no-wrap md:pb-1 lg:px-4 xl:px-16;
+  @apply md:flex-no-wrap md:pb-1 lg:px-4;
 }
 
 .nav-main a {
@@ -20,7 +20,7 @@
 }
 
 #navmenu a {
-  @apply block mr-4 mt-4 text-gray-200 md:inline-block md:mt-0;
+  @apply block mt-4 text-gray-200 md:inline-block md:mt-0;
   @apply hover:text-white hover:font-bold;
 }
 
@@ -50,22 +50,28 @@ nav select {
   @apply bg-gray-verydark text-gray-200;
 }
 
-@screen md {
-  #navmenu a {
-    font-size: 0;
+@media screen and (min-width: 768px) and (max-width: 1270px) {
+  .nav-logo {
+    display: hidden;
   }
-  #navmenu a:last-child {
-    @apply mr-0;
+  .nav-latest {
+    display: inline-block;
+  }
+  #navmenu a,
+  .mode-select-text,
+  .profile-alias {
+    font-size: 0;
   }
 }
 
-@screen lg {
-  .nav-latest {
-    display: none !important;
-  }
-
+@media screen and (min-width: 1271px) {
   #navmenu a {
-    @apply text-base;
-    min-width: 4rem;
+    @apply mr-2 text-base;
+  }
+  .nav-latest {
+    @apply hidden !important;
+  }
+  .nav-logo {
+    @apply block !important;
   }
 }

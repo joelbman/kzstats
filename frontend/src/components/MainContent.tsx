@@ -16,10 +16,7 @@ import ServerListView from './servers/ServerListView'
 
 const MainContent = () => {
   return (
-    <main
-      className="flex-grow w-full overflow-x-hidden pl-5 mt-24 mb-20 pr-8 xl:pl-16 xl:pr-16"
-      style={{ minHeight: '85vh' }}
-    >
+    <main className="block mx-auto w-full overflow-x-hidden mt-24 mb-20 px-4 lg:px-12 xl:pl-64 xl:pr-24" style={{ minHeight: '85vh' }}>
       <Helmet defaultTitle="KZStats" titleTemplate="%s - KZStats" />
       <Switch>
         <Route exact path="/" component={HomeView} />
@@ -28,10 +25,7 @@ const MainContent = () => {
         <Route path="/maps/:mapname/:selectedTab?" component={MapDetailView} />
 
         <Route exact path="/players" component={PlayerListView} />
-        <Route
-          path="/players/:steamid64/:selectedTab?"
-          component={PlayerDetailView}
-        />
+        <Route path="/players/:steamid64/:selectedTab?" component={PlayerDetailView} />
 
         <Route path="/jumpstats/:jumpType?" component={JumpStatsView} />
         <Route path="/bans/:steamid?" component={BanListView} />

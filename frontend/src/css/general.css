@@ -34,7 +34,7 @@ h3 {
 }
 
 code {
-  @apply border block bg-gray-850 border-gray-900 p-2 font-normal italic my-2;
+  @apply border block bg-gray-850 border-gray-900 p-2 font-normal italic my-2 overflow-x-auto;
   font-family: 'Jaldi', serif;
 }
 
@@ -113,3 +113,9 @@ footer {
 .lightmode main a {
   @apply text-orange-700 hover:text-orange-600;
 }
+/* 
+@screen xl {
+  main {
+    padding-left: 10rem !important;
+  }
+} */

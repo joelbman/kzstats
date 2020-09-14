@@ -160,7 +160,7 @@ const Table = (props: Props) => {
       <table className={`w-full ${props.className}`}>
         {!props.noHead && (
           <thead>
-            <tr>
+            <tr className="cursor-pointer">
               {props.columns.map((c: TableColumn, i: number) => (
                 <th key={i} data-key={c.key} onClick={sortByColumn}>
                   {c.header ? c.header : c.key.charAt(0).toUpperCase() + c.key.slice(1)}

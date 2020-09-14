@@ -20,9 +20,7 @@ const modeNameToId = (modeName: string) => {
 
 const PlayerList = () => {
   const { state: modeState } = useContext(ModeContext)
-  const [runtype, setRuntype] = useState(
-    localStorage.getItem('kzRuntype') || 'pro'
-  )
+  const [runtype, setRuntype] = useState(localStorage.getItem('kzRuntype') || 'pro')
 
   const convertRunType = (runtype: string): boolean | undefined => {
     if (runtype === 'pro') return true
@@ -43,16 +41,8 @@ const PlayerList = () => {
         />
       </div>
       <div className="flex flex-wrap md:flex-no-wrap w-full">
-        <PlayersTopWorldRecords
-          has_teleports={convertRunType(runtype)}
-          mode={modeNameToId(modeState.kzMode)}
-          tickrate={modeState.tickrate}
-        />
-        <PlayersTopRanks
-          has_teleports={convertRunType(runtype)}
-          mode={modeNameToId(modeState.kzMode)}
-          tickrate={modeState.tickrate}
-        />
+        <PlayersTopWorldRecords has_teleports={convertRunType(runtype)} mode={modeNameToId(modeState.kzMode)} tickrate={modeState.tickrate} />
+        <PlayersTopRanks has_teleports={convertRunType(runtype)} mode={modeNameToId(modeState.kzMode)} tickrate={modeState.tickrate} />
       </div>
     </div>
   )

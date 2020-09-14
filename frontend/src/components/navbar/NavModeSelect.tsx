@@ -45,10 +45,10 @@ const NavModeSelect = () => {
   }, [modeState.kzMode, modeState.tickrate])
 
   return (
-    <div className="order-6 flex flex-wrap">
+    <div className="order-6 flex flex-wrap sm:flex-no-wrap">
       <ReactTooltip />
-      <div className="inline-block" style={{ width: '10.5rem' }}>
-        Mode:
+      <div className="inline-block">
+        <span className="mode-select-text">Mode:</span>
         <select value={mode} onChange={changeMode}>
           <option value="kz_timer">KZTimer</option>
           <option value="kz_simple">Simple KZ</option>
@@ -56,8 +56,8 @@ const NavModeSelect = () => {
         </select>
       </div>
       {modeState.kzMode === 'kz_timer' && (
-        <div className="inline-block" style={{ width: '7.5rem' }}>
-          Tick:
+        <div className="inline-block">
+          <span className="mode-select-text">Tick:</span>
           <select value={tick} onChange={changeTickrate}>
             <option value="128">128</option>
             <option value="102">102</option>

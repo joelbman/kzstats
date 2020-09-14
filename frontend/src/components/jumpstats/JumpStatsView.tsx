@@ -71,7 +71,7 @@ const JumpStatsView = (props: Props) => {
           <input type="checkbox" onChange={toggleBind} checked={crouchBind} className="ml-4" />
         </div>
       )}
-      <div className="lg:w-3/4 xl:w-1/2">
+      <div className="w-full xl:w-3/4">
         <JumpStatTable jumpType={jumpType} crouchBind={crouchBind} />
       </div>
     </div>

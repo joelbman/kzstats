@@ -11,13 +11,12 @@ const NewsPanel = () => {
   const renderHeader = () => {
     return (
       <>
-        News{' '}
-        <span className="text-sm">
-          (from{' '}
-          <a href="https://forum.gokz.org/" target="_blank" rel="noopener noreferrer">
-            GO KZ
-          </a>{' '}
-          Discord)
+        News
+        <span className="ml-2 text-sm float-right">
+          via
+          <a href="https://discord.gg/csgokz" target="_blank" rel="noopener noreferrer">
+            <img className="inline-block ml-2" src="/img/icon/discord.svg" width="100" height="40" alt="Discord" />
+          </a>
         </span>
       </>
     )
