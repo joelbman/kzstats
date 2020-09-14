@@ -1,5 +1,5 @@
 .nav-main {
-  @apply flex justify-center items-center flex-wrap content-start bg-gray-950 w-full border-black border-b-2 p-2 z-50 fixed;
+  @apply flex justify-center items-center flex-wrap content-start bg-gray-950 w-full border-black border-b-2 p-2 z-50 fixed top-0;
   @apply md:flex-no-wrap md:pb-1 lg:px-4;
 }
 
@@ -20,7 +20,7 @@
 }
 
 #navmenu a {
-  @apply block mt-4 mr-1 text-gray-200 sm:block md:inline-block md:mt-0;
+  @apply block mt-4 mr-2 text-gray-200 sm:block md:inline-block md:mt-0;
   @apply hover:text-white hover:font-bold;
 }
 

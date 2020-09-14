@@ -28,21 +28,14 @@ const BanListView = (props: Props) => {
     <div>
       <h1>Bans</h1>
       <div>
-        Below you can see 100 latest bans. You can search older bans by
-        inserting the Steam ID below.
+        Below you can see 100 latest bans. You can search older bans by inserting the Steam ID below.
         <br />
-        For more information/appeals, visit{' '}
-        <a href="https://forum.gokz.org/p/player-rules">GOKZ forums</a>.
+        For more information/appeals, visit <a href="https://forum.gokz.org/p/player-rules">GOKZ forums</a>.
       </div>
       <div className="my-4 flex flex-row w-full lg:w-1/3 items-center">
-        <SearchInput
-          placeholder="e.g. STEAM_X:X:123456789"
-          submit={submitSearch}
-          label="Steam ID:"
-          height="34px"
-        />
+        <SearchInput placeholder="e.g. STEAM_X:X:123456789" submit={submitSearch} label="Steam ID:" height="34px" />
       </div>
-      <div className="xl:w-2/3">
+      <div>
         {data.length > 0 ? (
           <Table
             columns={[

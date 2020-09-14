@@ -2,10 +2,7 @@ import { db } from 'db/db'
 import { PassportSteamProfile, UserObject } from 'types'
 
 const AuthService = {
-  editProfile: async (
-    profile: PassportSteamProfile,
-    body: UserObject
-  ): Promise<number> => {
+  editProfile: async (profile: PassportSteamProfile, body: UserObject): Promise<number> => {
     const data = await db('kzstats_user')
       .where('steamid64', '=', profile.id)
       .update({ alias: body.alias, countrycode: body.countrycode })
@@ -14,11 +11,11 @@ const AuthService = {
 
   handleLogin: async (profile: PassportSteamProfile): Promise<UserObject> => {
     const data = await db('kzstats_user').where('steamid64', profile.id)
-    
+
     // Existing users
     if (data.length === 1) {
-      const adminQuery = await db('kzstats_admin').where('steamid64', profile.id)
-      if (adminQuery.length === 1) return {...data[0], admin: true }
+      const adminQuery = await db('kzstats_admins').where('steamid64', profile.id)
+      if (adminQuery.length === 1) return { ...data[0], admin: true }
       else return data[0]
     }
 

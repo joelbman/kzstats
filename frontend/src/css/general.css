@@ -4,12 +4,12 @@
 }
 
 body {
-  @apply flex flex-col min-h-screen bg-gray-700 text-gray-600 overflow-x-hidden;
+  @apply min-h-screen w-full bg-gray-700 text-gray-600 overflow-x-hidden;
   font-family: 'Jaldi', sans-serif;
 }
 
 h1 {
-  @apply text-4xl text-gray-300 align-middle;
+  @apply text-4xl text-gray-300;
 }
 
 h1 small {

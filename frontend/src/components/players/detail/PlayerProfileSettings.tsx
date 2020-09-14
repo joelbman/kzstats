@@ -35,7 +35,8 @@ const PlayerProfileSettings = (props: Props) => {
   return (
     <div>
       <h2>Profile settings</h2>
-      {done ? (
+      Coming soon.
+      {/* {done ? (
         <p>Success!</p>
       ) : (
         <form className="mt-2">
@@ -71,7 +72,7 @@ const PlayerProfileSettings = (props: Props) => {
           </button>
           {submitError && <p className="text-red-800 font-bold">Something went wrong.</p>}
         </form>
-      )}
+      )} */}
     </div>
   )
 }

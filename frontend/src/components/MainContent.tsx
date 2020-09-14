@@ -16,31 +16,33 @@ import ServerListView from './servers/ServerListView'
 
 const MainContent = () => {
   return (
-    <main className="block mx-auto w-full overflow-x-hidden mt-24 mb-20 px-4 lg:px-12 xl:pl-64 xl:pr-24" style={{ minHeight: '85vh' }}>
-      <Helmet defaultTitle="KZStats" titleTemplate="%s - KZStats" />
-      <Switch>
-        <Route exact path="/" component={HomeView} />
+    <main className="flex justify-center w-full overflow-x-hidden mt-24 mb-20 px-2 xl:pl-32" style={{ minHeight: '85vh' }}>
+      <div className="block px-2 w-full xl:w-4/5">
+        <Helmet defaultTitle="KZStats" titleTemplate="%s - KZStats" />
+        <Switch>
+          <Route exact path="/" component={HomeView} />
 
-        <Route exact path="/maps" component={MapListView} />
-        <Route path="/maps/:mapname/:selectedTab?" component={MapDetailView} />
+          <Route exact path="/maps" component={MapListView} />
+          <Route path="/maps/:mapname/:selectedTab?" component={MapDetailView} />
 
-        <Route exact path="/players" component={PlayerListView} />
-        <Route path="/players/:steamid64/:selectedTab?" component={PlayerDetailView} />
+          <Route exact path="/players" component={PlayerListView} />
+          <Route path="/players/:steamid64/:selectedTab?" component={PlayerDetailView} />
 
-        <Route path="/jumpstats/:jumpType?" component={JumpStatsView} />
-        <Route path="/bans/:steamid?" component={BanListView} />
+          <Route path="/jumpstats/:jumpType?" component={JumpStatsView} />
+          <Route path="/bans/:steamid?" component={BanListView} />
 
-        <Route exact path="/servers" component={ServerListView} />
-        <Route exact path="/servers/:id" component={ServerDetailView} />
+          <Route exact path="/servers" component={ServerListView} />
+          <Route exact path="/servers/:id" component={ServerDetailView} />
 
-        <Route path="/search/:searchStr" component={SearchView} />
+          <Route path="/search/:searchStr" component={SearchView} />
 
-        <Route exact path="/admin" component={AdminView} />
+          <Route exact path="/admin" component={AdminView} />
 
-        <Route>
-          <ErrorHandler type={404} />
-        </Route>
-      </Switch>
+          <Route>
+            <ErrorHandler type={404} />
+          </Route>
+        </Switch>
+      </div>
     </main>
   )
 }

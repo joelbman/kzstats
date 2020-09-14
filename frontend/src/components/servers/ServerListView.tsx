@@ -26,20 +26,13 @@ const ServerListView = () => {
 
   const { error, loader, data } = useApiRequest('/server/', null, true)
 
-  const filterServers = (
-    filter: string,
-    continent: string,
-    serverlist?: ServerObject[]
-  ) => {
+  const filterServers = (filter: string, continent: string, serverlist?: ServerObject[]) => {
     const server_arr = serverlist ? serverlist : data
 
     let arr = []
     if (filter.length > 2) {
       arr = server_arr.filter((s: ServerObject) => {
-        return (
-          s.map.toLowerCase().includes(filter) ||
-          s.name.toLowerCase().includes(filter)
-        )
+        return s.map.toLowerCase().includes(filter) || s.name.toLowerCase().includes(filter)
       })
     } else arr = server_arr
 
@@ -85,13 +78,7 @@ const ServerListView = () => {
       <div className="mb-4">
         <div className="mr-4 inline-block">
           Filter
-          <input
-            type="text"
-            className="ml-2"
-            placeholder="Server name, map name..."
-            maxLength={20}
-            onChange={handleInput}
-          />
+          <input type="text" className="ml-2" placeholder="Server name, map name..." maxLength={20} onChange={handleInput} />
         </div>
         <div className="inline-block mt-2 md:mt-0">
           Continent
@@ -111,9 +98,7 @@ const ServerListView = () => {
           {filtered.map((server: ServerObject, i: number) => (
             <tr key={i}>
               <td>
-                <Link to={`/servers/${server.ip}:${server.port}`}>
-                  {server.name}
-                </Link>
+                <Link to={`/servers/${server.ip}:${server.port}`}>{server.name}</Link>
                 <FlagIcon code={server.countrycode} />
               </td>
               <td>

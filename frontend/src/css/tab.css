@@ -1,5 +1,5 @@
 .tab-main {
-  @apply border border-gray-verydark mb-4 xl:w-4/5;
+  @apply border border-gray-verydark mb-4;
   box-shadow: 2px 2px 3px #000;
 }
 
@@ -8,11 +8,11 @@
 }
 
 .react-tabs__tab-list {
-  @apply bg-gray-900 h-12 list-none align-middle border-b-2 border-black table table-fixed w-full;
+  @apply bg-gray-900 h-12 list-none align-middle border-b-2 border-black table table-fixed w-full overflow-x-hidden;
 }
 
 .react-tabs__tab {
-  @apply table-cell h-full w-48 align-middle border-r-2 border-black;
+  @apply table-cell h-full w-12 align-middle border-r-2 sm:w-32 xl:w-48 border-black;
 }
 
 .react-tabs__tab > a {

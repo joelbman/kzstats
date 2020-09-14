@@ -54,7 +54,7 @@ const SearchView = (props: Props) => {
       </h1>
       <Helmet title="Search" />
       <div className="flex-grow mt-8">
-        {playerData.length + mapData.length > 0 ? (
+        {playerData.length + maps.length > 0 ? (
           <Tabs selectedTabClassName="tab-selected" className="tab-main">
             <TabList>
               {playerData.length > 0 && (
