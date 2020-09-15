@@ -34,12 +34,21 @@ h3 {
 }
 
 code {
-  @apply border block bg-gray-850 border-gray-900 p-2 font-normal italic my-2 overflow-x-auto;
+  @apply border inline-block bg-gray-850 border-gray-900 font-normal px-1 mx-1;
   font-family: 'Jaldi', serif;
 }
 
-.lightmode code {
-  @apply bg-gray-200 border-gray-light;
+pre code {
+  @apply block p-2 my-2 overflow-x-auto;
+}
+
+.texticon {
+  @apply inline w-6 h-6 fill-current mr-2;
+}
+
+.maplist-card {
+  @apply bg-gray-850 border border-gray-verydark flex flex-col w-64;
+  box-shadow: 5px 5px 5px #000;
 }
 
 a:focus {
@@ -48,6 +57,14 @@ a:focus {
 
 main {
   @apply text-gray-300;
+}
+
+.record-block {
+  @apply text-center sm:text-left mt-4 pt-4 border-t border-gray-950 first:border-t-0 first:mt-0 first:pt-0;
+}
+
+.news-post p {
+  @apply my-4 last:mb-0;
 }
 
 .apexcharts-menu-item {
@@ -74,25 +91,12 @@ footer {
   @apply bg-gray-medium text-gray-200;
 }
 
-.texticon {
-  @apply inline w-6 h-6 fill-current mr-2;
-}
-
-.maplist-card {
-  @apply bg-gray-850 border border-gray-verydark flex flex-col w-64;
-  box-shadow: 5px 5px 5px #000;
-}
-
 .lightmode .maplist-card {
   @apply bg-gray-200 text-gray-verydark !important;
 }
 
-.record-block {
-  @apply text-center sm:text-left mt-4 pt-4 border-t border-gray-950 first:border-t-0 first:mt-0 first:pt-0;
-}
-
-.news-post p {
-  @apply my-4 last:mb-0;
+.lightmode code {
+  @apply bg-gray-200 border-gray-light;
 }
 
 .lightmode .record-block {
@@ -113,9 +117,3 @@ footer {
 .lightmode main a {
   @apply text-orange-700 hover:text-orange-600;
 }
-/* 
-@screen xl {
-  main {
-    padding-left: 10rem !important;
-  }
-} */

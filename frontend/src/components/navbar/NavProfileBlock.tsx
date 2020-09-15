@@ -24,7 +24,7 @@ const NavProfileBlock = () => {
   }
 
   return (
-    <div className="order-7 items-center flex justify-center align-middle ml-4 md:pl-4 md:pt-0 md:border-l-2 border-gray-850 md:flex md:flex-shrink-0 ">
+    <div className="order-7 items-center flex justify-center ml-4 md:pl-4 md:pt-0 md:border-l-2 border-gray-850 md:flex">
       {user ? (
         <div>
           <div>

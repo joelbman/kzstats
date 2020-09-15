@@ -45,7 +45,7 @@ const NavModeSelect = () => {
   }, [modeState.kzMode, modeState.tickrate])
 
   return (
-    <div className="order-6 flex flex-wrap sm:flex-no-wrap">
+    <div className="order-6 flex items-center content-center justify-center flex-wrap sm:flex-no-wrap">
       <ReactTooltip />
       <div className="inline-block">
         <span className="mode-select-text">Mode:</span>

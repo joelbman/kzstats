@@ -27,7 +27,7 @@ function NavBar() {
           <ListIcon />
         </button>
       </div>
-      <div id="navmenu" className={!showMenu ? 'hidden md:flex' : 'block'}>
+      <div id="navmenu" className={!showMenu ? 'hidden md:flex' : 'flex'}>
         <div className="flex flex-col md:flex-row md:flex-grow md:pl-2">
           <NavLink to="/" onClick={closeMenu} className="nav-latest">
             <HomeIcon />
@@ -55,11 +55,7 @@ function NavBar() {
           </NavLink>
         </div>
       </div>
-      <div
-        className={`${
-          !showMenu ? 'hidden' : 'flex'
-        } md:flex align-middle md:w-auto w-full justify-center content-center items-center order-4 mt-2 pt-2 md:p-0 md:m-0`}
-      >
+      <div className={`${!showMenu ? 'hidden' : 'flex'} w-full md:w-auto md:flex items-center order-5 mt-2 pt-2 md:p-0 md:m-0`}>
         <NavModeSelect />
         <NavProfileBlock />
       </div>

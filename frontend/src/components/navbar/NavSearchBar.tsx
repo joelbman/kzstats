@@ -9,10 +9,7 @@ const NavSearchBar = () => {
   }
 
   return (
-    <div
-      className="order-0 md:order-4 flex-grow md:flex-shrink-1 border-gray-850 md:border-l-2 md:border-r-2 md:ml-4 md:pl-4 md:mr-4 md:pr-4"
-      style={{ maxWidth: '30rem' }}
-    >
+    <div className="order-0 md:order-3 flex flex-grow border-gray-850 md:border-l-2 md:border-r-2 md:mx-4 md:px-4" style={{ maxWidth: '20rem', minWidth: 0 }}>
       <SearchInput placeholder="Map/player name, SteamID..." submit={submitSearch} height="31px" />
     </div>
   )

@@ -16,8 +16,8 @@ import ServerListView from './servers/ServerListView'
 
 const MainContent = () => {
   return (
-    <main className="flex justify-center w-full overflow-x-hidden mt-24 mb-20 px-2 xl:pl-32" style={{ minHeight: '85vh' }}>
-      <div className="block px-2 w-full xl:w-4/5">
+    <main className="flex justify-center w-full overflow-x-hidden mt-24 mb-20 px-2" style={{ minHeight: '85vh' }}>
+      <section id="main-content" className="block px-2 w-full mx-auto" style={{ maxWidth: '70rem' }}>
         <Helmet defaultTitle="KZStats" titleTemplate="%s - KZStats" />
         <Switch>
           <Route exact path="/" component={HomeView} />
@@ -42,7 +42,7 @@ const MainContent = () => {
             <ErrorHandler type={404} />
           </Route>
         </Switch>
-      </div>
+      </section>
     </main>
   )
 }

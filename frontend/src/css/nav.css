@@ -19,14 +19,14 @@
   @apply bg-gray-verydark text-white;
 }
 
-#navmenu a {
-  @apply block mt-4 mr-2 text-gray-200 sm:block md:inline-block md:mt-0;
-  @apply hover:text-white hover:font-bold;
-}
-
 #navmenu {
   @apply w-full order-3 mt-4 pb-4 border-gray-850 border-t-2 border-b-2;
   @apply md:order-2 md:mt-0 md:flex md:pb-0 md:items-center md:w-auto md:border-0;
+}
+
+#navmenu a {
+  @apply block mt-4 mr-2 text-gray-200 sm:block md:inline-block md:mt-0 last:mr-0;
+  @apply hover:text-white hover:font-bold;
 }
 
 nav input {
@@ -50,7 +50,7 @@ nav select {
   @apply bg-gray-verydark text-gray-200;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1270px) {
+@media screen and (min-width: 768px) and (max-width: 1288px) {
   .nav-logo {
     display: hidden;
   }
@@ -64,9 +64,9 @@ nav select {
   }
 }
 
-@media screen and (min-width: 1271px) {
+@media screen and (min-width: 1289px) {
   #navmenu a {
-    @apply mr-2 text-base;
+    @apply mr-4 text-base;
   }
   .nav-latest {
     @apply hidden !important;

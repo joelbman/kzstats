@@ -24,16 +24,16 @@ const SearchInput = (props: Props) => {
   }
 
   return (
-    <form className="flex items-center">
+    <form className="flex w-full items-center" style={{ minWidth: '2rem' }}>
       {props.label}
       <input
         placeholder={props.placeholder}
         className="flex-grow border border-black py-1"
-        style={{ height: props.height }}
+        style={{ height: props.height, minWidth: '2rem' }}
         onKeyDown={onKeyDown}
         onChange={handleInput}
         minLength={2}
-        maxLength={40}
+        maxLength={25}
         type="text"
       />
       <button
