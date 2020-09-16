@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Discord from 'discord.js'
+import logger from 'util/Logger'
 import { DISCORD_KEY } from '../util/Config'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -33,6 +34,11 @@ const getNewsList = (client: Discord.Client): void => {
 }
 
 const DiscordBotTask = (): void => {
+  if (!DISCORD_KEY) {
+    logger.error('DISCORD API KEY NOT SET')
+    return
+  }
+
   const client = new Discord.Client()
 
   client.on('ready', () => {
