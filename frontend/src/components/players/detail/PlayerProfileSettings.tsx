@@ -27,10 +27,9 @@ const PlayerProfileSettings = (props: Props) => {
   const handleSubmit = () => {
     if (done) return
     const newInfo = { alias: alias, countrycode: countryCode, country: countries[countryCode] }
-    Axios.patch('/api/player/profile/', newInfo)
+    Axios.post('/api/player/profile/', newInfo)
       .then(() => {
         userCtx?.dispatch(Object.assign(user, newInfo))
-        console.log(Object.assign(user, newInfo))
         setDone(true)
       })
       .catch((e) => {

@@ -33,7 +33,7 @@ router.get('/search/:name', (req, res) => {
     })
 })
 
-router.patch('/profile', checkAuth, (req, res) => {
+router.post('/profile', checkAuth, (req, res) => {
   PlayerService.editProfile(req.user as PassportSteamProfile, req.body)
     .then((data) => {
       res.json(data)
