@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('country', 50).nullable()
     table.string('countrycode', 5).nullable()
     table.string('alias', 50).nullable()
+    table.string('updated_on', 40).nullable()
   })
 }
 

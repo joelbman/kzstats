@@ -1,4 +1,6 @@
 import express from 'express'
+import { checkAuth } from 'middleware/AuthMiddleware'
+import { PassportSteamProfile } from 'types'
 import PlayerService from '../services/PlayerService'
 import logger from '../util/Logger'
 
@@ -28,6 +30,17 @@ router.get('/search/:name', (req, res) => {
     .catch((e) => {
       logger.error(e.message)
       res.sendStatus(400)
+    })
+})
+
+router.patch('/profile', checkAuth, (req, res) => {
+  PlayerService.editProfile(req.user as PassportSteamProfile, req.body)
+    .then((data) => {
+      res.json(data)
+    })
+    .catch((e: Error) => {
+      logger.error(e.message)
+      res.status(400).json({ error: e.message })
     })
 })
 

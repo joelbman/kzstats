@@ -26,6 +26,7 @@ export interface UserObject {
   alias?: string
   country?: string
   countrycode?: string
+  updated_on?: string
   steamid64: string
 }
 
@@ -37,7 +38,7 @@ export interface QueryState {
 }
 
 export interface KZMap {
-  id: 0,
+  id: 0
   name: string
   validated: boolean
   difficulty: number

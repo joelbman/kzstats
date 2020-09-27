@@ -3,7 +3,7 @@ import { ChartIcon, FlagIcon, JumpIcon, SettingsIcon, TrophyIcon } from 'compone
 import { ModeContext } from 'context/ModeContext'
 import { UserContext } from 'context/UserContext'
 import useApiRequest from 'hooks/useApiRequest'
-import React, { Suspense, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { Suspense, useContext, useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
@@ -45,14 +45,14 @@ const PlayerDetailView = (props: Props) => {
 
   const userCtx = useContext(UserContext)
   const { state: modeState } = useContext(ModeContext)
-  const user = userCtx?.user
   const { error, loader, data: profileData } = useApiRequest(`/player/${steamid64}/steam`, null, true)
   const [steamProfile, setSteamProfile] = useState<SteamProfile | null>(null)
   const [activeTab, setActiveTab] = useState(0)
   const [points, setPoints] = useState(0)
   const [combinedRecords, setCombinedRecords] = useState([])
+  const user = userCtx?.user
 
-  const apiOptions = useRef({
+  const [apiOptions, setApiOptions] = useState({
     steamid64: steamid64,
     has_teleports: true,
     modes_list_string: modeState.kzMode,
@@ -60,10 +60,10 @@ const PlayerDetailView = (props: Props) => {
     limit: 2000,
     stage: 0,
   })
-  const { error: recordErr, loader: recordLoader, data: recordData } = useApiRequest('records/top/', apiOptions.current)
+  const { error: recordErr, loader: recordLoader, data: recordData } = useApiRequest('records/top/', apiOptions)
 
-  const tpApiOpts = useRef({ ...apiOptions.current, has_teleports: false })
-  const { error: tperr, loader: tpLoader, data: tpData } = useApiRequest('records/top/', tpApiOpts.current)
+  const [tpApiOpts, setTpApiOpts] = useState({ ...apiOptions, has_teleports: false })
+  const { error: tperr, loader: tpLoader, data: tpData } = useApiRequest('records/top/', tpApiOpts)
 
   useMemo(() => {
     let pts = 0
@@ -82,18 +82,18 @@ const PlayerDetailView = (props: Props) => {
   }, [profileData])
 
   useMemo(() => {
-    apiOptions.current = {
-      ...apiOptions.current,
+    setApiOptions({
+      ...apiOptions,
       steamid64: steamid64,
       modes_list_string: modeState.kzMode,
       tickrate: modeState.tickrate,
-    }
-    tpApiOpts.current = {
-      ...tpApiOpts.current,
+    })
+    setTpApiOpts({
+      ...tpApiOpts,
       steamid64: steamid64,
       modes_list_string: modeState.kzMode,
       tickrate: modeState.tickrate,
-    }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modeState.kzMode, modeState.tickrate, steamid64])
 

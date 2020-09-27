@@ -66,5 +66,6 @@ export interface User {
   alias: string
   country?: string
   countrycode?: string
+  updated_on?: string
   admin?: boolean
 }

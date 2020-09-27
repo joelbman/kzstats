@@ -1,10 +1,7 @@
 import express from 'express'
 import { checkAdmin, checkAuth } from 'middleware/AuthMiddleware'
 import passport from 'passport'
-import AuthService from 'services/AuthService'
-import { PassportSteamProfile } from 'types'
 import { BASEURL } from 'util/Config'
-import logger from 'util/Logger'
 
 const router = express.Router()
 
@@ -18,17 +15,6 @@ router.get('/profile', checkAuth, (req, res) => {
 
 router.get('/profile/admin', checkAdmin, (req, res) => {
   res.json(req.user)
-})
-
-router.patch('/profile', checkAuth, (req, res) => {
-  AuthService.editProfile(req.user as PassportSteamProfile, req.body)
-    .then((data) => {
-      res.json(data)
-    })
-    .catch((e: Error) => {
-      logger.error(e.message)
-      res.sendStatus(400)
-    })
 })
 
 router.get('/logout', checkAuth, (req, res) => {

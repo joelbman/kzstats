@@ -76,6 +76,7 @@ const App = () => {
       country: data.userObj.country,
       countrycode: data.userObj.countrycode,
       admin: data.userObj.admin,
+      updated_on: data.userObj.updated_on,
     })
   }, [data, error])
 

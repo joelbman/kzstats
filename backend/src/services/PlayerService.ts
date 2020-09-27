@@ -1,17 +1,17 @@
 import axios from 'axios'
 import Integer from 'integer'
 import { db } from '../db/db'
-import { UserObject } from '../types'
+import { PassportSteamProfile, UserObject } from '../types'
 import { STEAM_API_KEY } from '../util/Config'
 
 // Convert 64-bit to 32-bit ID or vice versa
 const convertSteamId = (steamid: string): string => {
   const STEAM_BASELINE = Integer('76561197960265728')
-  
+
   //32->64
   if (steamid.includes(':')) {
     const split = steamid.split(':')
-    const product = Integer(split[2].replace(/\D/g,'')).multiply(2)
+    const product = Integer(split[2].replace(/\D/g, '')).multiply(2)
     const sum = Integer(product).add(STEAM_BASELINE)
     return Integer(sum).add(split[1]).toString()
   }
@@ -31,8 +31,9 @@ const PlayerService = {
     const user = users[0]
 
     if (users.length > 0) {
-      if (!users[0].alias || users[0].alias.includes('????')) { await db('kzstats_user').where('steamid64', '=', steamid64).update({ alias: profile.personaname }) }
-      else profile.personaname = user.alias
+      if (!users[0].alias || users[0].alias.includes('????')) {
+        await db('kzstats_user').where('steamid64', '=', steamid64).update({ alias: profile.personaname })
+      } else profile.personaname = user.alias
       profile.loccountrycode = user.countrycode
       profile.country = user.country
     } else if (profile.loccountrycode) {
@@ -67,15 +68,34 @@ const PlayerService = {
     return players
   },
 
+  editProfile: async (profile: PassportSteamProfile, body: UserObject): Promise<number> => {
+    const dateLimit = new Date()
+    dateLimit.setDate(dateLimit.getDate() - 7)
+
+    if (profile.userObj.updated_on > dateLimit.toISOString()) throw Error('INSUFFICIENT_WAIT_TIME')
+
+    const newInfo = {
+      alias: body.alias,
+      countrycode: body.countrycode,
+      country: body.country,
+      updated_on: new Date().toISOString(),
+    }
+
+    const data = await db('kzstats_user').where('steamid64', '=', profile.id).update(newInfo)
+    profile.userObj = Object.assign(profile.userObj, newInfo)
+
+    return data
+  },
+
   searchByName: async (name: string): Promise<UserObject[]> => {
     const data = await db('kzstats_user').where('alias', 'like', `%${name}%`).orderBy('alias')
     return data
   },
 
   getSteamid64: async (steamid: string): Promise<string> => {
-    const id = `${steamid.substr(0,1)}:${steamid.substr(1,1)}:${steamid.substr(2)}`
+    const id = `${steamid.substr(0, 1)}:${steamid.substr(1, 1)}:${steamid.substr(2)}`
     return convertSteamId(id)
-  }
+  },
 }
 
 export { convertSteamId }
