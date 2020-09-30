@@ -31,24 +31,40 @@ const MapRecords = (props: Props) => {
     stage: 0,
   })
 
-  const { error, loader, data } = useApiRequest('records/top/', apiOpt, false, true)
+  const { error, loader, data: proData } = useApiRequest('records/top/', apiOpt, false, true)
 
   const { loader: tpLoader, data: tpData } = useApiRequest('records/top/', apiOptTp, false, true)
 
   useEffect(() => {
-    if (tpData && data) {
-      setRecords(data.concat(tpData))
-      const proWR = data.find((r: KZRecord) => {
-        return r.points === 1000
+    if (tpData && proData) {
+      let proWr, tpWr
+      const tpRecords: KZRecord[] = []
+      const proRecords: KZRecord[] = []
+
+      proData.sort((a: KZRecord, b: KZRecord) => {
+        return a.time < b.time
       })
-      const tpWR = tpData.find((r: KZRecord) => {
-        return r.points === 1000
+      tpData.sort((a: KZRecord, b: KZRecord) => {
+        return a.time < b.time
       })
 
-      return props.setWrCallBack(proWR, tpWR)
+      for (let i = 0; i < 100; i++) {
+        if (tpData[i]) {
+          tpRecords.push({ ...tpData[i], rank: '#' + (i + 1).toString() })
+          if (tpData[i].points === 1000) tpWr = tpData[i]
+        }
+        if (proData[i]) {
+          proRecords.push({ ...proData[i], rank: '#' + (i + 1).toString() })
+          if (proData[i].points === 1000) proWr = proData[i]
+        }
+      }
+
+      setRecords(proRecords.concat(tpRecords))
+
+      return props.setWrCallBack(proWr, tpWr)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, tpData])
+  }, [proData, tpData])
 
   useMemo(() => {
     setApiOpt({
@@ -65,11 +81,12 @@ const MapRecords = (props: Props) => {
   }, [props.modeState.kzMode, props.modeState.tickrate])
 
   const columns = [
+    { key: 'rank' },
     { key: 'player_name', header: 'Player', type: 'player' },
     { key: 'time', type: 'runtime' },
     { key: 'points', type: 'points' },
     { key: 'teleports', header: 'TPs' },
-    { key: 'updated_on', type: 'datetime', header: 'Date' },
+    { key: 'created_on', type: 'datetime', header: 'Date' },
     { key: 'server_name', type: 'server', header: 'Server' },
   ]
 

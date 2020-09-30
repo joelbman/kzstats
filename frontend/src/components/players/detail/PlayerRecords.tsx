@@ -13,9 +13,7 @@ const PlayerRecords = (props: Props) => {
   const data = props.data
   const [nameFilter, setNameFilter] = useState('')
   const [pointsFilter, setPointsFilter] = useState('')
-  const [runtypeFilter, setRuntypeFilter] = useState(
-    localStorage.getItem('kzRuntype') || 'pro'
-  )
+  const [runtypeFilter, setRuntypeFilter] = useState(localStorage.getItem('kzRuntype') || 'pro')
   const timer = useRef(0)
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,16 +36,10 @@ const PlayerRecords = (props: Props) => {
           <div className="mt-2 w-full flex flex-wrap">
             <div className="inline-block mr-4 mb-4 order-1">
               Mapname
-              <input
-                type="text"
-                onChange={handleInput}
-                maxLength={20}
-                className="w-40"
-              />
+              <input type="text" onChange={handleInput} maxLength={20} className="w-40" />
             </div>
             <div className="inline-block mr-4 mb-4 order-4 sm:order-2">
-              Runtype{' '}
-              <RuntypeSelect callback={(val) => setRuntypeFilter(val)} />
+              Runtype <RuntypeSelect callback={(val) => setRuntypeFilter(val)} />
             </div>
             <div className="inline-block mb-4 mr-4 order-3">
               Points{' '}
@@ -74,7 +66,7 @@ const PlayerRecords = (props: Props) => {
               { key: 'time', type: 'runtime' },
               { key: 'points', type: 'points' },
               { key: 'teleports', header: 'TPs' },
-              { key: 'updated_on', type: 'datetime', header: 'Date' },
+              { key: 'created_on', type: 'datetime', header: 'Date' },
               { key: 'server_name', type: 'server', header: 'Server' },
             ]}
             sort={{ key: 'updated_on', desc: true }}
