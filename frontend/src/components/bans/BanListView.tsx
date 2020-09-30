@@ -41,7 +41,7 @@ const BanListView = (props: Props) => {
             columns={[
               { key: 'player_name', header: 'Player', type: 'player' },
               { key: 'steam_id', header: 'Steam ID' },
-              { key: 'notes', header: 'Reason' },
+              { key: 'ban_type', header: 'Reason', type: 'ban_type' },
               { key: 'updated_on', header: 'Date', type: 'datetime' },
               { key: 'expires_on', header: 'Expires', type: 'datetime' },
             ]}

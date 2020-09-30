@@ -150,6 +150,10 @@ const Table = (props: Props) => {
         if (!serverName) serverName = '<unknown>'
         return <Link to={`/servers/${obj.server_id}`}>{serverName}</Link>
 
+      case 'ban_type': {
+        return <span className="capitalize">{obj[column.key].replace('_', ' ')}</span>
+      }
+
       default:
         return obj[column.key]
     }
