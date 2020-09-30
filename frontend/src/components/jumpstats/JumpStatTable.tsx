@@ -40,11 +40,7 @@ const JumpStatTable = (props: Props) => {
       limit: 30,
       steam_id: props.steamid,
     }
-    columns = [
-      { key: 'distance' },
-      { key: 'strafe_count', header: 'Strafes' },
-      { key: 'updated_on', type: 'datetime', header: 'Date' },
-    ]
+    columns = [{ key: 'distance' }, { key: 'strafe_count', header: 'Strafes' }, { key: 'updated_on', type: 'datetime', header: 'Date' }]
     details = false
   } else {
     url = `/jumpstats/${props.jumpType}/top`
@@ -62,14 +58,15 @@ const JumpStatTable = (props: Props) => {
     details = true
   }
 
+  if (!props.crouchBind) apiOpt = { ...apiOpt, is_crouch_boost: false }
+
   const [apiOptions, setApiOptions] = useState<any>(apiOpt)
   const { error, loader, data } = useApiRequest(url, apiOptions, false, details)
 
   useMemo(() => {
     const bind = props.jumpType !== 'ladderjump' ? props.crouchBind : false
     let apiOpt = { ...apiOptions, is_crouch_bind: bind }
-    if (props.steamid)
-      apiOpt = { ...apiOpt, jumptype_list: stringToId(props.jumpType) }
+    if (props.steamid) apiOpt = { ...apiOpt, jumptype_list: stringToId(props.jumpType) }
     setApiOptions(apiOpt)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.crouchBind, props.jumpType])
@@ -78,13 +75,6 @@ const JumpStatTable = (props: Props) => {
   if (error) return error
   if (data.length === 0) return <p className="mt-4">No data available.</p>
 
-  return (
-    <Table
-      data={data}
-      columns={columns}
-      sort={{ key: 'distance', desc: true }}
-      className="mt-4"
-    />
-  )
+  return <Table data={data} columns={columns} sort={{ key: 'distance', desc: true }} className="mt-4" />
 }
 export default JumpStatTable
