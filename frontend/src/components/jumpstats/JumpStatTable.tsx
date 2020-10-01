@@ -37,6 +37,7 @@ const JumpStatTable = (props: Props) => {
     apiOpt = {
       jumptype_list: stringToId(props.jumpType),
       is_crouch_bind: props.crouchBind,
+      is_crouch_boost: !props.crouchBind ? false : null,
       limit: 30,
       steam_id: props.steamid,
     }
@@ -46,6 +47,7 @@ const JumpStatTable = (props: Props) => {
     url = `/jumpstats/${props.jumpType}/top`
     apiOpt = {
       is_crouch_bind: props.crouchBind,
+      is_crouch_boost: !props.crouchBind ? false : null,
       limit: 20,
       greater_than_distance: 200,
     }
@@ -58,14 +60,12 @@ const JumpStatTable = (props: Props) => {
     details = true
   }
 
-  if (!props.crouchBind) apiOpt = { ...apiOpt, is_crouch_boost: false }
-
   const [apiOptions, setApiOptions] = useState<any>(apiOpt)
   const { error, loader, data } = useApiRequest(url, apiOptions, false, details)
 
   useMemo(() => {
     const bind = props.jumpType !== 'ladderjump' ? props.crouchBind : false
-    let apiOpt = { ...apiOptions, is_crouch_bind: bind }
+    let apiOpt = { ...apiOptions, is_crouch_bind: bind, is_crouch_boost: bind ? null : false }
     if (props.steamid) apiOpt = { ...apiOpt, jumptype_list: stringToId(props.jumpType) }
     setApiOptions(apiOpt)
     // eslint-disable-next-line react-hooks/exhaustive-deps

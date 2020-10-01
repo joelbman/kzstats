@@ -1,6 +1,12 @@
 @font-face {
   font-family: Jaldi;
-  src: local('Jaldi'), url(css/fonts/Jaldi/Jaldi-Regular.ttf);
+  src: url(css/fonts/Jaldi/Jaldi-Regular.ttf);
+}
+
+@font-face {
+  font-family: Jaldi;
+  src: url(css/fonts/Jaldi/Jaldi-Bold.ttf);
+  font-weight: 700;
 }
 
 body {

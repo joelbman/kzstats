@@ -15,9 +15,7 @@ interface ApiOpt {
 }
 
 const LatestRecords = () => {
-  const [wrOnly, setWrOnly] = useState(
-    localStorage.getItem('frontPage_wrOnly') === 'top20' ? false : true
-  )
+  const [wrOnly, setWrOnly] = useState(localStorage.getItem('frontPage_wrOnly') === 'top20' ? false : true)
   const { state: modeState } = useContext(ModeContext)
   const [apiOptions, setApiOptions] = useState<ApiOpt>({
     limit: 300,
@@ -27,17 +25,10 @@ const LatestRecords = () => {
     modes_list_string: modeState.kzMode,
     stage: 0,
   })
-  const { error, loader, data } = useApiRequest(
-    '/records/top/recent',
-    apiOptions,
-    false,
-    true
-  )
+  const { error, loader, data } = useApiRequest('/records/top/recent', apiOptions, false, true)
 
   const [items, setItems] = useState([])
-  const [runType, setRunType] = useState(
-    localStorage.getItem('kzRuntype') || 'pro'
-  )
+  const [runType, setRunType] = useState(localStorage.getItem('kzRuntype') || 'pro')
 
   useMemo(() => {
     let apiOpt = {
@@ -61,13 +52,7 @@ const LatestRecords = () => {
     const filterRecords = () => {
       const filtered = data
         .slice()
-        .filter(
-          (r: KZRecord, i: number, a: []) =>
-            a.findIndex(
-              (re: KZRecord) =>
-                re.map_id === r.map_id && re.player_name === r.player_name
-            ) === i
-        )
+        .filter((r: KZRecord, i: number, a: []) => a.findIndex((re: KZRecord) => re.map_id === r.map_id && re.player_name === r.player_name) === i)
         .reverse()
 
       return filtered
@@ -76,9 +61,7 @@ const LatestRecords = () => {
           else return true
         })
         .sort((a: KZRecord, b: KZRecord) => {
-          return (
-            new Date(a.updated_on).getTime() - new Date(b.updated_on).getTime()
-          )
+          return new Date(a.updated_on).getTime() - new Date(b.updated_on).getTime()
         })
         .reverse()
         .slice(0, 50)
@@ -99,15 +82,11 @@ const LatestRecords = () => {
 
   const panelHeader = () => {
     return (
-      <>
+      <div className="flex items-center justify-between">
         <span className="text-sm sm:text-xl m-0 p-0">Records</span>
-        <div className="float-right text-base ">
+        <div className="text-base">
           <span className="hidden sm:inline">Type:</span>
-          <select
-            value={runType}
-            onChange={changeRunType}
-            className="mr-1 sm:mr-4"
-          >
+          <select value={runType} onChange={changeRunType} className="mr-1 sm:mr-4">
             <option value="pro">PRO</option>
             <option value="tp">TP</option>
             <option value="all">Overall</option>
@@ -118,7 +97,7 @@ const LatestRecords = () => {
             <option value="top20">Top 20</option>
           </select>
         </div>
-      </>
+      </div>
     )
   }
 
@@ -126,15 +105,7 @@ const LatestRecords = () => {
 
   return (
     <Panel header={panelHeader()}>
-      {loader ? (
-        <>{loader}</>
-      ) : items.length > 0 ? (
-        items.map((record: KZRecord) => (
-          <RecordBlock record={record} key={record.id} />
-        ))
-      ) : (
-        <p>No records found.</p>
-      )}
+      {loader ? <>{loader}</> : items.length > 0 ? items.map((record: KZRecord) => <RecordBlock record={record} key={record.id} />) : <p>No records found.</p>}
     </Panel>
   )
 }

@@ -42,10 +42,10 @@ const MapRecords = (props: Props) => {
       const proRecords: KZRecord[] = []
 
       proData.sort((a: KZRecord, b: KZRecord) => {
-        return a.time < b.time
+        return a.time < b.time ? -1 : 1
       })
       tpData.sort((a: KZRecord, b: KZRecord) => {
-        return a.time < b.time
+        return a.time < b.time ? -1 : 1
       })
 
       for (let i = 0; i < 100; i++) {

@@ -3,6 +3,17 @@ main select {
   @apply bg-gray-900 text-gray-300 px-1 border border-gray-950 ml-2;
 }
 
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: url('/img/downarrow.png') no-repeat right;
+  text-indent: 0.01px;
+  text-overflow: '';
+  background-position: top 50% right 3px;
+  @apply pr-5 !important;
+}
+
 main input {
   padding: 2px 4px 2px 4px;
 }
