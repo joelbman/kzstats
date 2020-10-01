@@ -75,6 +75,7 @@ const Table = (props: Props) => {
     }
 
     arr = arr.sort((a: any, b: any) => {
+      if (sortKey === 'rank') return parseInt(a[sortKey].replace('#', '')) - parseInt(b[sortKey].replace('#', ''))
       if (typeof a[sortKey] === 'string') return a[sortKey].localeCompare(b[sortKey])
       return a[sortKey] - b[sortKey]
     })
