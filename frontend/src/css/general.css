@@ -54,7 +54,7 @@ pre code {
 
 .maplist-card {
   @apply bg-gray-850 border border-gray-verydark flex flex-col w-64;
-  box-shadow: 5px 5px 5px #000;
+  box-shadow: 3px 3px 3px #000;
 }
 
 a:focus {

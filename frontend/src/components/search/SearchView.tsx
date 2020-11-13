@@ -23,7 +23,6 @@ const SearchView = (props: Props) => {
   useEffect(() => {
     if (searchStr.substr(0, 6) === 'STEAM_') {
       Axios.get(`https://kztimerglobal.com/api/v2.0/players?steam_id=${searchStr}`).then((res) => {
-        console.log(res)
         if (res.data.length > 0) {
           history.push(`/players/${res.data[0].steamid64}`)
         }
@@ -35,7 +34,7 @@ const SearchView = (props: Props) => {
   useMemo(() => {
     setMaps(
       mapData.filter((m: KZMap) => {
-        return m.name.includes(searchStr)
+        return m.name.toLowerCase().includes(searchStr.toLowerCase())
       })
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps

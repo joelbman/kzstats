@@ -34,15 +34,12 @@ const MapListView = () => {
     let temp = data
     if (nameFilter.length > 0) {
       temp = temp.filter((m: KZMap) => {
-        return m.name.includes(nameFilter || '')
+        return m.name.toLowerCase().includes(nameFilter.toLowerCase() || '')
       })
     }
     if (difficultyFilter !== '0') {
       temp = temp.filter((m: KZMap) => {
-        return (
-          difficultyFilter === '0' ||
-          m.difficulty === parseInt(difficultyFilter)
-        )
+        return difficultyFilter === '0' || m.difficulty === parseInt(difficultyFilter)
       })
     }
     setFiltered(temp)
@@ -68,11 +65,7 @@ const MapListView = () => {
         </div>
         <div className="mr-4">
           Difficulty:
-          <select
-            onChange={handleSelect}
-            value={difficultyFilter}
-            className="ml-2"
-          >
+          <select onChange={handleSelect} value={difficultyFilter} className="ml-2">
             <option value="0">Any</option>
             <option value="1">Very easy</option>
             <option value="2">Easy</option>
@@ -95,11 +88,7 @@ const MapListView = () => {
           />
         </div>
       </div>
-      {isFancy ? (
-        <MapListGrid maps={filtered || data} />
-      ) : (
-        <MapListTable maps={filtered || data} />
-      )}
+      {isFancy ? <MapListGrid maps={filtered || data} /> : <MapListTable maps={filtered || data} />}
     </div>
   )
 }
