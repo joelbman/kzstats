@@ -6,20 +6,16 @@ const textLimiter = (content: string, limit?: number) => {
 
 const runtimeFormat = (time: number) => {
   if (!time) return
-  let timeStr = new Date(time * 1000)
-    .toISOString()
-    .split('T')[1]
-    .replace('Z', '')
+  let timeStr = new Date(time * 1000).toISOString().split('T')[1].replace('Z', '')
   if (timeStr.substr(0, 2) === '00') timeStr = timeStr.slice(3)
 
   return timeStr
 }
 
 const timeAgoFormat = (datetime: string) => {
-  const dt =
-    Date.parse(datetime) - new Date(datetime).getTimezoneOffset() * 60000
+  const dt = Date.parse(datetime) - new Date(datetime).getTimezoneOffset() * 60000
   let result = (Date.now() - dt) / 1000
-  let unit = 'seconds'
+  let unit = 'second'
 
   if (result > 59) {
     result = result / 60
@@ -63,12 +59,7 @@ const difficultyToText = (difficulty: number): string => {
   }
 }
 
-const sortByColumn = (
-  data: [],
-  column: string,
-  type: string,
-  reverse?: boolean
-): [] => {
+const sortByColumn = (data: [], column: string, type: string, reverse?: boolean): [] => {
   const sorted = data.sort((a, b) => {
     return a[column] - b[column]
   })
@@ -76,10 +67,4 @@ const sortByColumn = (
   return sorted
 }
 
-export {
-  textLimiter,
-  runtimeFormat,
-  timeAgoFormat,
-  difficultyToText,
-  sortByColumn,
-}
+export { textLimiter, runtimeFormat, timeAgoFormat, difficultyToText, sortByColumn }
