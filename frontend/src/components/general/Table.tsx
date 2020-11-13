@@ -1,6 +1,7 @@
 import { BronzeIcon, FlagIcon, SilverIcon, TrophyIcon } from 'components/icons'
 import { runtimeFormat } from 'components/util/filters'
-import React, { useEffect, useMemo, useState } from 'react'
+import { UserContext } from 'context/UserContext'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { Link } from 'react-router-dom'
 
@@ -21,6 +22,14 @@ interface Props {
   itemsPerPage?: number
 }
 
+interface SortArrowProps {
+  desc: boolean
+}
+
+const SortArrow = (props: SortArrowProps) => {
+  return <> {props.desc ? String.fromCharCode(9660) : String.fromCharCode(9650)}</>
+}
+
 const Table = (props: Props) => {
   const [sortKey, setSortKey] = useState(props.sort.key)
   const [sortDesc, setSortDesc] = useState(props.sort.desc)
@@ -29,6 +38,7 @@ const Table = (props: Props) => {
   const [currentData, setCurrentData] = useState<any>([])
   const [pageCount, setPageCount] = useState(0)
   const [offset, setOffset] = useState(0)
+  const userCtx = useContext(UserContext)
 
   const sortByColumn = (e: React.MouseEvent) => {
     const targetKey = (e.target as HTMLTableHeaderCellElement).dataset.key
@@ -105,10 +115,6 @@ const Table = (props: Props) => {
     setOffset(off)
   }
 
-  const renderSortArrow = () => {
-    return <> {sortDesc ? String.fromCharCode(9660) : String.fromCharCode(9650)}</>
-  }
-
   const renderCellContent = (obj: any, column: TableColumn) => {
     switch (column.type) {
       case 'datetime':
@@ -118,13 +124,15 @@ const Table = (props: Props) => {
       case 'player':
         let playerName = obj[column.key]
         if (!playerName || playerName.length === 0) playerName = '<unknown>'
+        const logged = userCtx?.user?.steamid64 === obj.steamid64
+
         if (obj.countrycode)
           return (
             <Link to={`/players/${obj.steamid64}`}>
-              {playerName} <FlagIcon code={obj.countrycode} />
+              {logged ? <b>{playerName}</b> : playerName} <FlagIcon code={obj.countrycode} />
             </Link>
           )
-        return <Link to={`/players/${obj.steamid64}`}>{playerName}</Link>
+        return <Link to={`/players/${obj.steamid64}`}>{logged ? <b>{playerName}</b> : playerName}</Link>
 
       case 'map':
         let mapName = obj[column.key]
@@ -170,7 +178,7 @@ const Table = (props: Props) => {
                 <th key={i} data-key={c.key} onClick={sortByColumn}>
                   {c.header ? c.header : c.key.charAt(0).toUpperCase() + c.key.slice(1)}
 
-                  {sortKey === c.key && renderSortArrow()}
+                  {sortKey === c.key && <SortArrow desc={sortDesc} />}
                 </th>
               ))}
             </tr>
