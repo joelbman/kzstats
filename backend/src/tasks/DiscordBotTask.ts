@@ -15,61 +15,67 @@ interface NewsItem {
 
 let newsList: NewsItem[] = []
 
-// bots test 752625802377560136
-// official 329472618220486657
+const resolveUserMentions = async (message: string, client: Discord.Client): Promise<string> => {
+  const matches = message.match(/<([^\d]*(\d+)[^\d]*)>/gm)
+
+  if (!matches || matches.length < 1) return message
+
+  const names = Promise.all(
+    matches.map(async (match) => {
+      const id = match.replace(/\D/g, '')
+
+      try {
+        const user = await client.users.fetch(id)
+        return { id: match, name: user.username }
+      } catch (e) {
+        logger.error(e.message)
+        return null
+      }
+    })
+  )
+
+  let msg = message
+  const userObjects = await names
+
+  userObjects.forEach((user) => {
+    msg = msg.replace(user.id, `\`${user.name}\``)
+  })
+
+  return msg
+}
 
 const getNewsList = (client: Discord.Client): void => {
-  const getList = () => {
-    client.channels.fetch('329472618220486657').then((c: any) => {
-      c.messages.fetch({ limit: 10 }).then((messages) => {
-        newsList = []
+  const getList = async () => {
+    const channel: any = await client.channels.fetch('329472618220486657')
 
-        Promise.all(
-          messages.map((m: Discord.Message) => {
-            if (m.embeds.length === 0 || m.embeds[0].description.includes('[](__kzstats_ignore__)')) return
+    const messages = await channel.messages.fetch({ limit: 10 })
 
-            let message = m.embeds[0].description
-            const match = message.search('<@')
+    newsList = await Promise.all(
+      messages.map(async (m: Discord.Message) => {
+        if (m.embeds.length === 0 || m.embeds[0].description.includes('[](__kzstats_ignore__)')) return
 
-            if (match > 0) {
-              const sliced = message.slice(match)
-              let id = '',
-                mentionTag = ''
-              for (let i = 0; i < 50; i++) {
-                mentionTag += sliced[i]
-                if (!isNaN(parseInt(sliced[i]))) id += sliced[i]
-                if (sliced[i] === '>') break
-              }
+        const message = m.embeds[0].description
 
-              client.users
-                .fetch(id)
-                .then((user) => {
-                  message = message.replace(mentionTag, `\`${user.username}\``)
-                  newsList.push({
-                    message: md.render(message.replace(/```/g, '\r\n```\r\n')),
-                    footer: m.embeds[0].footer.text,
-                    date: Date.parse(m.embeds[0].footer.text.split(' @ ')[1]),
-                  })
-                })
-                .catch((e) => {
-                  logger.error(e.message)
-                })
-            } else {
-              newsList.push({
-                message: md.render(message.replace(/```/g, '\r\n```\r\n')),
-                footer: m.embeds[0].footer.text,
-                date: Date.parse(m.embeds[0].footer.text.split(' @ ')[1]),
-              })
-            }
-          })
-        ).then(() => {
-          newsList.sort((a, b) => {
-            return b.date - a.date
-          })
-          console.log('Updated news list')
-        })
+        const parsedMsg = await resolveUserMentions(message, client)
+
+        return {
+          message: md.render(parsedMsg.replace(/```/g, '\r\n```\r\n')),
+          footer: m.embeds[0].footer.text,
+          date: Date.parse(m.embeds[0].footer.text.split(' @ ')[1]),
+        }
       })
+    )
+
+    // Clear out unidentified entries
+    newsList = newsList.filter((obj) => {
+      if (obj) return obj
     })
+
+    newsList.sort((a: NewsItem, b: NewsItem) => {
+      return b.date - a.date
+    })
+
+    console.log('Updated news list')
   }
 
   getList()

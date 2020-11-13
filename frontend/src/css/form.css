@@ -7,7 +7,7 @@ select {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  background: url('/img/downarrow.png') no-repeat right;
+  background: url('./assets/downarrow.png') no-repeat right;
   text-indent: 0.01px;
   text-overflow: '';
   background-position: top 50% right 3px;
