@@ -11,7 +11,7 @@ select {
   text-indent: 0.01px;
   text-overflow: '';
   background-position: top 50% right 3px;
-  @apply pr-5 !important;
+  @apply pr-5 pl-2 !important;
 }
 
 main input {

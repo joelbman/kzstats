@@ -19,6 +19,7 @@ interface ServerObject {
   errorcount?: number
   players: Player[]
   numplayers: number
+  tick: number
 }
 
 const ServerListTask = (): void => {
@@ -48,6 +49,7 @@ const ServerListTask = (): void => {
     serverObj.numplayers = state.players.length + state.bots.length
     serverObj.countrycode = server.countrycode
     serverObj.continentcode = server.continentcode
+    serverObj.tick = server.tick
 
     // Loop through object keys and set continent code if a match is found for the countrycode
     if (!server.continentcode) {
@@ -58,15 +60,11 @@ const ServerListTask = (): void => {
         }
       })
 
-      await db('kzstats_server')
-        .where('id', server.id)
-        .update({ continentcode: serverObj.continentcode })
+      await db('kzstats_server').where('id', server.id).update({ continentcode: serverObj.continentcode })
     }
 
     if (server.errorcount > 0) {
-      await db('kzstats_server')
-        .where('id', server.id)
-        .update({ errorcount: 0 })
+      await db('kzstats_server').where('id', server.id).update({ errorcount: 0 })
     }
 
     tempList.push(serverObj)
@@ -87,18 +85,14 @@ const ServerListTask = (): void => {
 
       updateErrors().catch((e) => logger.error(e.message))
 
-      console.log(
-        `Server list refreshed, online: ${currentList.length} | offline: ${errorList.length}`
-      )
+      console.log(`Server list refreshed, online: ${currentList.length} | offline: ${errorList.length}`)
 
       setTimeout(updateList, 120000)
     })
   }
 
   const updateErrors = async (): Promise<void> => {
-    const rows = await db('kzstats_server')
-      .whereIn('id', errorList)
-      .increment('errorcount', 1)
+    const rows = await db('kzstats_server').whereIn('id', errorList).increment('errorcount', 1)
 
     if (rows < 1) return
     const disableCount = await db('kzstats_server')

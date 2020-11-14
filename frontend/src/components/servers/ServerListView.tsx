@@ -16,6 +16,7 @@ interface ServerObject {
   continentcode?: string
   numplayers: number
   players: Record<string, unknown>[]
+  tick: number
 }
 
 const ServerListView = () => {
@@ -23,26 +24,33 @@ const ServerListView = () => {
   const [filtered, setFiltered] = useState<ServerObject[]>([])
   const [continent, setContinent] = useState('')
   const [filterStr, setFilterStr] = useState('')
+  const [tickrate, setTickrate] = useState('128')
 
   const { error, loader, data } = useApiRequest('/server/', null, true)
 
-  const filterServers = (filter: string, continent: string, serverlist?: ServerObject[]) => {
-    const server_arr = serverlist ? serverlist : data
+  const filterServers = (filter: string, continent: string, tickrate: string, serverlist?: ServerObject[]) => {
+    const server_arr = serverlist ? serverlist : (data as ServerObject[])
 
     let arr = []
     if (filter.length > 2) {
-      arr = server_arr.filter((s: ServerObject) => {
+      arr = server_arr.filter((s) => {
         return s.map.toLowerCase().includes(filter) || s.name.toLowerCase().includes(filter)
       })
     } else arr = server_arr
 
     if (continent.length === 2) {
-      arr = arr.filter((s: ServerObject) => {
+      arr = arr.filter((s) => {
         return s.continentcode === continent
       })
     }
 
-    arr.sort((a: ServerObject, b: ServerObject) => {
+    if (tickrate.length > 1) {
+      arr = arr.filter((s) => {
+        return s.tick.toString() === tickrate
+      })
+    }
+
+    arr.sort((a, b) => {
       return b.numplayers - a.numplayers
     })
 
@@ -50,7 +58,7 @@ const ServerListView = () => {
   }
 
   useEffect(() => {
-    filterServers(filterStr, continent, data)
+    filterServers(filterStr, continent, tickrate, data)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterStr, continent, data])
 
@@ -59,13 +67,8 @@ const ServerListView = () => {
     const val = e.target.value.toLowerCase()
     timer.current = window.setTimeout(() => {
       setFilterStr(val)
-      filterServers(val, continent)
+      filterServers(val, continent, tickrate)
     }, 600)
-  }
-
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setContinent(e.target.value)
-    filterServers(filterStr, e.target.value)
   }
 
   if (error) return error
@@ -75,14 +78,22 @@ const ServerListView = () => {
     <div>
       <h1>Servers</h1>
       <Helmet title="Servers" />
-      <div className="mb-4">
-        <div className="mr-4 inline-block">
-          Filter
-          <input type="text" className="ml-2" placeholder="Server name, map name..." maxLength={20} onChange={handleInput} />
+      <section className="mb-4 flex flex-wrap">
+        <div className="mr-4">
+          <label htmlFor="namefilter">Filter</label>
+          <input type="text" className="ml-2" placeholder="Server name, map name..." maxLength={20} onChange={handleInput} id="namefilter" />
         </div>
-        <div className="inline-block mt-2 md:mt-0">
-          Continent
-          <select className="ml-2" onChange={handleSelect} value={continent}>
+        <div className="mt-2 mr-4 md:mt-0">
+          <label htmlFor="continent">Continent</label>
+          <select
+            className="ml-2"
+            onChange={(e) => {
+              setContinent(e.target.value)
+              filterServers(filterStr, e.target.value, tickrate)
+            }}
+            value={continent}
+            id="continentSelect"
+          >
             <option value="">World</option>
             <option value="EU">Europe</option>
             <option value="NA">North America</option>
@@ -92,7 +103,22 @@ const ServerListView = () => {
             <option value="AF">Africa</option>
           </select>
         </div>
-      </div>
+        <div className="mt-2 md:mt-0">
+          <label htmlFor="tickrate">Tickrate:</label>
+          <select
+            value={tickrate}
+            onChange={(e) => {
+              setTickrate(e.target.value)
+              filterServers(filterStr, continent, e.target.value)
+            }}
+          >
+            <option value="">All</option>
+            <option value="128">128</option>
+            <option value="102">102</option>
+            <option value="64">64</option>
+          </select>
+        </div>
+      </section>
       {filtered.length > 0 ? (
         <TableSimple headers={['Server', 'Map', 'Players', 'IP', ' ']}>
           {filtered.map((server: ServerObject, i: number) => (
