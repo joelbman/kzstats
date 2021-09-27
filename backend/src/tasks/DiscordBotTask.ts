@@ -38,6 +38,7 @@ const resolveUserMentions = async (message: string, client: Discord.Client): Pro
   const userObjects = await names
 
   userObjects.forEach((user) => {
+    if (!user) return
     msg = msg.replace(user.id, `\`${user.name}\``)
   })
 
