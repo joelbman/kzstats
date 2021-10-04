@@ -12,15 +12,9 @@ const MapListCard = ({ map }: Props) => {
   return (
     <div className="maplist-card">
       <div className="h-32 border-b bg-gray-dark border-black overflow-hidden">
-        <Suspense
-          fallback={<div className="w-full h-full border-gray-verydark"></div>}
-        >
+        <Suspense fallback={<div className="w-full h-full border-gray-verydark"></div>}>
           <Link to={`maps/${map.name}`}>
-            <ImageC
-              src={`img/map/thumb/tn_${map.name}.jpg`}
-              alt={map.name}
-              className="w-full h-full border-gray-verydark"
-            />
+            <ImageC src={`img/map/thumb/tn_${map.name}.jpg`} alt={map.name} className="w-full h-full border-gray-verydark" />
           </Link>
         </Suspense>
       </div>
@@ -30,11 +24,7 @@ const MapListCard = ({ map }: Props) => {
           <div className="text-xl mb-2">
             <Link to={`maps/${map.name}`}>{map.name}</Link>
           </div>
-          <p className="text-base">
-            Difficulty: {difficultyToText(map.difficulty)}
-            <br />
-            WR: Coming Soon™
-          </p>
+          <p className="text-base">Difficulty: {difficultyToText(map.difficulty)}</p>
         </div>
       </div>
     </div>

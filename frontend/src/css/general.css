@@ -121,5 +121,5 @@ footer {
 }
 
 .lightmode main a {
-  @apply text-orange-700 hover:text-orange-600;
+  @apply text-yellow-700 hover:text-yellow-600;
 }

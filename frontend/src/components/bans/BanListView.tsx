@@ -8,16 +8,27 @@ interface Props {
   match: { params: { steamid?: string } }
 }
 
+interface ApiOpts {
+  limit: number
+  steam_id?: string
+  steamid64?: string
+}
+
 const BanListView = (props: Props) => {
   const history = useHistory()
-  const [apiOptions, setApiOptions] = useState({
+  const [apiOptions, setApiOptions] = useState<ApiOpts>({
     limit: 100,
     steam_id: props.match.params.steamid,
   })
   const { error, loader, data } = useApiRequest('/bans', apiOptions)
 
   const submitSearch = (value: string) => {
-    setApiOptions({ limit: 100, steam_id: value })
+    if (value.substr(0, 5) === 'STEAM') {
+      setApiOptions({ limit: 100, steam_id: value, steamid64: undefined })
+    } else {
+      setApiOptions({ limit: 100, steamid64: value, steam_id: undefined })
+    }
+
     history.push('/bans/' + value)
   }
 
@@ -33,7 +44,7 @@ const BanListView = (props: Props) => {
         For more information/appeals, visit <a href="https://forum.gokz.org/p/player-rules">GOKZ forums</a>.
       </div>
       <div className="my-4 flex flex-row w-full lg:w-1/3 items-center">
-        <SearchInput placeholder="e.g. STEAM_X:X:123456789" submit={submitSearch} label="Steam ID:" height="34px" />
+        <SearchInput placeholder="e.g. STEAM_X:X:123456789" submit={submitSearch} label="Steam ID:" height="34px" value={props.match.params.steamid} />
       </div>
       <div>
         {data.length > 0 ? (
@@ -44,6 +55,7 @@ const BanListView = (props: Props) => {
               { key: 'ban_type', header: 'Reason', type: 'ban_type' },
               { key: 'updated_on', header: 'Date', type: 'datetime' },
               { key: 'expires_on', header: 'Expires', type: 'datetime' },
+              { key: 'info', type: 'ban_info' },
             ]}
             data={data}
             sort={{ key: 'updated_on', desc: true }}

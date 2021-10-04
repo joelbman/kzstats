@@ -10,8 +10,36 @@ import useApiRequest from 'hooks/useApiRequest'
 import useModeResolver from 'hooks/useModeResolver'
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import Modal from 'react-modal'
 import { BrowserRouter } from 'react-router-dom'
 import { User } from 'types'
+
+Modal.setAppElement('#root')
+Modal.defaultStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  content: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    background: '#3d4759',
+    color: '#fff',
+    minWidth: '25rem',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    padding: '2rem',
+  },
+}
 
 const App = () => {
   const [userState, setUserState] = useState<User | null>(null)

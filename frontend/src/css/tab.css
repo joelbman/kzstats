@@ -40,7 +40,7 @@
 }
 
 .lightmode .tab-selected {
-  @apply font-bold text-white border-b-2 border-black bg-orange-900;
+  @apply font-bold text-white border-b-2 border-black bg-yellow-900;
 }
 
 .lightmode .react-tabs__tab-list {
@@ -48,7 +48,7 @@
 }
 
 .lightmode .react-tabs__tab:hover {
-  @apply bg-orange-800;
+  @apply bg-yellow-800;
 }
 
 .lightmode .react-tabs__tab-panel--selected {

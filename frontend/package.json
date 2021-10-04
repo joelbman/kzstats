@@ -1,7 +1,16 @@
 {
-  "name": "frontend",
-  "version": "3.0.0",
-  "private": true,
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -11,60 +20,55 @@
     "@types/react": "^16.9.0",
     "apexcharts": "^3.20.0",
     "axios": "^0.19.2",
+    "caniuse-lite": "^1.0.30001263",
     "react": "^16.13.1",
     "react-apexcharts": "^1.3.7",
     "react-dom": "^16.13.1",
     "react-helmet": "6.0.0",
     "react-image": "^4.0.3",
     "react-infinite-scroll-component": "^5.0.5",
+    "react-modal": "^3.14.3",
     "react-paginate": "^6.3.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.0",
+    "react-scripts": "4.0.3",
     "react-tabs": "^3.1.1",
     "react-tooltip": "^4.2.9",
-    "tailwindcss": "1.9.6",
-    "typescript": "~3.7.2"
+    "tailwindcss": "^2.2.16",
+    "typescript": "^4.4.3"
   },
   "devDependencies": {
     "@types/react-dom": "^16.9.0",
     "@types/react-helmet": "^6.0.0",
+    "@types/react-modal": "^3.12.1",
     "@types/react-paginate": "^6.2.1",
     "@types/react-router-dom": "^5.1.5",
     "@types/react-tabs": "^2.3.2",
-    "autoprefixer": "^9.8.6",
+    "autoprefixer": "^10.3.6",
     "chokidar-cli": "^2.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "http-proxy-middleware": "^1.0.5",
     "npm-run-all": "^4.1.5",
-    "postcss-cli": "^7.1.2",
-    "postcss-import": "^12.0.1",
+    "postcss": "^8.3.8",
+    "postcss-cli": "^9.0.1",
+    "postcss-import": "^14.0.2",
     "prettier": "^2.1.1",
     "stylelint": "^13.6.1",
     "stylelint-config-recommended": "^3.0.0"
   },
-  "scripts": {
-    "build:css": "postcss src/css/App.css -o src/tailwind.output.css",
-    "watch:css": "postcss src/css/App.css -o src/tailwind.output.css -w",
-    "start": "npm-run-all -p watch:css start:react",
-    "start:react": "react-scripts start",
-    "build:js": "react-scripts build && rsync -a ./build/ ../www/",
-    "build": "npm-run-all build:css build:js",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "name": "frontend",
+  "private": true,
+  "scripts": {
+    "build": "npm-run-all build:css build:js",
+    "build:css": "postcss src/css/App.css -o src/tailwind.output.css",
+    "build:js": "react-scripts build && rsync -a ./build/ ../www/",
+    "eject": "react-scripts eject",
+    "start": "npm-run-all -p watch:css start:react",
+    "start:react": "react-scripts start",
+    "test": "react-scripts test",
+    "watch:css": "postcss src/css/App.css -o src/tailwind.output.css -w"
+  },
+  "version": "3.0.0"
 }

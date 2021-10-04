@@ -1,9 +1,13 @@
+import BanInfo from 'components/bans/BanInfo'
 import { BronzeIcon, FlagIcon, SilverIcon, TrophyIcon } from 'components/icons'
 import { runtimeFormat } from 'components/util/filters'
 import { UserContext } from 'context/UserContext'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { Link } from 'react-router-dom'
+
+// Very messy solution, there was a reason for not using a library for this but I can't remember what
+// Regardless, should be refactored to be more generic and use components instead of switch based rendering
 
 interface TableColumn {
   key: string
@@ -161,6 +165,13 @@ const Table = (props: Props) => {
 
       case 'ban_type': {
         return <span className="capitalize">{obj[column.key].replace('_', ' ')}</span>
+      }
+
+      case 'ban_info': {
+        if (!obj.stats && !obj.notes) {
+          return 'N/A'
+        }
+        return <BanInfo stats={obj.stats} notes={obj.notes} />
       }
 
       default:

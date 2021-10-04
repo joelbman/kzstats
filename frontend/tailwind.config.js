@@ -1,11 +1,5 @@
 module.exports = {
-  purge: [
-    'src/**/*.js',
-    'src/**/*.jsx',
-    'src/**/*.ts',
-    'src/**/*.tsx',
-    'public/**/*.html',
-  ],
+  purge: ['src/**/*.js', 'src/**/*.jsx', 'src/**/*.ts', 'src/**/*.tsx', 'public/**/*.html'],
   theme: {
     extend: {
       colors: {
@@ -127,10 +121,4 @@ module.exports = {
     zIndex: ['responsive'],
   },
   plugins: [],
-  experimental: {
-    applyComplexClasses: true,
-  },
-  future: {
-    removeDeprecatedGapUtilities: true,
-  },
 }

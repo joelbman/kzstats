@@ -6,21 +6,20 @@ interface Props {
   label?: string
   submit(value: string): void
   height: string
+  value?: string
 }
 
 const SearchInput = (props: Props) => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(props.value || '')
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      e.stopPropagation()
-      props.submit(value)
+    if (e.key !== 'Enter') {
+      return
     }
-  }
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value)
+    e.preventDefault()
+    e.stopPropagation()
+    props.submit(value)
   }
 
   return (
@@ -31,13 +30,14 @@ const SearchInput = (props: Props) => {
         className="flex-grow border border-black py-1"
         style={{ height: props.height, minWidth: '2rem' }}
         onKeyDown={onKeyDown}
-        onChange={handleInput}
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
         minLength={2}
         maxLength={25}
         type="text"
       />
       <button
-        className="bg-green-700 text-gray-200 border-black border w-7 p-1 px-2 focus:outline-none"
+        className="bg-green-700 text-gray-200 border-black border w-8 p-1 px-2 focus:outline-none"
         style={{ height: props.height }}
         onClick={(e) => {
           e.preventDefault()

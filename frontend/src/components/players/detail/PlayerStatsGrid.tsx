@@ -1,5 +1,3 @@
-import ProgressBar from 'components/general/ProgressBar'
-import { TrophyIcon } from 'components/icons'
 import React from 'react'
 import PlayerStatsProgressBlock from './PlayerStatsProgressBlock'
 
@@ -34,12 +32,7 @@ const PlayerStatsGrid = ({ stats, mapCount }: Props) => {
       <h3>Difficulty breakdown</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-          <PlayerStatsProgressBlock
-            mapCount={mapCount[i]}
-            stats={stats[i]}
-            difficulty={i}
-            key={i}
-          />
+          <PlayerStatsProgressBlock mapCount={mapCount[i]} stats={stats[i]} difficulty={i} key={i} />
         ))}
       </div>
     </div>
