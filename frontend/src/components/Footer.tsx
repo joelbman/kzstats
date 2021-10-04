@@ -24,11 +24,11 @@ const Footer = (props: Props) => {
         </div>
       )}
       <div className="mr-4 hidden text-sm sm:inline-block">
-        &copy; Joel Bergman 2020 - <a href="https://store.steampowered.com/">Powered by Steam</a>
+        &copy; Joel Bergman 2021 - <a href="https://store.steampowered.com/">Powered by Steam</a>
       </div>
       <div className="mr-4">
         <a href="https://github.com/joelbman/kzstats/">
-          <img src="/img/icon/githubicon.png" alt="GitHub" />
+          <img src="/img/icon/githubicon.png" alt="GitHub logo" />
         </a>
       </div>
       <div className="flex items-center justify-center">

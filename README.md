@@ -4,7 +4,7 @@
 
 KZStats is a website that presents [Counter-Strike: Global Offensive](https://blog.counter-strike.net/) [KZ Mod](https://forum.gokz.org/) records and other related data. This is the 3.0 GlobalAPI rework repo, currently in production.
 
-**Note:** This was my first React + Tailwind project so most of the frontend code is pretty messy, I might clean it up at some point.
+**Note:** This was my first TypeScript, React & Tailwind project so most of the frontend code is pretty messy, I might clean it up at some point.
 
 ### Feature requests
 

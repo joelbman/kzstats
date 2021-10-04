@@ -1,3 +1,4 @@
+import { ApexOptions } from 'apexcharts'
 import Table from 'components/general/Table'
 import { runtimeFormat } from 'components/util/filters'
 import { ModeContext } from 'context/ModeContext'
@@ -25,16 +26,11 @@ const MapRecordHistory = ({ mapname }: Props) => {
     tickrate: modeState.tickrate,
     has_teleports: false,
   })
-  const { error, loader, data } = useApiRequest(
-    '/records/top/recent',
-    apiOptions,
-    false,
-    true
-  )
+  const { error, loader, data } = useApiRequest('/records/top/recent', apiOptions, false, true)
   const [series, setSeries] = useState<ChartObj[]>([])
   const [bugged, setBugged] = useState(false)
 
-  const graphOptions = {
+  const graphOptions: ApexOptions = {
     colors: ['#F44336'],
     chart: {
       type: 'area',
@@ -42,10 +38,8 @@ const MapRecordHistory = ({ mapname }: Props) => {
       height: 350,
       toolbar: { show: true },
       zoom: { enabled: true },
-      foreColor:
-        localStorage.getItem('kzTheme') === 'dark' ? '#fff' : '#3d3d3d',
-      background:
-        localStorage.getItem('kzTheme') === 'dark' ? '#1a202c' : '#fff',
+      foreColor: localStorage.getItem('kzTheme') === 'dark' ? '#fff' : '#3d3d3d',
+      background: localStorage.getItem('kzTheme') === 'dark' ? '#1a202c' : '#fff',
     },
     dataLabels: {
       enabled: false,
@@ -66,7 +60,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
     yaxis: {
       labels: {
         formatter: function (val: number) {
-          return runtimeFormat(val)
+          return runtimeFormat(val) || ''
         },
       },
       title: {
@@ -81,10 +75,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
       shared: false,
       y: {
         formatter: (val: number) => {
-          return new Date(val * 1000)
-            .toISOString()
-            .split('T')[1]
-            .replace('Z', '')
+          return new Date(val * 1000).toISOString().split('T')[1].replace('Z', '') || ''
         },
       },
 
@@ -136,12 +127,7 @@ const MapRecordHistory = ({ mapname }: Props) => {
       </select>
       {data.length > 0 && !bugged ? (
         <div className="mt-4">
-          <ReactApexChart
-            options={graphOptions}
-            series={series}
-            type="line"
-            height={350}
-          />
+          <ReactApexChart options={graphOptions} series={series} type="line" height={350} />
 
           <Table
             className="mt-8"

@@ -4,7 +4,7 @@
 }
 
 .tab-selected {
-  @apply font-bold text-white border-b-2 border-black bg-blue-900;
+  @apply font-bold text-white border-b-2 border-black bg-purple-900;
 }
 
 .react-tabs__tab-list {
@@ -24,7 +24,7 @@
 }
 
 .react-tabs__tab:hover {
-  @apply bg-blue-800 font-bold cursor-pointer;
+  @apply bg-purple-700 font-bold cursor-pointer;
 }
 
 .tab-filler {
